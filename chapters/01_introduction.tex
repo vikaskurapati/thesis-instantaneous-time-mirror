@@ -3,14 +3,39 @@
 
 \chapter{Introduction}\label{chapter:introduction}
 
+Studying Seissmic phenoma provides both insights and possible methods to mitigate economic impacts and result in significant decrease of human casualities.
+Therefore, studying seismic phenomena can provide valuable insights into identifying areas that are more susceptible and taking preventive measures. \\
+
+The field of earthquake simulation has seen significant advancements in recent years, thanks to the availability of powerful supercomputers.
+With these resources, it has become possible to model realistic 3D earthquake/tsunami events on a large scale, something that was not feasible until a few decades ago. 
+Todays simulation software relies heavily on numerical methods to approximate the real life physics. In this process, the volume of the problem is discretized into smaller elements, and numerical solvers are employed in each element to obstain a solution.
+A few examples out of these wide range of numerical methods used to solve wave equations are finite differences, finite volumes, finite elements etc. These numerical methods have played a crucial role in advancing the field of earthquake simulation and are continuously being improved to produce more accurate and efficient simulations. \\
+
+SeisSol \footnote{\url{https://seissol.org/}} is a scientific software that enables the simulation of seismic waves and earthquake phenomena. However, modeling complex 3D geometries can be computationally intensive for modeling complex 3D geometries.
+To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. The software allows for the study of various scenarios, including adjusting material properties to exhibit elastic, viscoelastic and viscoplastic behaviour.
+SeisSol utilizes a combination of Discontinuous Galerkin(DG) method and Arbitrary high-order DERivatives(ADER) time-integration approach to solve the problems.
+This combination is called ADER-DG approach ~\parencite{dumbser}. Dumbser et al. extended this approach to solve the elastic wave equations in three dimensions ~\parencite{dumbser1}. The ADER-DG approach provides arbitrary high-order accuracy in both space and time, with the solution in each element approximated by polynomials.
+The degrees of freedom are expressed through the coefficients of the polynomial, which are advanced in time during simulation, allowing for discontinuities across element boundaries ~\parencite{martin}. \\
+
+In this thesis, we utilize SeisSol to implement Wave Reversal of Seismic waves using the \ac{ITM}. 
+The work by Fink et al. describes two techniques for wave reversal, the time-reversal mirror approach and the instantaneous time mirror mimicking Loschmidt for waves ~\parencite{Fink2017}. 
+While both techniques generate time-reversed waves, we specifically focus on the second approach. 
+This method involves manipulating waves on time boundaries by sudden modifications of the wave speed in the whole medium, effectively mimicking the Loschmidt point of view. 
+This approach is very efficient for radiating time-reversed waves without the use of any antenna. 
+The first approach, which utilizes "time-reversal mirrors" with wave manipulation along a spatial boundary sampled by a finite number of antennas, has numerous applications in telecommunication, imaging, therapy, and defense.
+Bacot et. al ~\parencite{Bacot2016} have experimentally demonstrated the instantaneous time mirrors on surface waves on water by manipulating the wave speed for a period of time using a vertical jolt.
+This is shown to refocus the waves at the source position before diverging again.\\
+
+To achieve \ac{ITM}s in a simulation environment, we modify the velocities of waves for a short period of time $t_{ITM} - \tau$ to $t_{ITM} + \tau$ by manipulating 
+the material properties $\lambda, \mu, \rho$. As the velocities of waves depend on these three properties, this manipulation is 
+sufficient to modify wave velocities and achieve wave reversal using \ac{ITM}s. This approach provides a novel method to determine 
+the epicenter of an earthquake, replacing the common triangulation approach with signals from multiple seismographs.
+
+It is important to note that the time-reversal presented here, in its simplest form, may not be directly useful in experimental 
+investigations, as we cannot directly modify the material properties. However, it does provide an approach to approximately 
+locate the source of an earthquake when successfully reversed.
+
 \section{Section}
-Citation test~\parencite{latex}.
-
-Acronyms must be added in \texttt{main.tex} and are referenced using macros. The first occurrence is automatically replaced with the long version of the acronym, while all subsequent usages use the abbreviation.
-
-E.g. \texttt{\textbackslash ac\{TUM\}, \textbackslash ac\{TUM\}} $\Rightarrow$ \ac{TUM}, \ac{TUM}
-
-For more details, see the documentation of the \texttt{acronym} package\footnote{\url{https://ctan.org/pkg/acronym}}.
 \subsection{Subsection}
 
 See~\autoref{tab:sample}, \autoref{fig:sample-drawing}, \autoref{fig:sample-plot}, \autoref{fig:sample-listing}.
