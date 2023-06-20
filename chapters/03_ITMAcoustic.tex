@@ -1,0 +1,109 @@
+% !TeX root = ../main.tex
+% Add the above to each chapter to make compiling the PDF easier in some editors.
+
+\chapter{1D Acoustic Equation \ac{ITM}}\label{chapter:ITMAcoustic}
+In this chapter, we calculate the analytical solution for a 1D Acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
+For this, we consider a 1D Acoustic Equation [~\parencite{leveque_2002}, Sec. 2.8] linearized about the motionless state:
+\begin{align}
+    \begin{split}
+        p_t + K_0u_x = 0, \\
+        u_t + \frac{1}{\rho_0}p_x = 0 .\\
+    \end{split}
+\end{align}
+
+where $p$ is the pressure perturbation, $K_0$ is the bulk modulus of the material and $u$ is the velocity purturbation. 
+This can be written in consolidated matrix vector form as done for first order hyperbolic systems of equations as follows:
+
+\begin{align}
+    \begin{split}
+    \begin{bmatrix}
+        p \\
+        u
+    \end{bmatrix}_t + 
+    \begin{bmatrix}
+        0 & K_0 \\
+        \frac{1}{\rho_0} & 0 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        p \\
+        u
+    \end{bmatrix}_x = 0
+    \end{split}
+    \label{eq:acoustic}
+\end{align}.
+
+The flux matrix for equation \ref{eq:acoustic} has two eigen values:
+
+\begin{align}
+    \begin{split}
+        \lambda_1 = -c_0; \lambda_2 = c_0,
+    \end{split}
+\end{align}
+
+where 
+\begin{align}
+    \begin{split}
+        c_0 = \sqrt{\frac{K_0}{\rho_0}}
+    \end{split}
+\end{align}
+
+which is the speed of sound in gas. And waves can propagate in either direction with this speed. The eigen vectors for this coefficient matrix come out to be:
+
+\begin{align}
+    \begin{split}
+        r^1 = \begin{bmatrix}
+            \rho_0 c_0 \\
+            1
+        \end{bmatrix}, 
+        r^2 = \begin{bmatrix}
+            \rho_0 c_0 \\
+            1
+        \end{bmatrix}.
+    \end{split}
+\end{align}
+
+The impedance is defined as:
+\begin{equation}
+    Z_0 = \rho_0 c_0.
+\end{equation}.
+
+Using these parameters, ~\parencite{leveque_2002} Sec. 2.8 calculates the solution of the acoustic equation depending on the initial conditions $p^0(x), u^0(x)$ as:
+\begin{align}
+    \begin{split}
+        p(x,t) = \frac{1}{2}\left[p^0\left(x + c_0t\right) + p^0\left(x - c_0t\right)\right] - \frac{Z_0}{2}\left[u^0\left(x+c_0t\right) - u^0\left(x-c_0t\right)\right], \\
+        u(x,t) = -\frac{1}{2Z_0}\left[p^0\left(x+c_0t\right) - p^0\left(x-c_0t\right)\right] + \frac{1}{2}\left[u^0\left(x+c_0t\right) + u^0\left(x-c_0t\right)\right] .
+    \end{split}
+    \label{eq:solutionacoustic}
+\end{align}
+
+We use this solution to find the analytical solution of a 1D acoustic wave after the \ac{ITM} is applied in two different ways. First we ensure we use initial conditions which give rise to only one forward wave. We simply use a sinusoidal wave multiplied to only one eigen vector $r^2$.
+This defines our initial conditions as:
+\begin{align}
+    \begin{split}
+        p^0\left(x\right) = \rho_0c_0cos\left(k*x\right), \\
+        u^0\left(x\right) = cos\left(k*x\right) .
+    \end{split}
+    \label{eq:initialconditions}
+\end{align}
+
+where $k$ is the wave number of the wave. The energy of the system is defined as:
+
+\begin{align}
+    \begin{split}
+     E = \int_{-\frac{\pi}{k}}^{\frac{\pi}{k}} \left(\frac{1}{2K}p^2 + \frac{1}{2}\rho u^2\right) dx , \\
+     \implies E = \frac{\pi\rho_0}{k} .
+    \end{split}
+\end{align}
+
+\section{Impedance Changing \ac{ITM}}
+Using the conditions given in equation \ref{eq:initialconditions}, we calculate the solution at $t_ITM^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
+In this case, we scale the velocities such that the impedance also changes(keeping the density constant). Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as:
+
+\begin{align}
+    \begin{split}
+        p^0_{t_{ITM}^-}\left(x\right) = c_0 \rho_0 cos\left(kx - c_0kt_{ITM}^-\right), \\
+        u^0_{t_{ITM}^-}\left(x\right) = cos\left(kx - c_0kt_{ITM}^-\right) .
+    \end{split}
+\end{align}
+
+We now use these as the initial conditions and equation \ref{eq:solutionacoustic} with the updated wave velocity and constant density to get the evolved solution for $t_{ITM}^- \leq t \leq t_{ITM}^+ $. ~\parencite{sagemath} was used to perform the simplifications for the arithmetic. We obtain the solution for this period as:

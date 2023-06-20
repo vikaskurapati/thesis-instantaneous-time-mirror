@@ -1,10 +1,3 @@
-@book{latex,
-  title = {LaTeX : A Documentation Preparation System User's Guide and Reference Manual},
-  publisher = {Addison-Wesley Professional},
-  year = {1994},
-  author = {Leslie Lamport}
-}
-
 @article{dumbser,
 author = {Dumbser, M.},
 title = {On the Improvement of Efficiency and Storage Requirements of the Discontinuous Galerkin Method for Aeroacoustics},
@@ -80,4 +73,32 @@ year = {2003}
     issn = {1745-2481},
     doi = {10.1038/nphys3810},
     url = {https://doi.org/10.1038/nphys3810},
+}
+
+@InProceedings{seissol,
+author="K{\"a}ser, Martin
+and Castro, Cristobal
+and Hermann, Verena
+and Pelties, Christian",
+editor="Wagner, Siegfried
+and Steinmetz, Matthias
+and Bode, Arndt
+and M{\"u}ller, Markus Michael",
+title="SeisSol -- A Software for Seismic Wave Propagation Simulations",
+booktitle="High Performance Computing in Science and Engineering, Garching/Munich 2009",
+year="2010",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="281--292",
+abstract="We present important extensions of the software SeisSol based on the arbitrary high-order Discontinuous Galerkin (DG) Finite-Element method to model seismic wave propagation using non-conforming hybrid meshes for model discretization and to account for highly heterogeneous material. In these new approaches we include a point-wise integration of numerical fluxes across element interfaces for the non-conforming boundaries preserving numerical accuracy while avoiding numerical artifacts due to the mesh coupling. We apply the proposed scheme to a scenario test case of the Grenoble valley to demonstrate the methods capability. Furthermore, we present the extension to space-variable coefficients to describe material variations inside each element using the same numerical approximation strategy as for the velocity-stress variables in the formulation of the wave equation. The combination of the DG method with a time integration scheme based on the solution of Arbitrary accuracy DErivatives Riemann problems (ADER) still provides an explicit, one-step scheme which achieves arbitrary high-order accuracy in space and time. We confirm the accuracy of the proposed scheme a numerical experiments considering randomly heterogeneous material and compare our results to independent reference solutions. Finally, we apply the scheme to an earthquake scenario considering the effect of a sedimentary basin and compare the efficiency of the classical global time stepping technique and the local time stepping for different partitioning strategies and show results for a strong scaling test.",
+isbn="978-3-642-13872-0"
+}
+
+@book{leveque_2002, place={Cambridge}, series={Cambridge Texts in Applied Mathematics}, title={Finite Volume Methods for Hyperbolic Problems}, DOI={10.1017/CBO9780511791253}, publisher={Cambridge University Press}, author={LeVeque, Randall J.}, year={2002}, collection={Cambridge Texts in Applied Mathematics}}
+
+@manual{sagemath,
+  Key          = {SageMath},
+  Author       = {{The Sage Developers}},
+  Title        = {{S}ageMath, the {S}age {M}athematics {S}oftware {S}ystem ({V}ersion x.y.z)},
+  url         = {{https://www.sagemath.org}},
 }

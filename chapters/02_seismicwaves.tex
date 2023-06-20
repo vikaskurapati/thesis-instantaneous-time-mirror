@@ -1,0 +1,76 @@
+% !TeX root = ../main.tex
+% Add the above to each chapter to make compiling the PDF easier in some editors.
+
+\chapter{Seismic Waves}\label{chapter:seismicwaves}
+In this chapter, we establish the theoretical foundations necessary for this thesis by deriving the fundamental equations for elastic
+wave propagation and presenting the equation of motion in velocity-stress formulation. We assume isotropic media and utilize symmetry arguments
+throughout the work. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}. \\
+
+The next section of the thesis discusses SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
+of the Discontinuous Galerkin Finite Element(DG-FE) method and a time integration scheme based on the solution of Arbitrary high-order
+Derivative Riemann Problems(ADER), as described in previous works ~\parencite{dumbser1}, ~\parencite{seissol}. This approch, known as 
+ADER-DG will be introduced in more detail in the following sections.
+
+\section{Elastic Wave Equation}
+An elastic medium is characterized by an undeformed state, in which stresses and strains are zero, to which it will return to in the absence
+of outer forces. If the stresses and strains the medium experiences are infinitesimal, the theory of linear elasticity applies. We define
+the displacement vector $\mathbf{U}$ describing the shortest distance between the initial and current position of a point. The particle
+velocities $u,v$ and $w$ in $x, y, z$ direction, respectively, can then be defined as the temporal derivate of $\mathbf{U}$
+
+\begin{align}
+    \begin{split}
+    \frac{\partial U_x}{\partial t} = \dot{U}_x = u \\
+    \frac{\partial U_y}{\partial t} = \dot{U}_y = v \\
+    \frac{\partial U_z}{\partial t} = \dot{U}_z = w, \\
+    \end{split}
+ \end{align}
+
+where the subscript denotes the coordinate direction and a dot over a variable represents its partial time derivative leading to the following notation:
+
+\begin{align}
+    \begin{split}
+        \frac{\partial U_i}{\partial t} = \partial_t U_i = \dot{U}_i = V_i,
+    \end{split}
+    \label{equation1}
+\end{align}
+
+where the velocity vector \textbf{V} is introduced. \\
+
+In the context of linear elasticity, the following extension of Hooke's law holds
+
+\begin{align}
+    \begin{split}
+        \sigma_{ij} = c_{ijkl}\epsilon_{kl},
+    \end{split}
+\end{align}
+
+with the medium specific constants $c_{ijkl}$ being used to generalize Hooke's law in linear elasticity. The Einstein summation convention
+is followed, where an index appearing twice is summed over all possible values. In this context, $\sigma_{ij}$ represents the stress tensor
+and $\epsilon_{kl}$ represnets the strain tensor. Hooke's law expresses that stress tensor components are linear combinations of strain tensor
+components. For infinitesimally small perturbations, the strain tensor components $\epsilon_{kl}$ are defined as follows
+
+\begin{align}
+    \begin{split}
+        \epsilon_{kl} = \frac{1}{2}\left(\partial_k U_l + \partial_l U_k \right) ,
+    \end{split}
+\end{align}
+
+where $\partial_k$ represents the spatial derivative in k-direction and $U_i$ represents the displacement in i-direction.
+Previously, we mentioned our focus on the velocity-stress formulation rather than the displacement-stress formulation.
+To eliminate the displacements $U_i$, we introduced velocities $V_i$ in equation \ref{equation1}.
+Consequently, this leads to the time derivative of the strain tensor
+
+\begin{align}
+    \begin{split}
+        \dot{\epsilon}_{kl} = \frac{1}{2}\left( \partial_k V_l + \partial_l V_k \right) ,
+    \end{split}
+\end{align}
+
+expressed in terms of the spatial derivatives of the velocities $V_i$. It is straightforward to calculate the time derivative
+of the stress tensor if the constants $c_{ijkl}$ remain constant over time
+
+\begin{align}
+    \begin{split}
+        \dot{\sigma}_{ij} = c_{ijkl}\dot{\epsilon}_{kl} .
+    \end{split}
+\end{align}
