@@ -42,6 +42,7 @@ In the context of linear elasticity, the following extension of Hooke's law hold
     \begin{split}
         \sigma_{ij} = c_{ijkl}\epsilon_{kl},
     \end{split}
+    \label{eq:hookeslaw}
 \end{align}
 
 with the medium specific constants $c_{ijkl}$ being used to generalize Hooke's law in linear elasticity. The Einstein summation convention
@@ -74,3 +75,29 @@ of the stress tensor if the constants $c_{ijkl}$ remain constant over time
         \dot{\sigma}_{ij} = c_{ijkl}\dot{\epsilon}_{kl} .
     \end{split}
 \end{align}
+
+We can apply symmetry considerations to the term $c_{ijkl}$ in equation \ref{eq:hookeslaw} and reduce the number of independent components from 81 to 21(~\parencite{aki2002quantitative} Chapter 2).
+This in turn lets us define the tensor in terms of two constants in isotropic media with the general form of
+
+\begin{equation}
+    c_{ijkl} = \lambda \delta_{ij}\delta_{kl} + \mu\left(\delta_{ik}\delta_{jl} + \delta_{il}\delta_{jk}\right),
+\end{equation}
+
+where $\delta$ is the Kronecker-delta function and $\lambda, \mu$ are the Lam\'e parameters. \\
+
+We now write a force balance in a volume $V$ within a surface $S$. The momentum within the volume changes at a rate equal
+to the forces acting on that volume. Therefore, the forces acting on these comprise a body force and a surface force, which result
+from the presence of normal and shear stresses. This can be written mathematically as 
+
+\begin{equation}
+    \frac{\partial}{\partial t} \int_V \rho \frac{\partial \mathbf{U}}{\partial t}dV = \int_V \mathbf{f}dV + \oint_S \mathbf{T\left(n\right)}dS,
+    \label{eq:forcebalance}
+\end{equation}
+
+where $\frac{\partial}{\partial t} \int_V \rho \frac{\partial \mathbf{U}}{\partial t}dV$, is the momentum of the control volume with density $\rho$, and $\mathbf{T}$
+is the traction vector which is related to the stress tensor by Cauchy's stress theorem ~\parencite{cauchy-stress-theorem}
+
+\begin{equation}
+    T_j\left(n\right) = \sigma_{ij}n_i,
+\end{equation}
+

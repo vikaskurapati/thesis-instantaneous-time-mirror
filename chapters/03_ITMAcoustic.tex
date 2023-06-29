@@ -1,7 +1,7 @@
 % !TeX root = ../main.tex
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
-\chapter{1D Acoustic Equation \ac{ITM}}\label{chapter:ITMAcoustic}
+\chapter{\ac{ITM} on a 1D Acoustic Planar Wave}\label{chapter:ITMAcoustic}
 In this chapter, we calculate the analytical solution for a 1D Acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
 For this, we consider a 1D Acoustic Equation [~\parencite{leveque_2002}, Sec. 2.8] linearized about the motionless state:
 \begin{align}
@@ -32,7 +32,7 @@ This can be written in consolidated matrix vector form as done for first order h
     \label{eq:acoustic}
 \end{align}.
 
-The flux matrix for equation \ref{eq:acoustic} has two eigen values:
+The flux matrix for equation \ref{eq:acoustic} has two eigenvalues:
 
 \begin{align}
     \begin{split}
@@ -47,7 +47,7 @@ where
     \end{split}
 \end{align}
 
-which is the speed of sound in gas. And waves can propagate in either direction with this speed. The eigen vectors for this coefficient matrix come out to be:
+which is the speed of sound in gas. And waves can propagate in either direction with this speed. The eigenvectors for this coefficient matrix come out to be:
 
 \begin{align}
     \begin{split}
@@ -70,18 +70,18 @@ The impedance is defined as:
 Using these parameters, ~\parencite{leveque_2002} Sec. 2.8 calculates the solution of the acoustic equation depending on the initial conditions $p^0(x), u^0(x)$ as:
 \begin{align}
     \begin{split}
-        p(x,t) = \frac{1}{2}\left[p^0\left(x + c_0t\right) + p^0\left(x - c_0t\right)\right] - \frac{Z_0}{2}\left[u^0\left(x+c_0t\right) - u^0\left(x-c_0t\right)\right], \\
-        u(x,t) = -\frac{1}{2Z_0}\left[p^0\left(x+c_0t\right) - p^0\left(x-c_0t\right)\right] + \frac{1}{2}\left[u^0\left(x+c_0t\right) + u^0\left(x-c_0t\right)\right] .
+        p(x,t) &= \frac{1}{2}\left[p^0\left(x + c_0t\right) + p^0\left(x - c_0t\right)\right] - \frac{Z_0}{2}\left[u^0\left(x+c_0t\right) - u^0\left(x-c_0t\right)\right], \\
+        u(x,t) &= -\frac{1}{2Z_0}\left[p^0\left(x+c_0t\right) - p^0\left(x-c_0t\right)\right] + \frac{1}{2}\left[u^0\left(x+c_0t\right) + u^0\left(x-c_0t\right)\right] .
     \end{split}
     \label{eq:solutionacoustic}
 \end{align}
 
-We use this solution to find the analytical solution of a 1D acoustic wave after the \ac{ITM} is applied in two different ways. First we ensure we use initial conditions which give rise to only one forward wave. We simply use a sinusoidal wave multiplied to only one eigen vector $r^2$.
-This defines our initial conditions as:
+We use this solution to find the analytical solution of a 1D acoustic wave after the \ac{ITM} is applied in two different ways. First we ensure we use initial conditions which give rise to only one forward wave. We simply use a sinusoidal wave multiplied to only one eigenvector $r^2$.
+This defines our initial conditions as
 \begin{align}
     \begin{split}
-        p^0\left(x\right) = \rho_0c_0cos\left(k*x\right), \\
-        u^0\left(x\right) = cos\left(k*x\right) .
+        p^0\left(x\right) &= \rho_0c_0cos\left(kx\right), \\
+        u^0\left(x\right) &= cos\left(kx\right)
     \end{split}
     \label{eq:initialconditions}
 \end{align}
@@ -90,20 +90,394 @@ where $k$ is the wave number of the wave. The energy of the system is defined as
 
 \begin{align}
     \begin{split}
-     E = \int_{-\frac{\pi}{k}}^{\frac{\pi}{k}} \left(\frac{1}{2K}p^2 + \frac{1}{2}\rho u^2\right) dx , \\
-     \implies E = \frac{\pi\rho_0}{k} .
+     E_1 &= \int_{-\frac{\pi}{k}}^{\frac{\pi}{k}} \left(\frac{1}{2K}p^2 + \frac{1}{2}\rho u^2\right) dx , \\
+     \implies E_1 &= \frac{\pi\rho_0}{k} .
     \end{split}
+    \label{eq:energy}
 \end{align}
 
-\section{Impedance Changing \ac{ITM}}
+\section{Impedance Changing \ac{ITM}}\label{section:impedanceconstantITM}
 Using the conditions given in equation \ref{eq:initialconditions}, we calculate the solution at $t_ITM^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
 In this case, we scale the velocities such that the impedance also changes(keeping the density constant). Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as:
 
 \begin{align}
     \begin{split}
-        p^0_{t_{ITM}^-}\left(x\right) = c_0 \rho_0 cos\left(kx - c_0kt_{ITM}^-\right), \\
-        u^0_{t_{ITM}^-}\left(x\right) = cos\left(kx - c_0kt_{ITM}^-\right) .
+        p^0_{t_{ITM}^-}\left(x\right) &= c_0 \rho_0 cos\left(kx - c_0kt_{ITM}^-\right), \\
+        u^0_{t_{ITM}^-}\left(x\right) &= cos\left(kx - c_0kt_{ITM}^-\right) .
     \end{split}
 \end{align}
 
 We now use these as the initial conditions and equation \ref{eq:solutionacoustic} with the updated wave velocity and constant density to get the evolved solution for $t_{ITM}^- \leq t \leq t_{ITM}^+ $. ~\parencite{sagemath} was used to perform the simplifications for the arithmetic. We obtain the solution for this period as:
+
+\begin{align}
+    \begin{split}
+        p_{2}\left(x, t\right) &= -\frac{1}{2} \left(n-1\right)c_0\rho_0cos\left(kx + c_0knt - \left(c_0kn + c_0k\right)t_{ITM}^-\right) \\
+        &+ \frac{1}{2} \left(n+1\right)c_0\rho_0cos\left(kx - c_0knt + \left(c_0kn - c_0k\right)t_{ITM}^-\right), \\
+        u_{2}\left(x, t\right) &= \frac{1}{2}\left(n-1\right)cos\left(kx + c_0knt - \left(c_0kn + c_0k\right)t_{ITM}^-\right)\\
+        &+ \frac{1}{2}\left(n+1\right)cos\left(kx - c_0knt + \left(c_0kn-c_0k\right)t_{ITM^-}\right)
+    \end{split}
+\end{align}
+
+where n is the velocity scaling factor. We now use these expressions to calculate the energy as we have already done in equation \ref{eq:energy}. This gives us the energy in second phase i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be:
+\begin{equation}
+    E_2 = \frac{1}{2}\frac{\left(1 + n^2\right)\pi \rho_0}{kn^2} .
+\end{equation}
+
+This shows that the energy drops when the velocity is scaled up. We then check the relative drop in energy for different scaling factors and see that it asymptotes to 0.5 for higher scaling factors. The variation of the ratio with the scaling factor can be seen in figure \ref{fig:ratio1}.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=1.0]
+        \begin{axis}[
+            ylabel = $\frac{E_2}{E_1}$,
+            xlabel = $n$]
+            \addplot[domain=0:10, black, ultra thick]{0.5*(1+x*x)/(x*x)};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Relative Energy in $t_{ITM}^- \leq t \leq t_{ITM}^+$}
+    \label{fig:ratio1}
+\end{figure}
+
+Now the velocity is scaled down again to its original value at $t=t_{ITM}^+$ and defining $\tau = t_{ITM}^+ - t_{ITM}^-$, we do a similar calculation to obtain the solution for the final phase: $t \geq t_{ITM}^+$ and the solution as:
+
+\begin{align}
+    \begin{split}
+        p_3\left(x, t\right) & = -\frac{{\frac{1}{4}c_{0}\rho_{0}\left( n^{2} + 1\right)} \cos\left(k x + c_{0} k t - 2 \, c_{0} k \mathit{t_{ITM}^-} - {\left(c_{0} k n + c_{0} k\right)} \tau\right)}{n} \\
+        & - \frac{{\frac{1}{4}c_0\rho_0\left(n^{2} - 1\right)} \cos\left(k x + c_{0} k t - 2 \, c_{0} k \mathit{t_{ITM}^-} + {\left(c_{0} k n - c_{0} k\right)} \tau\right)}{n} \\
+        & - \frac{{\frac{1}{4}c_0\rho_0\left(n^{2} - 2n + 1\right)} \cos\left(kx -c_{0} k t + {\left(c_{0} k n + c_{0} k\right)} \tau\right)}{n} \\
+        & - \frac{{\frac{1}{4}c_0\rho_0\left(-n^{2} - 2n - 1\right)} \cos\left(kx-c_{0} k t - {\left(c_{0} k n - c_{0} k\right)} \tau\right)}{n}, \\
+        u_3\left(x, t\right) & =  -\frac{{\frac{1}{4}\left(n^{2} - 1\right)} \cos\left( k x + c_{0} k t - 2 \, c_{0} k \mathit{t_{ITM}^-} - {\left(c_{0} k n + c_{0} k\right)} \tau\right)}{n} \\
+        & - \frac{{\frac{1}{4}\left(-n^{2} + 1\right)} \cos\left(kx + c_{0} k t - 2 \, c_{0} k \mathit{t_{ITM}^-} + {\left(c_{0} k n - c_{0} k\right)} \tau\right)}{n} \\
+        & - \frac{{\frac{1}{4}\left(n^{2} - 2n + 1\right)} \cos\left(kx -c_{0} k t + {\left(c_{0} k n + c_{0} k\right)} \tau\right)}{n} \\
+        & - \frac{{\frac{1}{4}\left(-n^{2} - 2n - 1\right)} \cos\left(kx -c_{0} k t - {\left(c_{0} k n - c_{0} k\right)} \tau\right)}{n} .
+    \end{split}
+\end{align}
+
+Using these quantities, we now calculate the energy using the equation \ref{eq:energy}
+\begin{equation}
+    E_3 = -\pi \rho_0\frac{{\left(1 + n^{4} - 2 \, n^{2}\right)} \cos^{2}\left(c_{0} k n \tau\right) - {\left(1 + n^{4}\right)}}{2 \, k n^{2}}.
+\end{equation}
+
+We observe that this ratio is dependent on the parameters: $k,n,\tau$ of the simulation. We compare the best case scenario i.e., what would be the minimum energy increase to show how much the energy peaks up after the ITM is applied. For that we take the case where $cos^2\left(c_0kn\tau\right)=1$ and plot that function with $n$ as we did before in figure \ref{fig:ratio2}.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=1.0]
+        \begin{axis}[
+            ylabel = $\frac{E_3}{E_1}$,
+            xlabel = $n$]
+            \addplot[domain=0.1:10, black, ultra thick]{0.5*((1/x)^2 + x*x - (1-1/x)^2)};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Relative Energy in $t \geq t_{ITM}^+$}
+    \label{fig:ratio2}
+\end{figure}
+
+The minimum value for this energy jump lies at $n=1$ which means no velocity scaling and no reflections. This case is of no use to us. 
+\section{Constant Impedance \ac{ITM}}
+We know that there is no reflected wave in space interfaces when the impedance stays constant. Here, we test out the same with a time interface i.e., we perform \ac{ITM} such that the velocities scale but the impedance stays constant. This is achieved by scaling the wave speed by $n$ and the density by $\frac{1}{n}$.
+Similar to section \ref{section:impedanceconstantITM}, we choose the initial conditions as
+
+\begin{align}
+    \begin{split}
+        p^0\left(x\right) &= Z_0cos\left(kx\right), \\
+        u^0\left(x\right) &= cos\left(kx\right) .
+    \end{split}
+    \label{eq:initialconditions2}
+\end{align}
+
+Using these parameters, the energy is once again computed as
+
+\begin{equation}
+    E_1 = \frac{\pi Z_0}{c_0 k}
+\end{equation}
+
+Using the conditions given in equation \ref{eq:initialconditions2}, we calculate the solution at $t_ITM^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
+In this case, we scale the velocities such that the impedance does not change(density is scaled down). Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as
+
+\begin{align}
+    \begin{split}
+        p^0_{t_{ITM}^-}\left(x\right) &= Z_0 cos\left(kx - c_0kt_{ITM}^-\right), \\
+        u^0_{t_{ITM}^-}\left(x\right) &= cos\left(kx - c_0kt_{ITM}^-\right) .
+    \end{split}
+\end{align}
+
+We now use these as the initial conditions and equation \ref{eq:solutionacoustic} with the updated wave velocity and constant density to get the evolved solution for $t_{ITM}^- \leq t \leq t_{ITM}^+ $. ~\parencite{sagemath} was used to perform the simplifications for the arithmetic. We obtain the solution for this period as:
+
+\begin{align}
+    \begin{split}
+        p_{2}\left(x, t\right) &= Z_{0} \cos\left(kx -c_{0} k n t + {\left(c_{0} k n - c_{0} k\right)} \mathit{t_{ITM}^-}\right), \\
+        u_{2}\left(x, t\right) &= \cos\left(kx -c_{0} k n t + {\left(c_{0} k n - c_{0} k\right)} \mathit{t_{ITM}^-} \right)
+    \end{split}
+\end{align}
+
+where n is the velocity scaling factor. We now use these expressions to calculate the energy as we have already done in equation \ref{eq:energy}. This gives us the energy in second phase i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be:
+\begin{equation}
+    E_2 = \frac{\pi z_{0}}{c_{0} k n} .
+\end{equation}
+
+Two interesting observations that can be made here are that:
+\begin{enumerate}
+    \item There is no extra reflected wave and the wave speed is just increased with a phase shift
+    \item The energy is directly scaled down by the velocity scaling factor
+\end{enumerate}
+
+% \begin{figure}
+%     \centering
+%     \begin{tikzpicture}[scale=1.0]
+%         \begin{axis}[
+%             ylabel = $\frac{E_2}{E_1}$,
+%             xlabel = $n$]
+%             \addplot[domain=0:10, black, ultra thick]{0.5*(1+x*x)/(x*x)};
+%         \end{axis}
+%     \end{tikzpicture}
+%     \caption{Relative Energy in $t_{ITM}^- \leq t \leq t_{ITM}^+$}
+%     \label{fig:ratio1}
+% \end{figure}
+
+Now the velocity is scaled down again to its original value at $t=t_{ITM}^+$ and defining $\tau = t_{ITM}^+ - t_{ITM}^-$, we do a similar calculation to obtain the solution for the final phase: $t \geq t_{ITM}^+$ and the solution as:
+
+\begin{align}
+    \begin{split}
+        p_3\left(x, t\right) & = Z_{0} \cos\left(kx - c_{0} k t - {\left(c_{0} k n - c_{0} k\right)} \tau\right)\\
+        u_3\left(x, t\right) & =  \cos\left(kx - c_{0} k t - {\left(c_{0} k n - c_{0} k\right)} \tau\right)
+    \end{split}
+\end{align}
+
+Using these quantities, we now calculate the energy using the equation \ref{eq:energy}
+\begin{equation}
+    E_3 = \frac{\pi Z_0}{c_0 k}
+\end{equation}
+
+which is equal to $E_1$. This shows that there is no final energy increase when the impedance is kept constant. The final solution also has no reflected wave and has the same wave speed as the initial wave and has a phase shift in time. This confirms that even in time interfaces, similar to space interfaces there is no reflection.
+
+% \begin{align}
+%     \begin{split}
+%         \left(\left(\begin{array}{rrrr}
+%             1 & 1 & 0 & 0 \\
+%             -\frac{k_{1}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} & \frac{k_{1}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} & 1 & 0 \\
+%             -\frac{k_{2}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} & \frac{k_{2}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} & 0 & 1 \\
+%             -\frac{k_{3}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} & \frac{k_{3}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} & -\frac{k_{1}}{k_{3}} & -\frac{k_{2}}{k_{3}}
+%             \end{array}\right)\right)
+%     \end{split}
+% \end{align}
+
+\chapter{\ac{ITM} on a 3D Acoustic Planar Wave}\label{chapter:3DITMAcoustic}
+In this chapter, we calculate the analytical solution for a 3D Acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
+
+For this, we consider a 3D Acoustic Equation linearized about the motionless state:
+
+where $p$ is the pressure perturbation, $K_0$ is the bulk modulus of the material and $u$ is the velocity purturbation. 
+This can be written in consolidated matrix vector form as done for first order hyperbolic systems of equations as follows:
+
+\begin{align}
+    \begin{split}
+        \mathbf{q_t} + \mathbf{Aq_x} + \mathbf{Bq_y} + \mathbf{Cq_z} = 0,
+    \end{split}
+    \label{eq:3Dacoustic}
+\end{align}
+
+where 
+
+\begin{align}
+    \begin{split}
+        \mathbf{q} = \begin{bmatrix}
+            p \\
+            u \\
+            v
+        \end{bmatrix},
+        \mathbf{A} = \begin{bmatrix}
+            0 & K_0 & 0 & 0 \\
+            \frac{1}{\rho_0} & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{bmatrix},
+        \mathbf{B} = \begin{bmatrix}
+            0 & 0 & K_0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            \frac{1}{\rho_0} & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{bmatrix},
+        \mathbf{C} = \begin{bmatrix}
+            0 & 0 & 0 & K_0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            \frac{1}{\rho_0} & 0 & 0 & 0 \\
+        \end{bmatrix}.
+    \end{split}
+\end{align}
+
+We assume an ansatz of 
+\begin{equation}
+    \mathbf{q}\left(\mathbf{x}, t\right) = \mathbf{q_0} cos\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right),
+\end{equation}
+
+where $\mathbf{k}=\left(k_1, k_2, k_3\right)$ is the direction of the planar wave. Using the derivatives of equation \ref{eq:3Dacoustic},
+
+\begin{align}
+    \begin{split}
+    \frac{\partial \mathbf{q}}{\partial t} = \omega \mathbf{q_0} sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right),
+    \frac{\partial \mathbf{q}}{\partial x} = -k_1 \mathbf{q_0} sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right), \\
+    \frac{\partial \mathbf{q}}{\partial y} = -k_2 \mathbf{q_0} sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right),
+    \frac{\partial \mathbf{q}}{\partial z} = -k_3 \mathbf{q_0} sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right).
+\end{split}
+\end{align}
+
+Substituting these back in the equation we get,
+
+\begin{align}
+    \begin{split}
+        \left(\omega - \mathbf{A}k_1 - \mathbf{B}k_2 - \mathbf{C}k_3\right)\mathbf{q_0}sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right) = 0.
+    \end{split}
+\end{align}
+
+Dividing by $sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right)$ and rearranging the terms, we get
+
+\begin{align}
+    \begin{split}
+        \left(\mathbf{A}k_1 + \mathbf{B}k_2 + \mathbf{C}k_3\right)\mathbf{q_0} = \omega \mathbf{q_0}
+    \end{split}
+\end{align}
+
+This shows that $\omega$ is an eigenvalue of $\mathbf{\hat{A}} = \mathbf{A}k_1 + \mathbf{B}k_2 + \mathbf{C}k_3$ and $\mathbf{q_0}$ is an eigenvector. The modified matrix $\mathbf{\hat{A}}$ would then be
+
+\begin{align}
+    \begin{split}
+    \mathbf{\hat{A}} = \left(\begin{array}{rrrr}
+0 & K_{0} k_{1} & K_{0} k_{2} & K_{0} k_{3} \\
+\frac{k_{1}}{\rho_{0}} & 0 & 0 & 0 \\
+\frac{k_{2}}{\rho_{0}} & 0 & 0 & 0 \\
+\frac{k_{3}}{\rho_{0}} & 0 & 0 & 0
+\end{array}\right)
+    \end{split}
+\end{align}
+
+with the set of eigenvalues
+
+\begin{align}
+    \begin{split}
+        \omega_1 = -\sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}},
+        \omega_2 = 0,
+        \omega_3 = 0,
+        \omega_4 = \sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}};
+    \end{split}
+\end{align}
+
+and the eigenvectors
+
+\begin{align}
+    \begin{split}
+    \mathbf{r_1} = \begin{bmatrix}
+        1 \\
+-\frac{k_{1}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+-\frac{k_{2}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+-\frac{k_{3}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
+        \end{bmatrix},
+        \mathbf{r_2} = \begin{bmatrix}
+            0 \\
+1 \\
+0 \\
+-\frac{k_{1}}{k_{3}}
+            \end{bmatrix},
+            \mathbf{r_3} = \begin{bmatrix}
+                0 \\
+                0 \\
+                1 \\
+                -\frac{k_{2}}{k_{3}}
+                \end{bmatrix},
+                \mathbf{r_4} = \begin{bmatrix}
+                    1 \\
+\frac{k_{1}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+\frac{k_{2}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+\frac{k_{3}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
+                    \end{bmatrix},
+    \end{split}
+\end{align} .
+
+For the sake of simplicity to verify what happens in the case of ITM, we consider the initial condition to be along one eigenvector(here choosing $r_4$).
+This makes our wave to be of the form 
+
+\begin{align}
+    \begin{split}
+        \mathbf{q_1}\left(\mathbf{x}, t\right) = \begin{bmatrix}
+            1 \\
+\frac{k_{1}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+\frac{k_{2}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+\frac{k_{3}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
+            \end{bmatrix} cos\left(\mathbf{k}\cdot\mathbf{x} - \sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}} t\right) .
+    \end{split}
+\end{align}
+It can be verified that this wave form satifies our PDE in equation \ref{eq:3Dacoustic}.
+
+Now, in phase 2 i.e., when ITM is applied, we get a modified $\mathbf{\hat{A}}$ as we change our material properties specifically $K_0$ to $n^2K_0$. The modified matrix would then be
+
+\begin{align}
+    \begin{split}
+    \mathbf{\hat{A}_2} = \begin{bmatrix}
+        0 & K_{0} k_{1} n^{2} & K_{0} k_{2} n^{2} & K_{0} k_{3} n^{2} \\
+\frac{k_{1}}{\rho_{0}} & 0 & 0 & 0 \\
+\frac{k_{2}}{\rho_{0}} & 0 & 0 & 0 \\
+\frac{k_{3}}{\rho_{0}} & 0 & 0 & 0
+    \end{bmatrix},
+    \end{split}
+\end{align}
+
+with eigenvalues
+
+\begin{align}
+    \begin{split}
+    \omega_1^2 = -n \sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}},
+    \omega_2^2 = 0,
+    \omega_3^2 = 0,
+    \omega_4^2 = n \sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}},
+    \end{split}
+\end{align}
+
+and eigenvectors
+
+\begin{align}
+    \begin{split}
+    \mathbf{r_1^2} = \begin{bmatrix}
+        1 \\
+-\frac{k_{1}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+-\frac{k_{2}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+-\frac{k_{3}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
+        \end{bmatrix},
+        \mathbf{r_2^2} = \begin{bmatrix}
+            0 \\
+            1 \\
+            0 \\
+            -\frac{k_{1}}{k_{3}}
+            \end{bmatrix},
+            \mathbf{r_3^2} = \begin{bmatrix}
+                0 \\
+0 \\
+1 \\
+-\frac{k_{2}}{k_{3}}
+                \end{bmatrix},
+                \mathbf{r_4^2} = \begin{bmatrix}
+                    1 \\
+                    \frac{k_{1}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+                    \frac{k_{2}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
+                    \frac{k_{3}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
+                    \end{bmatrix},
+    \end{split}
+\end{align} .
+
+Now as we expect two waves going in 2 opposite directions, we take weighted sum of the two directional waves and assume an ansatz that in phase 2 i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $, we have the following wave form introducing some phase shift in both the waves:
+
+\begin{align}
+    \begin{split}
+        \mathbf{q_2} \left(\mathbf{x}, t\right) = w_1 \mathbf{r_1^2} cos\left(\mathbf{k}\cdot\mathbf{x} -\omega_1^2 t + \phi_1\right) + w_2 \mathbf{r_4^2} cos\left(\mathbf{k}\cdot\mathbf{x} - \omega_4^2 t + \phi_2\right).
+    \end{split}
+    \end{align}
+
+One can verify that this satsfies the PDE by substituting it in the PDE with the modified matrices. Now at $t=t_{ITM}^-$, the solution must be continuos for all space, i.e.,
+
+\begin{align}
+    \begin{split}
+    \mathbf{q_1}\left(\mathbf{x}, t_{ITM}^-\right) = \mathbf{q_2}\left(\mathbf{x}, t_{ITM}^-\right)
+    \end{split}
+\end{align}
+
+Solving for the required coefficients...
