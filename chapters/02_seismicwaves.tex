@@ -101,3 +101,9 @@ is the traction vector which is related to the stress tensor by Cauchy's stress 
     T_j\left(n\right) = \sigma_{ij}n_i,
 \end{equation}
 
+with the normal vector $n_i$. Replacing $\mathbf{T}$ in \refeq{eq:forcebalance} using the above
+,applying Gauss' divergence theorem and reshuffling gives us
+
+\begin{equation}
+    \int_V \left(\rho \ddot{U}_i - f_i - \partial_j \sigma_{ij}\right)dV = 0,
+\end{equation}

@@ -3,7 +3,7 @@
 
 \chapter{\ac{ITM} on a 1D Acoustic Planar Wave}\label{chapter:ITMAcoustic}
 In this chapter, we calculate the analytical solution for a 1D Acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
-For this, we consider a 1D Acoustic Equation [~\parencite{leveque_2002}, Sec. 2.8] linearized about the motionless state:
+For this, we consider a 1D Acoustic Equation [~\parencite[Sec. 2.8]{leveque_2002}] linearized about the motionless state:
 \begin{align}
     \begin{split}
         p_t + K_0u_x = 0, \\
@@ -52,7 +52,7 @@ which is the speed of sound in gas. And waves can propagate in either direction 
 \begin{align}
     \begin{split}
         r^1 = \begin{bmatrix}
-            \rho_0 c_0 \\
+            -\rho_0 c_0 \\
             1
         \end{bmatrix}, 
         r^2 = \begin{bmatrix}
@@ -67,7 +67,7 @@ The impedance is defined as:
     Z_0 = \rho_0 c_0.
 \end{equation}.
 
-Using these parameters, ~\parencite{leveque_2002} Sec. 2.8 calculates the solution of the acoustic equation depending on the initial conditions $p^0(x), u^0(x)$ as:
+Using these parameters, ~\parencite[Sec. 2.8]{leveque_2002} calculates the solution of the acoustic equation depending on the initial conditions $p^0(x), u^0(x)$ as:
 \begin{align}
     \begin{split}
         p(x,t) &= \frac{1}{2}\left[p^0\left(x + c_0t\right) + p^0\left(x - c_0t\right)\right] - \frac{Z_0}{2}\left[u^0\left(x+c_0t\right) - u^0\left(x-c_0t\right)\right], \\
