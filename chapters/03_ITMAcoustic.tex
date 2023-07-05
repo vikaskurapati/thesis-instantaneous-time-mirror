@@ -158,7 +158,13 @@ Using these quantities, we now calculate the energy using the equation \ref{eq:e
     E_3 = -\pi \rho_0\frac{{\left(1 + n^{4} - 2 \, n^{2}\right)} \cos^{2}\left(c_{0} k n \tau\right) - {\left(1 + n^{4}\right)}}{2 \, k n^{2}}.
 \end{equation}
 
-We observe that this ratio is dependent on the parameters: $k,n,\tau$ of the simulation. We compare the best case scenario i.e., what would be the minimum energy increase to show how much the energy peaks up after the ITM is applied. For that we take the case where $cos^2\left(c_0kn\tau\right)=1$ and plot that function with $n$ as we did before in figure \ref{fig:ratio2}.
+We observe that this ratio is dependent on the parameters: $k, n, \tau$ and is bounded as
+
+\begin{equation}
+    \frac{\pi \rho_0}{K} \leq E_3 \leq \frac{\pi \rho_0}{2K}\left[n^2 + \frac{1}{n^2}\right]
+\end{equation}
+
+We compare the worst case scenario i.e., what would be the maximum energy increase after the ITM is applied. For that we take the upper bound and plot that function with $n$ as we did before in figure \ref{fig:ratio2}.
 
 \begin{figure}
     \centering
@@ -166,14 +172,15 @@ We observe that this ratio is dependent on the parameters: $k,n,\tau$ of the sim
         \begin{axis}[
             ylabel = $\frac{E_3}{E_1}$,
             xlabel = $n$]
-            \addplot[domain=0.1:10, black, ultra thick]{0.5*((1/x)^2 + x*x - (1-1/x)^2)};
+            \addplot[domain=0.1:10, black, ultra thick]{0.5*((1/x)^2 + x^2)};
         \end{axis}
     \end{tikzpicture}
     \caption{Relative Energy in $t \geq t_{ITM}^+$}
     \label{fig:ratio2}
 \end{figure}
 
-The minimum value for this energy jump lies at $n=1$ which means no velocity scaling and no reflections. This case is of no use to us. 
+The minimum value for this energy jump lies at $n=1$ which means no velocity scaling and no reflections. This case is of no use to us.
+
 \section{Constant Impedance \ac{ITM}}
 We know that there is no reflected wave in space interfaces when the impedance stays constant. Here, we test out the same with a time interface i.e., we perform \ac{ITM} such that the velocities scale but the impedance stays constant. This is achieved by scaling the wave speed by $n$ and the density by $\frac{1}{n}$.
 Similar to section \ref{section:impedanceconstantITM}, we choose the initial conditions as
