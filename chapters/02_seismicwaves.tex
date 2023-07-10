@@ -7,11 +7,10 @@ wave propagation and presenting the equation of motion in velocity-stress formul
 throughout the work. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}. \\
 
 The next section of the thesis discusses SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
-of the Discontinuous Galerkin Finite Element(DG-FE) method and a time integration scheme based on the solution of Arbitrary high-order
-Derivative Riemann Problems(ADER), as described in previous works ~\parencite{dumbser1}, ~\parencite{seissol}. This approch, known as 
-ADER-DG will be introduced in more detail in the following sections.
+of the \ac{DG-FE} method and a time integration scheme based on the solution of \ac{ADER}, as described in previous works ~\parencite{dumbser1}, ~\parencite{seissol}. This approch, known as 
+\ac{ADER}-\ac{DG} will be introduced in more detail in the following sections.
 
-\section{Elastic Wave Equation}
+\section{Elastic Wave Equation}\label{section:elasticwaveequation}
 An elastic medium is characterized by an undeformed state, in which stresses and strains are zero, to which it will return to in the absence
 of outer forces. If the stresses and strains the medium experiences are infinitesimal, the theory of linear elasticity applies. We define
 the displacement vector $\mathbf{U}$ describing the shortest distance between the initial and current position of a point. The particle
@@ -74,6 +73,7 @@ of the stress tensor if the constants $c_{ijkl}$ remain constant over time
     \begin{split}
         \dot{\sigma}_{ij} = c_{ijkl}\dot{\epsilon}_{kl} .
     \end{split}
+    \label{eq:stress}
 \end{align}
 
 We can apply symmetry considerations to the term $c_{ijkl}$ in equation \ref{eq:hookeslaw} and reduce the number of independent components from 81 to 21(~\parencite{aki2002quantitative} Chapter 2).
@@ -81,6 +81,7 @@ This in turn lets us define the tensor in terms of two constants in isotropic me
 
 \begin{equation}
     c_{ijkl} = \lambda \delta_{ij}\delta_{kl} + \mu\left(\delta_{ik}\delta_{jl} + \delta_{il}\delta_{jk}\right),
+    \label{eq:isotropic}
 \end{equation}
 
 where $\delta$ is the Kronecker-delta function and $\lambda, \mu$ are the Lam\'e parameters. \\
@@ -105,5 +106,105 @@ with the normal vector $n_i$. Replacing $\mathbf{T}$ in \refeq{eq:forcebalance} 
 ,applying Gauss' divergence theorem and reshuffling gives us
 
 \begin{equation}
-    \int_V \left(\rho \ddot{U}_i - f_i - \partial_j \sigma_{ij}\right)dV = 0,
+    \int_V \left(\rho \ddot{U}_i - f_i - \partial_j \sigma_{ij}\right)dV = 0.
 \end{equation}
+
+Here we assumed that the stress tensor is symmetric, i.e., $\sigma_{ij}=\sigma_{ji}$. As it is true for any general volume, we can
+equate the integrand to zero. This gives us the equation
+
+\begin{equation}
+    \rho \ddot{U}_i = f_i + \partial_j \sigma_{ij},
+    \label{eq:force}
+\end{equation}
+
+expanding it in $j$ and using $V_i = \frac{\partial U_i}{\partial t}$,
+
+\begin{equation}
+    \rho \frac{\partial V_i}{\partial t} = f_i + \partial_x \sigma_{xi} + \partial_y \sigma_{yi} + \partial_z \sigma_{zi},
+    \label{eq:finalequation}
+\end{equation}
+
+The body force $f_i$ will be discussed later in terms of the source terms. \\
+
+Combining equations \ref{eq:stress}, \ref{eq:isotropic}, \ref{eq:finalequation}, we obtain the final 3D 
+wave elastic equation for an isotropic medium in velocity-stress formulation
+
+\begin{align}
+    \begin{split}
+    \frac{\partial \sigma_{xx}}{\partial t} - \left(\lambda  + 2\mu\right)\frac{\partial u}{\partial x} - \lambda \frac{\partial v}{\partial y} - \lambda\frac{\partial w}{\partial z} &= S_1, \\    
+    \frac{\partial \sigma_{yy}}{\partial t} - \lambda \frac{\partial u}{\partial x} - \left( \lambda + 2 \mu \right)\frac{\partial v}{\partial y} - \lambda \frac{\partial w}{\partial w} &= S_2, \\
+    \frac{\partial \sigma_{zz}}{\partial t} - \lambda \frac{\partial u}{\partial x} - \lambda \frac{\partial v}{\partial y} - \left(\lambda + 2\mu\right)\frac{\partial w}{\partial z} &= S_3, \\
+    \frac{\partial \sigma_{xy}}{\partial t} - \mu \left(\frac{\partial v}{\partial x} + \frac{\partial u}{\partial y}\right) &= S_4, \\ 
+    \frac{\partial \sigma_{yz}}{\partial t} - \mu \left(\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y}\right) &= S_5, \\
+    \frac{\partial \sigma_{xz}}{\partial t} - \mu \left(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}\right) &= S_6, \\
+    \rho \frac{\partial u}{\partial t} - \frac{\partial \sigma_{xx}}{\partial x} - \frac{\partial \sigma_{xy}}{\partial y} - \frac{\partial \sigma_{xz}}{\partial z} &= \rho S_7, \\
+    \rho \frac{\partial v}{\partial t} - \frac{\partial \sigma_{xy}}{\partial x} - \frac{\partial \sigma_{yy}}{\partial y} - \frac{\partial \sigma_{yz}}{\partial z} &= \rho S_8, \\
+    \rho \frac{\partial w}{\partial t} - \frac{\partial \sigma_{xz}}{\partial x} - \frac{\partial \sigma_{yz}}{\partial y} - \frac{\partial \sigma_{zz}}{\partial z} &= \rho S_9, \\
+\end{split}
+\label{eq:setofequations}
+\end{align}
+
+where $S_p, p = 1,\dots9,$ are the source terms. \\
+
+Another important term for consideration with this system is the propagation speed of elastic-acoustic waves. In elastic media, we will 
+observe two kinds of waves, a primary compression wave and a secondary sheer wave which are called P-waves and S-waves respectively.\\
+
+Inserting the definition of stress $\sigma_{ij}$ from equation \ref{eq:hookeslaw} and $c_{ijkl}$ from equation \ref{eq:isotropic} into equation \ref{eq:force},
+we obtain when there are no external sources
+
+\begin{equation}
+    \rho \ddot{U}_i = \left(\lambda + \mu \right)\partial_i \partial_j u_j + \mu \partial_j \partial_j u_i.
+    \label{eq:einsteinconvention}
+\end{equation}
+
+We use a vector relation,
+
+\begin{equation}
+    \nabla \times \left(\nabla \times \mathbf{U}\right) = \nabla\left(\nabla \cdot \mathbf{U}\right) - \nabla^2 \mathbf{U}
+\end{equation}
+
+to convert equation \ref{eq:einsteinconvention} into a vector equation. Combining these two we get:
+
+\begin{align}
+    \begin{split}
+        \rho \ddot{\mathbf{U}} &= \left(\lambda + \mu\right)\nabla\left(\nabla\cdot\mathbf{U}\right) + \mu \nabla^2 \mathbf{U} \\
+        &= \left(\lambda + \mu\right)\nabla\left(\nabla \cdot \mathbf{U}\right) - \mu \nabla \times \left(\nabla \times \mathbf{U}\right) + \mu \nabla\left(\nabla \cdot \mathbf{U}\right) \\
+        \rho \ddot{\mathbf{U}} &= \left(\lambda + 2\mu\right)\nabla\left(\nabla\cdot\mathbf{U}\right) - \mu \nabla\times\left(\nabla\times\mathbf{U}\right). 
+    \end{split}
+    \label{eq:vectorequation}
+\end{align}
+
+~\Parencite[Sec. 2.1]{kaufman} explains the characterisation and the two different wave speeds related to the equation \ref{eq:vectorequation} as
+
+\begin{equation}
+    v_p = \sqrt{\frac{\lambda + 2\mu}{\rho}}, v_s = \sqrt{\frac{\mu}{\rho}}.
+\end{equation}
+
+These two velocities are the propagation velocities with $v_p$ as the propagation velocity of the P-wave and $v_s$ as the propagation velocity of the S-wave. \\
+
+We get only one propagating wave when we set $\mu = 0$ with $v_p = \sqrt{\frac{\lambda}{\rho}}$ and simplifies the elastic wave propagation to an acoustic case.
+We start our time reversal by reversing an acoustic wave(put reference to the section here) and then move on to the elastic case. Further simplifications like 
+
+\begin{equation}
+    \sigma_{ij} = 0, \forall i \neq j
+\end{equation}
+
+can be derived from the set of equations \ref{eq:setofequations}. All the diagonal elements $\sigma_{ii} = \lambda \partial_j u_j$
+are equal to each other which is analogous to the physical pressure in acoustic media. 
+
+\begin{equation}
+    p \eqcolon \sigma_{xx} = \sigma_{yy} = \sigma_{zz} = \lambda \partial_iu_i,
+\end{equation}
+
+where Einstein summation is used to condense the equation. And the equation of motion condenses to
+
+\begin{equation}
+    \rho \frac{\partial^2 \mathbf{U}_i}{\partial t^2} - \partial_i p = 0.
+\end{equation}
+
+\section{\ac{ADER}-\ac{DG}}\label{section:ADER-DG}
+
+In this section, we will discuss on the fundamental framework of SeisSol, which is the \ac{ADER}-\ac{DG} method. This section is to provide
+a brief understanding about the framework and not to go too much into detail. Interested readers are redirected to ~\parencite{martin}, ~\parencite{Toro2002},~\parencite{dumbser1}, ~\parencite{DUMBSER2005683}, ~\parencite{Toro2001}, ~\parencite{seissol}.
+
+\subsection[DG method]{Discontinuous Galerkin Method}\label{subsection:DG}

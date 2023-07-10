@@ -13,8 +13,8 @@ A few examples out of these wide range of numerical methods used to solve wave e
 
 SeisSol \footnote{\url{https://seissol.org/}} is a scientific software that enables the simulation of seismic waves and earthquake phenomena. However, modeling complex 3D geometries can be computationally intensive for modeling complex 3D geometries.
 To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. The software allows for the study of various scenarios, including adjusting material properties to exhibit elastic, viscoelastic and viscoplastic behaviour.
-SeisSol utilizes a combination of Discontinuous Galerkin(DG) method and Arbitrary high-order DERivatives(ADER) time-integration approach to solve the problems.
-This combination is called ADER-DG approach ~\parencite{dumbser}. Dumbser et al. extended this approach to solve the elastic wave equations in three dimensions ~\parencite{dumbser1}. The ADER-DG approach provides arbitrary high-order accuracy in both space and time, with the solution in each element approximated by polynomials.
+SeisSol utilizes a combination of \ac{DG} method and \ac{ADER} time-integration approach to solve the problems.
+This combination is called \ac{ADER}-\ac{DG} approach ~\parencite{dumbser}. Dumbser et al. extended this approach to solve the elastic wave equations in three dimensions ~\parencite{dumbser1}. The \ac{ADER}-\ac{DG} approach provides arbitrary high-order accuracy in both space and time, with the solution in each element approximated by polynomials.
 The degrees of freedom are expressed through the coefficients of the polynomial, which are advanced in time during simulation, allowing for discontinuities across element boundaries ~\parencite{martin}. \\
 
 In this thesis, we utilize SeisSol to implement Wave Reversal of Seismic waves using the \ac{ITM}. 
@@ -36,7 +36,7 @@ investigations, as we cannot directly modify the material properties. However, i
 locate the source of an earthquake when successfully reversed. \\
 
 The current thesis is organized as follows: Chapter 2 focuses on the fundamental theory of elastic wave propagation and the presentation
-of the numerical ADER-DG scheme as used in SeisSol. The equation of motion in elastic media is derived, and the wave equation is presented
+of the numerical \ac{ADER}-\ac{DG} scheme as used in SeisSol. The equation of motion in elastic media is derived, and the wave equation is presented
 in the velocity-stress formulation. Chapter 3 describes the theory related to time-reversal, briefly goes through the wave reversal approach,
 and then goes through the concept behind the \ac{ITM}s in more detail. Chapter 4 describes the method and implementation details of \ac{ITM}s
 in SeisSol. Chapter 5 discusses the different parametric studies and results obtained in the process. Finally, the findings are discussed,

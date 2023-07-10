@@ -12,6 +12,24 @@ abstract = {Abstract For Computational Aeroacoustics (CAA), good wave propagatio
 year = {2003}
 }
 
+@article{DUMBSER2005683,
+title = {ADER discontinuous Galerkin schemes for aeroacoustics},
+journal = {Comptes Rendus Mécanique},
+volume = {333},
+number = {9},
+pages = {683-687},
+year = {2005},
+note = {Computational AeroAcoustics: from acoustic sources modeling to farfield radiated noise prediction},
+issn = {1631-0721},
+doi = {https://doi.org/10.1016/j.crme.2005.07.008},
+url = {https://www.sciencedirect.com/science/article/pii/S1631072105001191},
+author = {Michael Dumbser and Claus-Dieter Munz},
+keywords = {Acoustics, Discontinuous Galerkin schemes, Very high order methods, ADER approach, Unstructured grids, Acoustique, Schémas Galerkin discontinus, Méthodes d'ordre très élevé, Approche ADER, Maillages non-structurés},
+abstract = {In this paper we apply the ADER approach to the Discontinuous Galerkin (DG) framework for the two-dimensional linearized Euler equations. The result is an efficient high order accurate single-step scheme in time which uses less storage than Runge–Kutta DG schemes, especially for very high order of accuracy. The aim is to obtain an arbitrarily accurate scheme in space and time on unstructured grids for accurate noise propagation in the time domain in very complex geometries. We will present numerical convergence rates for ADER-DG methods up to 10th order of accuracy in space and time on structured and unstructured meshes. To cite this article: M. Dumbser, C.-D. Munz, C. R. Mecanique 333 (2005).
+Résumé
+Nous appliquons l'approche ADER au cadre des éléments finis discontinus pour les équations d'Euler linéarisées bidimensionnelles. Le résultat sont des schémas de haute précision tout en utilisant moins de mémoire que les schémas du type Runge–Kutta Galerkin discontinus, spécialement pour les ordres trés élevés. Le but est d'obtenir un schéma de précision arbitraire en temps et en espace sur des maillages non-structurés pour le calcul précis du bruit dans les géometries très complexes. Nous présentons des études de convergence numériques pour des méthodes ADER-DG sur des maillages structurés et non-structurés jusqu'à l'ordre 10 en temps et en espace. Pour citer cet article : M. Dumbser, C.-D. Munz, C. R. Mecanique 333 (2005).}
+}
+
 @article{dumbser1,
     author = {Dumbser, Michael and Käser, Martin},
     title = "{An arbitrary high-order discontinuous Galerkin method for elastic waves on unstructured meshes — II. The three-dimensional isotropic case}",
@@ -112,6 +130,15 @@ isbn="978-3-642-13872-0"
   isbn = {0935702962}
 }
 
+@book{kaufman,
+title = {Acoustic and Elastic Wave Fields in Geophysics, III},
+author = {A. Kaufman and A. L. Levshin},
+edition={3rd},
+year={2005},
+publisher={Elsevier},
+isbn = {0444519556} 
+}
+
 @article{cauchy-stress-theorem,
   author       = {Cauchy, Augustin-Louis},
   title        = {Sur la pression ou tension dans un corps solide},
@@ -121,4 +148,31 @@ isbn="978-3-642-13872-0"
   year         = {1828},
 }
 
+@Inbook{Toro2001,
+author="Toro, E. F.
+and Millington, R. C.
+and Nejad, L. A. M.",
+editor="Toro, E. F.",
+title="Towards Very High Order Godunov Schemes",
+bookTitle="Godunov Methods: Theory and Applications",
+year="2001",
+publisher="Springer US",
+address="New York, NY",
+pages="907--940",
+abstract="We present an approach, called ADER, for constructing non-oscillatory advection schemes of very high order of accuracy in space and time; the schemes are explicit, one step and have optimal stability condition for one and multiple space dimensions. The approach relies on essentially non-oscillatory reconstructions of the data and the solution of a generalised Riemann problem via solutions of derivative Riemann problems. The schemes may thus be viewed as Godunov methods of very high order of accuracy. We present the ADER formulation for the linear advection equation with constant coefficients, in one and multiple space dimensions. Some preliminary ideas for extending the approach to non-linear problems are also discussed. Numerical results for one and two-dimensional problems using schemes of upto 10-th order accuracy are presented.",
+isbn="978-1-4615-0663-8",
+doi="10.1007/978-1-4615-0663-8_87",
+url="https://doi.org/10.1007/978-1-4615-0663-8_87"
+}
+
+@article{Toro2002,
+author = {Toro, E.F. and Titarev, V.A.},
+title = {Solution of the generalized Riemann problem for advection-reaction equations},
+year={2002},
+journal={Proc.R.Soc.Land},
+volume={458},
+pages={271-281},
+doi={doi.org/10.1098/rspa.2001.0926},
+url={http://doi.org/10.1098/rspa.2001.0926}
+}
 
