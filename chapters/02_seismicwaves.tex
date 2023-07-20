@@ -212,4 +212,47 @@ a brief understanding about the framework and not to go too much into detail. In
 We have earlier formulated the elastic wave equation as a system of linear hyperbolic partial differential equataions. ~\parencite{osti_4491151}
 first used the \ac{DG-FE} to solve these kind of problems numerically. ~\parencite{Toro2001} formulated the idea of arbitrary high order generalized
 Riemann Solvers in a finite volume framework and coined the approach \ac{ADER}. Here, the combination of the generalized Riemann Solvers with \ac{DG}
-methods is explained, resulting in \ac{ADER}-\ac{DG} approach (~\parencite{Dumbser2006}). 
+methods is explained, resulting in \ac{ADER}-\ac{DG} approach (~\parencite{Dumbser2006}). Higher-order piecewise polynomial approximations are used
+along with the theory of fluxes across element boundaries from the finite volume methods. The \ac{ADER}-\ac{DG} scheme is an explicit one step scheme.
+It advances the solution by a full time step and needs the computation of inter-cell fluxes once per time-step. \\
+% Time Derivatives are replaced with space derivatives
+% using Cauchy-Kowalevski or Lax-Wendroff procedure to achieve arbitrary high-order accuracy in both space and time.
+
+To solve the 3D elastic wave equation with the \ac{ADER}-\ac{DG} method, we need to transform it into a more compact form of hyperbolic equations
+
+\begin{equation}
+    \frac{\partial \mathbf{Q}}{\partial t} + \mathbf{A} \frac{\partial \mathbf{Q}}{\partial x} + 
+    \mathbf{B} \frac{\partial \mathbf{Q}}{\partial y} + \mathbf{C} \frac{\partial \mathbf{Q}}{\partial z} = 0,
+\end{equation}
+
+where $\mathbf{Q}$ is the state vector which contains the stresses and velocities, i.e.,
+
+\begin{equation}
+    \mathbf{Q} = \left(\sigma_{xx}, \sigma_{yy}, \sigma_{zz}, \sigma_{xy}, \sigma_{yz}, \sigma_{xz}, u, v, w \right)^T
+\end{equation}
+
+and $\mathbf{A}, \mathbf{B}, \mathbf{C}$ are space-dependent Jacobian matrices. Where
+
+\begin{align}
+    \begin{split}
+    \mathbf{A} = 
+        \begin{bmatrix}
+        0 & 0 & 0 & 0 & 0 & 0 & -\left(\lambda + 2\mu\right) & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & -\lambda                     & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & -\lambda                     & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0                   & -\mu & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0                   & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0                   & 0 & -\mu \\
+        -\frac{1}{\rho} & 0 & 0 & 0 & 0 & 0 & 0                   & 0 & 0 \\
+        0 & 0 & 0 & -\frac{1}{\rho} & 0 & 0 & 0                   & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & -\frac{1}{\rho} & 0                   & 0 & 0 \\
+    \end{bmatrix},
+    \end{split}
+\end{align}
+
+and matrices $\mathbf{B}, \mathbf{C}$ are essentially similar with non-zero entries rotated around. Interested readers can refer to
+~\parencite{dumbser1} for all the three matrices explicitly stated. \\
+
+As we are dealing with unstructured meshes, we divide our computational domain $\Omega \in \mathbb{R}^3$ into tetrahedral elements 
+$\tau^{\left(m\right)}$, with unique indices $m\in\mathbb{N}$. $\mathbf{A}, \mathbf{B}, \mathbf{C}$ are assumed to be piecewise constant
+inside each tetrahedron. We now introduce a new coordinate system of $\left(\xi, \eta, \zeta \right)$
