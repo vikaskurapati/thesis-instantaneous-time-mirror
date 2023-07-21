@@ -1,7 +1,7 @@
 % !TeX root = ../main.tex
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
-\chapter{Seismic Waves}\label{chapter:seismicwaves}
+\chapter{Seissmic Waves and ADER-DG formulation}\label{chapter:seismicwaves}
 In this chapter, we establish the theoretical foundations necessary for this thesis by deriving the fundamental equations for elastic
 wave propagation and presenting the equation of motion in velocity-stress formulation. We assume isotropic media and utilize symmetry arguments
 throughout the work. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}. \\
@@ -221,21 +221,22 @@ It advances the solution by a full time step and needs the computation of inter-
 To solve the 3D elastic wave equation with the \ac{ADER}-\ac{DG} method, we need to transform it into a more compact form of hyperbolic equations
 
 \begin{equation}
-    \frac{\partial \mathbf{Q}}{\partial t} + \mathbf{A} \frac{\partial \mathbf{Q}}{\partial x} + 
-    \mathbf{B} \frac{\partial \mathbf{Q}}{\partial y} + \mathbf{C} \frac{\partial \mathbf{Q}}{\partial z} = 0,
+    \frac{\partial Q_p}{\partial t} + A_{pq} \frac{\partial Q_q}{\partial x} + 
+    B_{pq} \frac{\partial Q_q}{\partial y} + C_{pq} \frac{\partial Q_q}{\partial z} = 0,
+    \label{eq:compactform}
 \end{equation}
 
-where $\mathbf{Q}$ is the state vector which contains the stresses and velocities, i.e.,
+where $\mathbf{Q}$ is the state vector with p unknown variables which contains the stresses and velocities, i.e.,
 
 \begin{equation}
     \mathbf{Q} = \left(\sigma_{xx}, \sigma_{yy}, \sigma_{zz}, \sigma_{xy}, \sigma_{yz}, \sigma_{xz}, u, v, w \right)^T
 \end{equation}
 
-and $\mathbf{A}, \mathbf{B}, \mathbf{C}$ are space-dependent Jacobian matrices. Where
+and $A_{pq}, B_{pq}, C_{pq}$ are space-dependent Jacobian matrices. Where
 
 \begin{align}
     \begin{split}
-    \mathbf{A} = 
+    A_{pq} = 
         \begin{bmatrix}
         0 & 0 & 0 & 0 & 0 & 0 & -\left(\lambda + 2\mu\right) & 0 & 0 \\
         0 & 0 & 0 & 0 & 0 & 0 & -\lambda                     & 0 & 0 \\
@@ -248,11 +249,127 @@ and $\mathbf{A}, \mathbf{B}, \mathbf{C}$ are space-dependent Jacobian matrices. 
         0 & 0 & 0 & 0 & 0 & -\frac{1}{\rho} & 0                   & 0 & 0 \\
     \end{bmatrix},
     \end{split}
+    \label{eq:fluxmatrix}
 \end{align}
 
-and matrices $\mathbf{B}, \mathbf{C}$ are essentially similar with non-zero entries rotated around. Interested readers can refer to
+and matrices $B_{pq}, C_{pq}$ are essentially similar with non-zero entries rotated around. Interested readers can refer to
 ~\parencite{dumbser1} for all the three matrices explicitly stated. \\
 
 As we are dealing with unstructured meshes, we divide our computational domain $\Omega \in \mathbb{R}^3$ into tetrahedral elements 
-$\tau^{\left(m\right)}$, with unique indices $m\in\mathbb{N}$. $\mathbf{A}, \mathbf{B}, \mathbf{C}$ are assumed to be piecewise constant
-inside each tetrahedron. We now introduce a new coordinate system of $\left(\xi, \eta, \zeta \right)$
+$\tau^{\left(m\right)}$, with unique indices $m\in\mathbb{N}$. $A_{pq}, B_{pq}, C_{pq}$ are assumed to be piecewise constant
+inside each tetrahedron. We now introduce a new coordinate system of $\left(\xi, \eta, \zeta \right)$ with the frame of reference as our tetrahedron as shown 
+in figure \ref{fig:transformation} \\
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/m_167-1-319-fig001.png}
+    \caption{Tranforming tetrahedron into a reference frame.(Figure taken from Figure 1 in ~\parencite{dumbser1})}
+    \label{fig:transformation}
+\end{figure}
+
+As we are dealing with a new transformed coordinate system, we would need a Transformation matrix to transform the vector $Q_p$
+from the global Cartesian system to the vector $Q_q^n$ in the normal, face-aligned frame. The transformation would be of the form
+
+\begin{equation}
+    Q_p = T_{pq}Q_q^n .
+\end{equation}
+
+~\parencite{dumbser1} calculates the transformation matrix $T_{pq}$ as
+
+\begin{align}
+    \begin{split}
+    T_{pq} = 
+        \begin{bmatrix}
+        n_x^2 & s_x^2 & t_x^2 & 2n_x s_x & 2s_x t_x & 2n_x t_x & 0 & 0 & 0 \\
+        n_y^2 & s_y^2 & t_y^2 & 2n_y s_y & 2s_y t_y & 2n_y t_y & 0 & 0 & 0 \\
+        n_z^2 & s_z^2 & t_z^2 & 2n_z s_z & 2s_z t_z & 2n_z t_z & 0 & 0 & 0 \\
+        n_y n_x & s_y s_x & t_y t_x & n_y s_x + n_x s_y & s_y t_x + s_x t_y & n_y t_x + n_x t_y & 0 & 0 & 0 \\
+        n_z n_y & s_z s_y & t_z t_y & n_z s_y + n_y s_z & s_z t_y + s_y t_z & n_z t_y + n_y t_z & 0 & 0 & 0 \\
+        n_z n_x & s_z s_x & t_z t_x & n_z s_x + n_x s_z & s_z t_x + s_x t_z & n_z t_x + n_x t_z & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & n_x & s_x & t_x \\
+        0 & 0 & 0 & 0 & 0 & 0 & n_y & s_y & t_y \\
+        0 & 0 & 0 & 0 & 0 & 0 & n_z & s_z & t_z \\
+    \end{bmatrix},
+    \end{split}
+\end{align}
+
+where $\mathbf{n} = \left(n_x, n_y, n_z\right)^T$ are the components of the normal vector, and $\mathbf{s} = \left(s_x, s_y, s_z\right)^T$ and
+$\mathbf{t} = \left(t_x, t_y, t_z\right)^T$ are the tangential vectors of the boundary face of the tetrahedron. $\mathbf{n}, \mathbf{s}, \mathbf{t}$
+are orthogonal to each other. Mapping the physical coordinates $\left(x, y, z\right)$ with the reference element $\left(\xi, \eta, \zeta\right)$
+
+\begin{equation}
+    Q_p^{\left(m\right)} \left(x,y,z,t\right) = \hat{Q}_{pl}^{\left(m\right)} \left(t\right) \Psi_l \left(x, y, z\right),
+    \label{eq:mapping}
+\end{equation}
+
+where $\Psi_l\left(x,y,z\right)$ are spatial polynomial basis functions defined on the physical element. We express \ref{eq:mapping} in 
+the frame of the reference element using a suitable coordinate transformation M
+
+\begin{equation}
+     Q_p^{\left(m\right)}\left(x,y,z,t\right) = \hat{Q}_{pl}^{\left(m\right)}\left(t\right) \Psi_l\left(M\left(\xi, \eta, \zeta\right)\right).
+\end{equation}
+
+This formulation allows us to define the polynomial basis functions on the reference element $\Phi_l\left(\xi, \eta, \zeta\right)$.
+As we can compute the integrals in the reference system beforehand, the coordinate transformation makes our implementation more computationally
+efficient. To represent the numerical solution $Q_h$ as a linear combination of pure spatial and pure time dependent functions, we introduce
+the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$. This allows us to express $Q_h$ in each tetrahedron as 
+
+\begin{equation}
+    \left[Q_H^{\left(m\right)}\right]_p \left(\xi, \eta, \zeta, t\right) = \hat{Q}_{pl}^m \left(t\right) \Phi_l \left(\xi, \eta. \zeta\right),
+\label{eq:solution}
+\end{equation}
+
+where $l$ denotes the $l^{th}$ basis function. Multiplying equation \ref{eq:compactform} with the test function $\Psi_k$(~\parencite{cockburn2011discontinuous})
+and integrating over our tetrahedral element $\tau^{\left(m\right)}$ gives
+
+\begin{equation}
+    \int_{\tau^{\left(m\right)}} \Psi_k \frac{\partial Q_p}{\partial t} dV + \int_{\tau^{\left(m\right)}} \Psi_k \left(A_{pq} 
+    \frac{\partial Q_q}{\partial x} + B_{pq}\frac{\partial Q_q}{\partial y} + C_{pq}\frac{\partial Q_q}{\partial z}\right)dV = 0,
+\end{equation}
+
+in the weak form. We add fluxes $F_p^h$ at the boundaries of the tetrahedron to include discontinuities in $Q_h$ and we integrate by parts 
+
+\begin{equation}
+    \int_{\tau^{\left(m\right)}} \Psi_k \frac{\partial Q_p}{\partial t} dV + \int_{\partial \tau^{\left(m\right)}} F_p^h dS
+    - \int_{\tau^{\left(m\right)}} \left(\frac{\partial \Psi_k}{\partial x} A_{pq}Q_q + \frac{\partial \Psi_k}{\partial y}B_{pq}Q_q
+    + \frac{\partial \Psi_k}{\partial z}C_{pq}Q_q\right) dV = 0.
+\label{eq:weakformulation}
+\end{equation}
+
+The flux between the tetrahedron $\tau^{\left(m\right)}$ with the boundary extrapolated numerical solution $\hat{Q}_{sl} \Psi_l^{\left(m\right)}$
+and one of its neighboring tetrahedra $\tau^{\left(m_j\right)} \left(j=1,2,3,4\right)$ is computed in the global, coordinate system using the Jacobian
+matrix $A_{pq}$ from equation \ref{eq:fluxmatrix}
+
+\begin{equation}
+    F_p^h = \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} + \left|A_{qr}^{\left(m\right)}\right|\right)\left(T_{rs}\right)^{-1}
+    \hat{Q}_{sl}^{\left(m\right)} \Psi_l^{\left(m\right)} + \frac{1}{2}T_{pq}\left(A_{qr}^{\left(m\right)} - \left|A_{qr}^{\left(m\right)}\right|\right)
+    \left(T_{rs}\right)^{-1}\hat{Q}_{sl}^{\left(m_j\right)}\Psi_l^{\left(m_j\right)}.
+    \label{eq:fluxcalculation}
+\end{equation}
+
+where
+
+\begin{equation}
+\left|A_{qr}^{\left(m\right)}\right| = R_{qp}^A \left|\Lambda_{ps}\right| \left(R_{sr}\right)^{-1},
+\end{equation}
+    
+where $\Lambda$ is the diagonal matrix with eigenvalues of $A_{pq}$ and $R_{pq}$ with right eigenvectors of $A_{pq}$ stacked in columns.
+The next step would be inserting fluxes from equation \ref{eq:fluxcalculation} and $Q_h$ from equation \ref{eq:solution} into the weak
+formulation in equation \ref{eq:weakformulation}. But as the basis functions $\Phi_l$ are defined in $\left(\xi, \eta, \zeta\right)$, we need
+to transform the resulting equation with the transformation
+
+\begin{equation}
+    dx dx dz = \left|J\right| d\xi d\eta d\zeta,
+\end{equation}
+
+and linear combination of the Jacobians to create transformed Jacobian matrices
+
+\begin{align}
+    \begin{split}
+        A_{pq}^{*} &= A_{pq} \frac{\partial \xi}{\partial x} + B_{pq} \frac{\partial \xi}{\partial y} + C_{pq} \frac{\partial \xi}{\partial z}, \\
+        B_{pq}^{*} &= A_{pq} \frac{\partial \eta}{\partial x} + B_{pq} \frac{\partial \eta}{\partial y} + C_{pq} \frac{\partial \eta}{\partial z}, \\ 
+        C_{pq}^{*} &= A_{pq} \frac{\partial \zeta}{\partial x} + B_{pq} \frac{\partial \zeta}{\partial y} + C_{pq} \frac{\partial \zeta}{\partial z}. 
+    \end{split}
+\end{align}
+
+We finally get the semi-discrete \ac{DG} formulation of the ODE system within the reference tetrahedron $\tau_E$
