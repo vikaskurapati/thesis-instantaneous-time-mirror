@@ -46,7 +46,7 @@ In the context of linear elasticity, the following extension of Hooke's law hold
 
 with the medium specific constants $c_{ijkl}$ being used to generalize Hooke's law in linear elasticity. The Einstein summation convention
 is followed, where an index appearing twice is summed over all possible values. In this context, $\sigma_{ij}$ represents the stress tensor
-and $\epsilon_{kl}$ represnets the strain tensor. Hooke's law expresses that stress tensor components are linear combinations of strain tensor
+and $\epsilon_{kl}$ represents the strain tensor. Hooke's law expresses that stress tensor components are linear combinations of strain tensor
 components. For infinitesimally small perturbations, the strain tensor components $\epsilon_{kl}$ are defined as follows
 
 \begin{align}
@@ -207,7 +207,7 @@ where Einstein summation is used to condense the equation. And the equation of m
 In this section, we will discuss on the fundamental framework of SeisSol, which is the \ac{ADER}-\ac{DG} method. This section is to provide
 a brief understanding about the framework and not to go too much into detail. Interested readers are redirected to ~\parencite{martin}, ~\parencite{Toro2002},~\parencite{dumbser1}, ~\parencite{DUMBSER2005683}, ~\parencite{Toro2001}, ~\parencite{seissol}.
 
-\subsection[DG method]{Discontinuous Galerkin Method}\label{subsection:DG}
+\subsection[Discontinuous Galerkin method]{Discontinuous Galerkin Method}\label{subsection:DG}
 
 We have earlier formulated the elastic wave equation as a system of linear hyperbolic partial differential equataions. ~\parencite{osti_4491151}
 first used the \ac{DG-FE} to solve these kind of problems numerically. ~\parencite{Toro2001} formulated the idea of arbitrary high order generalized
@@ -343,7 +343,7 @@ matrix $A_{pq}$ from equation \ref{eq:fluxmatrix}
 \begin{equation}
     F_p^h = \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} + \left|A_{qr}^{\left(m\right)}\right|\right)\left(T_{rs}\right)^{-1}
     \hat{Q}_{sl}^{\left(m\right)} \Psi_l^{\left(m\right)} + \frac{1}{2}T_{pq}\left(A_{qr}^{\left(m\right)} - \left|A_{qr}^{\left(m\right)}\right|\right)
-    \left(T_{rs}\right)^{-1}\hat{Q}_{sl}^{\left(m_j\right)}\Psi_l^{\left(m_j\right)}.
+    \left(T_{rs}\right)^{-1}\hat{Q}_{sl}^{\left(m_j\right)}\Psi_l^{\left(m_j\right)},
     \label{eq:fluxcalculation}
 \end{equation}
 
@@ -353,7 +353,7 @@ where
 \left|A_{qr}^{\left(m\right)}\right| = R_{qp}^A \left|\Lambda_{ps}\right| \left(R_{sr}\right)^{-1},
 \end{equation}
     
-where $\Lambda$ is the diagonal matrix with eigenvalues of $A_{pq}$ and $R_{pq}$ with right eigenvectors of $A_{pq}$ stacked in columns.
+and $\Lambda$ is the diagonal matrix with eigenvalues of $A_{pq}$ and $R_{pq}$ with right eigenvectors of $A_{pq}$ stacked in columns.
 The next step would be inserting fluxes from equation \ref{eq:fluxcalculation} and $Q_h$ from equation \ref{eq:solution} into the weak
 formulation in equation \ref{eq:weakformulation}. But as the basis functions $\Phi_l$ are defined in $\left(\xi, \eta, \zeta\right)$, we need
 to transform the resulting equation with the transformation
@@ -373,3 +373,87 @@ and linear combination of the Jacobians to create transformed Jacobian matrices
 \end{align}
 
 We finally get the semi-discrete \ac{DG} formulation of the ODE system within the reference tetrahedron $\tau_E$
+
+\begin{align}
+    \begin{split}
+        & \frac{\partial \hat{Q}_{pl}^{\left(m\right)}}{\partial t} \left|J\right| \int_{\tau_E} \Phi_k \Phi_l d\xi d\eta d\zeta \\
+        & + \sum_{j=1}^4 T_{pq}^j \frac{1}{2} \left(A_{qr}^{\left(m\right)} + \left| A_{qr}^{\left(m\right)}\right| \right) \left(T_{rs}^j\right)^{-1} \hat{Q}_{sl}^{\left(m\right)} \left|S_j\right| F_{kl}^{-,j} \\
+        & + \sum_{j=1}^4 T_{pq}^j \frac{1}{2} \left(A_{qr}^{\left(m\right)} - \left| A_{qr}^{\left(m\right)}\right| \right) \left(T_{rs}^j\right)^{-1} \hat{Q}_{sl}^{\left(m_j\right)}\left|S_j\right| F_{kl}^{+,j,i,h} \\ 
+        & - A_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\tau_E} \frac{\partial \Phi_k}{\partial \xi} \Phi_l d\xi d\eta d\zeta
+        - B_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\tau_E} \frac{\partial \Phi_k}{\partial \eta} \Phi_l d\xi d\eta d\zeta
+        - C_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\tau_E} \frac{\partial \Phi_k}{\partial \zeta} \Phi_l d\xi d\eta d\zeta = 0,
+    \end{split}
+    \label{eq:finalform}
+\end{align}
+
+where $\left|S_j\right|$ is the area of the face $j$ of the tetrahedron.
+
+\subsection[ADER Time Discretization]{ADER Time Discretization}
+
+Instead of now utilizing the Runge-Kutta method to derive a limited fourth-order in time Runge-Kutta \ac{DG} scheme, we adopt the 
+\ac{ADER} approach to achieve an arbitrary high-order accuracy in both spatial and temporal dimensions. Runge-Kutta schemes of order
+higher than 4 tend to become inefficient as the number of calculation steps required exceeds the order of accuracy due to the Butcher barriers(~\parencite{butcher1987numerical}). \\
+
+By applying the \ac{ADER} scheme to the \ac{DG} formulation described in equation \ref{eq:finalform}, we obtain the \ac{ADER}-\ac{DG} scheme.
+The crucial step in this approach involves using the Cauchy-Kovalewski procedure to replace time-derivatives with pure space derivatives.
+As a consequence, the Cauchy-Kovalewski procedure provides the $k^{th}$ time-derivative as shown in equation \ref{eq:cauchy-kovalewski} in the face-aligned coordinate system, allowing us to
+achieve higher accuracy without the limitations of tradiational Runge-Kutta schemes
+
+\begin{equation}
+    \frac{\partial^k Q_p}{\partial t^k} = \left(-1\right)^k \left(A_{pq}^* \frac{\partial}{\partial \xi} + B_{pq}^* \frac{\partial}{\partial \eta} + C_{pq}^* \frac{\partial}{\partial \zeta}\right)^k Q_q .
+    \label{eq:cauchy-kovalewski}
+\end{equation}
+
+$Q_p$ can be expanded in a Taylor series with respect to time, and then the time derivatives can be substituted with space derivatives
+using the equation \ref{eq:cauchy-kovalewski}(~\parencite[Sec. 3.2]{dumbser1}). By adopting this approach, we can achieve arbitrary high-order
+accuracy in both spatial and temporal dimensions. As previously mentioned, the \ac{ADER}-\ac{DG} schemes conduct time integration
+within a single time step, considering only the current element and its neighboring elements, making it well-suited for parallelization.
+Moreover, studies have demonstrated that the \ac{ADER}-\ac{DG} method outperforms traditional schemes such as \ac{RK-DG} scheme(~\parencite{dumbser2005ader}).
+
+\subsection{Boundary Conditions}
+Up until now, we have explored the time-discretization and space-discretization aspects of our problem. To complete our numerical
+solver, we must establish suitable boundary conditions for the problem. We mainly have three kinds of boundaries in consideration.
+
+\subsubsection{Absorbing Boundaries}
+With the implementation of absorbing boundary conditions, the physical volume is enclosed by such boundaries in the forward direction.
+This means that no waves enter the computational domain, and any outgoing waves smoothly pass through the boundary without experiencing
+reflection. A careful examination of equation \ref{eq:fluxcalculation} reveals that its first term on the right-hand side corresponds
+to the outflow from the current element, while the second term represents the inflow from neighboring elements. To prevent incoming
+waves from affecting the solution, we set the second term to zero. Consequently, the flux at all absorbing faces of the respective
+tetrahedral elements is then appropriately set to
+
+\begin{equation}
+    F_p^{AbsorbBC} = \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} + \left|A_{qr}^{\left(m\right)}\right|\right) \left(T_{rs}\right)^{-1} \hat{Q}_{sl}^{\left(m\right)} \Phi_l^{\left(m\right)}.
+\end{equation}
+
+\subsubsection{Free-Surface Boundaries}
+At a free-surface boundary, the elastic medium is in contact with the surrounding air or void. In this scenario, there are no external forces
+acting on the outside of the elastic medium. To ensure that normal and shear stresses vanish at the free surface, a technique involving
+ghost cells is employed. These ghost cells are used to mirror the stresses, such that their values have the same magnitude as the actual
+stresses but with the opposite sign. This approach effectively satisfies the condition of stress equilibrium at the free surface, allowing
+for accurate treatment of the boundary. We implement this using the flux function (~\parencite{dumbser1})
+
+\begin{align}
+    \begin{split}
+    F_{p}^{FreeBC} &= \frac{1}{2}T_{pq}\left(A_{qr}^{\left(m\right)} + \left|A_{qr}^{\left(m\right)}\right|\right) \left(T_{rs}\right)^{-1} \hat{Q}_{sl}^{\left(m\right)} \Phi_l^{\left(m\right)}
+    \\ &+ \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} - \left|A_{qr}^{\left(m\right)}\right|\right) \Gamma_{rs} \left(T_{st}\right)^{-1} \hat{Q}_{tl}^{\left(m\right)} \Phi_l^{\left(m\right)} ,
+    \end{split}
+\end{align}
+
+where $\Gamma_{rs} = diag\left(-1,1,1,-1,1,-1,1,1,1\right)$ is the matrix which mirrors the normal and shear stresses.
+
+\subsubsection{Inflow Boundaries}
+At inflow boundaries, the treatment of waves entering the computational domain is necessary. Inspire by Hermann's approach in ~\parencite{hermann2010aderdg},
+we define the incoming wave at each quadrature point $n_{p, inflow}^{\left(m\right)}$ as $u_n \left(\xi, \eta, \zeta, t\right)$ for 
+each component $p$. However, unlike ~\parencite{hermann2010aderdg}, we do not integrate over all Gaussian points. Instead, we define
+a flux $F_{p,n}$ at each individual point. Consequently, the flux at an inflow boudnary can be expressed as
+
+\begin{align}
+    \begin{split}
+        F_{p,n}^{Inflow} = \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} + \left|A_{qr}^{\left(m\right)}\right|\right) \left(T_{rs}\right)^{-1} \hat{Q}_{sl}^{\left(m\right)} \Phi_l^{\left(m\right)} 
+        + \frac{1}{2}\left(A_{qr}^{\left(m\right)} - \left|A_{qr}^{\left(m\right)}\right|\right) \left(T_{rs}\right)^{-1} u_n^{p,Inflow,\left(m\right)} .
+    \end{split}
+\end{align}
+
+Upon comparing this equation to the previously mentioned flux for absorbing boundary conditions, it becomes evident that this flux simularly
+functions as an absorbing boundary, effectively capturing and attenuating outgoing waves.
