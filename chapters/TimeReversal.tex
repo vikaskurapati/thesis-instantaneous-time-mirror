@@ -8,4 +8,39 @@ recorded on $S$, then time-reversed and finally emitted from $S$. \\
 
 Alternatively, time-reversal can be achieved with Cauchy Initial Conditions. In this case, the wavefield and its normal derivative
 are known inside the entire volume but only for a specific time. By using Lohschmidt daemons, the velocity of each particle can be
-instantaneously reversed, resulting in a time-reversed wave. This approach is known as the \ac{ITM}.
+instantaneously reversed, resulting in a time-reversed wave. This approach is known as the \ac{ITM}.\\
+
+This thesis primarily focuses on the \ac{ITM} approach. In this method, a time-reversed wave is generated through a sudden modification of the wave propagation
+properties of the medium(~\parencite{Bacot2016}). The first part of this chapter delves into the theoretical foundation behind the \ac{ITM}, providing a comprehensive
+understanding of its principles. In the latter part of the chapter, we present the implementation of \ac{ITM} within the numerical simulation software SeisSol. The
+description of the implementation is kept as general as possible, allowing for a broad grasp of the method's application and utility.
+
+\section{Theory of Instantaneous Time Mirrors}
+
+Time-reversal methods are based on the time-reversal invariance of wave equations. They rely on the fact that any wave-field can be completely determined within
+a volume by knowing the field(and its normal derivative) on any enclosing surface(~\parencite{Bacot2016}). The Elastic wave equation
+
+\begin{equation}
+    \rho \ddot{\mathbf{U}} \left( \mathbf{x}, t\right) - \left( \lambda + 2 \mu \right) \nabla \left(\nabla \cdot \mathbf{U}\left(\mathbf{x}. t\right)\right) 
+    + \mu \nabla \times \left(\nabla \times \mathbf{U}\left(\mathbf{x},t\right)\right) = \mathbf{S}\left(\mathbf{x},t\right),
+\end{equation}
+
+with the source function $\mathbf{S}\left(\mathbf{x},t\right)$ contains only second order time derivatives. This implies that if $\hat{\mathbf{U}}\left(\mathbf{x},t\right)$
+is a solution, then $\hat{\mathbf{U}}\left(\mathbf{x}, -t\right)$ is also a solution, if $\mathbf{S}$ is symmetric in time. \\
+
+The \ac{ITM} approach is closely connected to the Cauchy theorem, which states that the wave field evolution can be deduced from the knowledge of thie wave field
+and its derivative at one single time, i.e., the initial conditions. By inducing a sudden modification of the wave propagation properties(such as impedance) in the
+medium, a time-reversed wave is generated. This modification, referred to as the \ac{ITM}, does not necessitate the use of antennas or the memory of the entire wave
+field(~\parencite{Bacot2016}). ~\parencite{Bacot2016} demonstrated this on water waves with physical and numerical experiments resulting in successful refocusing of the generated waves into their
+sources' shapes. This was achieved by introducing a temporal slab in the wave velocities like in figure \ref{fig:deltavelocity}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/delta_speed.png}
+    \caption{Rectangular profile for the wave velocity.(Figure taken from Figure 1 in ~\parencite[Supplementary Material]{Bacot2016})}
+    \label{fig:deltavelocity}
+\end{figure}
+
+% \begin{equation}
+%     \frac{{\left(n \cos\left(c_{0} k \mathit{t_{ITM}}\right) \sin\left(c_{0} k n \tau\right) - n^{2} \sin\left(c_{0} \mathit{t_{ITM}}\right) + \cos\left(c_{0} k n \tau\right) \sin\left(c_{0} k \mathit{t_{ITM}}\right) - \sin\left(c_{0} k \mathit{t_{ITM}}\right)\right)} \cos\left(k x\right) - {\left(n^{2} \cos\left(c_{0} \mathit{t_{ITM}}\right) - n \sin\left(c_{0} k n \tau\right) \sin\left(c_{0} k \mathit{t_{ITM}}\right) - n^{2} + \cos\left(c_{0} k n \tau\right) \cos\left(c_{0} k \mathit{t_{ITM}}\right) - \cos\left(c_{0} k \mathit{t_{ITM}}\right)\right)} \sin\left(k x\right)}{c_{0} k n^{2}}
+% \end{equation}
