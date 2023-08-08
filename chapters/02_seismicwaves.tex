@@ -256,7 +256,7 @@ and matrices $B_{pq}, C_{pq}$ are essentially similar with non-zero entries rota
 ~\parencite{dumbser1} for all the three matrices explicitly stated. \\
 
 As we are dealing with unstructured meshes, we divide our computational domain $\Omega \in \mathbb{R}^3$ into tetrahedral elements 
-$\tau^{\left(m\right)}$, with unique indices $m\in\mathbb{N}$. $A_{pq}, B_{pq}, C_{pq}$ are assumed to be piecewise constant
+$\mathcal{T}^{\left(m\right)}$, with unique indices $m\in\mathbb{N}$. $A_{pq}, B_{pq}, C_{pq}$ are assumed to be piecewise constant
 inside each tetrahedron. We now introduce a new coordinate system of $\left(\xi, \eta, \zeta \right)$ with the frame of reference as our tetrahedron as shown 
 in figure \ref{fig:transformation} \\
 
@@ -320,24 +320,24 @@ the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$. This allows us 
 \end{equation}
 
 where $l$ denotes the $l^{th}$ basis function. Multiplying equation \ref{eq:compactform} with the test function $\Psi_k$(~\parencite{cockburn2011discontinuous})
-and integrating over our tetrahedral element $\tau^{\left(m\right)}$ gives
+and integrating over our tetrahedral element $\mathcal{T}^{\left(m\right)}$ gives
 
 \begin{equation}
-    \int_{\tau^{\left(m\right)}} \Psi_k \frac{\partial Q_p}{\partial t} dV + \int_{\tau^{\left(m\right)}} \Psi_k \left(A_{pq} 
+    \int_{\mathcal{T}^{\left(m\right)}} \Psi_k \frac{\partial Q_p}{\partial t} dV + \int_{\mathcal{T}^{\left(m\right)}} \Psi_k \left(A_{pq} 
     \frac{\partial Q_q}{\partial x} + B_{pq}\frac{\partial Q_q}{\partial y} + C_{pq}\frac{\partial Q_q}{\partial z}\right)dV = 0,
 \end{equation}
 
 in the weak form. We add fluxes $F_p^h$ at the boundaries of the tetrahedron to include discontinuities in $Q_h$ and we integrate by parts 
 
 \begin{equation}
-    \int_{\tau^{\left(m\right)}} \Psi_k \frac{\partial Q_p}{\partial t} dV + \int_{\partial \tau^{\left(m\right)}} F_p^h dS
-    - \int_{\tau^{\left(m\right)}} \left(\frac{\partial \Psi_k}{\partial x} A_{pq}Q_q + \frac{\partial \Psi_k}{\partial y}B_{pq}Q_q
+    \int_{\mathcal{T}^{\left(m\right)}} \Psi_k \frac{\partial Q_p}{\partial t} dV + \int_{\partial \mathcal{T}^{\left(m\right)}} F_p^h dS
+    - \int_{\mathcal{T}^{\left(m\right)}} \left(\frac{\partial \Psi_k}{\partial x} A_{pq}Q_q + \frac{\partial \Psi_k}{\partial y}B_{pq}Q_q
     + \frac{\partial \Psi_k}{\partial z}C_{pq}Q_q\right) dV = 0.
 \label{eq:weakformulation}
 \end{equation}
 
-The flux between the tetrahedron $\tau^{\left(m\right)}$ with the boundary extrapolated numerical solution $\hat{Q}_{sl} \Psi_l^{\left(m\right)}$
-and one of its neighboring tetrahedra $\tau^{\left(m_j\right)} \left(j=1,2,3,4\right)$ is computed in the global, coordinate system using the Jacobian
+The flux between the tetrahedron $\mathcal{T}^{\left(m\right)}$ with the boundary extrapolated numerical solution $\hat{Q}_{sl} \Psi_l^{\left(m\right)}$
+and one of its neighboring tetrahedra $\mathcal{T}^{\left(m_j\right)} \left(j=1,2,3,4\right)$ is computed in the global, coordinate system using the Jacobian
 matrix $A_{pq}$ from equation \ref{eq:fluxmatrix}
 
 \begin{equation}
@@ -372,16 +372,16 @@ and linear combination of the Jacobians to create transformed Jacobian matrices
     \end{split}
 \end{align}
 
-We finally get the semi-discrete \ac{DG} formulation of the ODE system within the reference tetrahedron $\tau_E$
+We finally get the semi-discrete \ac{DG} formulation of the ODE system within the reference tetrahedron $\mathcal{T}_E$
 
 \begin{align}
     \begin{split}
-        & \frac{\partial \hat{Q}_{pl}^{\left(m\right)}}{\partial t} \left|J\right| \int_{\tau_E} \Phi_k \Phi_l d\xi d\eta d\zeta \\
+        & \frac{\partial \hat{Q}_{pl}^{\left(m\right)}}{\partial t} \left|J\right| \int_{\mathcal{T}_E} \Phi_k \Phi_l d\xi d\eta d\zeta \\
         & + \sum_{j=1}^4 T_{pq}^j \frac{1}{2} \left(A_{qr}^{\left(m\right)} + \left| A_{qr}^{\left(m\right)}\right| \right) \left(T_{rs}^j\right)^{-1} \hat{Q}_{sl}^{\left(m\right)} \left|S_j\right| F_{kl}^{-,j} \\
         & + \sum_{j=1}^4 T_{pq}^j \frac{1}{2} \left(A_{qr}^{\left(m\right)} - \left| A_{qr}^{\left(m\right)}\right| \right) \left(T_{rs}^j\right)^{-1} \hat{Q}_{sl}^{\left(m_j\right)}\left|S_j\right| F_{kl}^{+,j,i,h} \\ 
-        & - A_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\tau_E} \frac{\partial \Phi_k}{\partial \xi} \Phi_l d\xi d\eta d\zeta
-        - B_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\tau_E} \frac{\partial \Phi_k}{\partial \eta} \Phi_l d\xi d\eta d\zeta
-        - C_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\tau_E} \frac{\partial \Phi_k}{\partial \zeta} \Phi_l d\xi d\eta d\zeta = 0,
+        & - A_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \xi} \Phi_l d\xi d\eta d\zeta
+        - B_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \eta} \Phi_l d\xi d\eta d\zeta
+        - C_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \zeta} \Phi_l d\xi d\eta d\zeta = 0,
     \end{split}
     \label{eq:finalform}
 \end{align}
