@@ -36,7 +36,7 @@ The flux matrix for equation \ref{eq:acoustic} has two eigenvalues:
 
 \begin{align}
     \begin{split}
-        \lambda_1 = -c_0; \lambda_2 = c_0,
+        \lambda_1 = -c_0, \lambda_2 = c_0,
     \end{split}
 \end{align}
 
@@ -47,7 +47,7 @@ where
     \end{split}
 \end{align}
 
-which is the speed of sound in gas. And waves can propagate in either direction with this speed. The eigenvectors for this coefficient matrix come out to be:
+is the speed of sound. Waves can propagate in either direction with this speed. The eigenvectors for this coefficient matrix come out to be
 
 \begin{align}
     \begin{split}
@@ -86,19 +86,24 @@ This defines our initial conditions as
     \label{eq:initialconditions}
 \end{align}
 
-where $k$ is the wave number of the wave. The energy of the system is defined as (~\parencite{Kopriva2021}):
+where $k$ is the wave number of the wave. The energy of the system is defined as (~\parencite{Kopriva2021})
 
-\begin{align}
-    \begin{split}
-     E_1 &= \int_{-\frac{\pi}{k}}^{\frac{\pi}{k}} \left(\frac{1}{2K}p^2 + \frac{1}{2}\rho u^2\right) dx , \\
-     \implies E_1 &= \frac{\pi\rho_0}{k} .
-    \end{split}
+\begin{equation}
+     E_1 = \int_{-\frac{\pi}{k}}^{\frac{\pi}{k}} \left(\frac{1}{2K}p^2 + \frac{1}{2}\rho u^2\right) dx,
     \label{eq:energy}
-\end{align}
+\end{equation}
+
+which simplifies to 
+
+\begin{equation}
+    E_1 = \frac{\pi\rho_0}{k},
+\end{equation}
+
+for phase 1. Energy defined in equation \ref{eq:energy} is conserved for a particular phase as the system of equations are unchanged for every phase (~\parencite{Kopriva2021}). 
 
 \subsection{Impedance Changing \ac{ITM}}\label{section:impedanceconstantITM}
 Using the conditions given in equation \ref{eq:initialconditions}, we calculate the solution at $t_ITM^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
-In this case, we scale the velocities such that the impedance also changes(keeping the density constant). Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as:
+In this case, we scale the velocities such that the impedance also changes while keeping the density constant. Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as:
 
 \begin{align}
     \begin{split}
@@ -107,7 +112,7 @@ In this case, we scale the velocities such that the impedance also changes(keepi
     \end{split}
 \end{align}
 
-We now use these as the initial conditions and equation \ref{eq:solutionacoustic} with the updated wave velocity and constant density to get the evolved solution for $t_{ITM}^- \leq t \leq t_{ITM}^+ $. ~\parencite{sagemath} was used to perform the simplifications for the arithmetic. We obtain the solution for this period as:
+We now use these as the initial conditions and equation \ref{eq:solutionacoustic} with the updated wave velocity and constant density to get the evolved solution for $t_{ITM}^- \leq t \leq t_{ITM}^+ $. We used ~\parencite{sagemath} to perform the arithmetic simplifications. We obtain the solution for this period as:
 
 \begin{align}
     \begin{split}
@@ -118,7 +123,7 @@ We now use these as the initial conditions and equation \ref{eq:solutionacoustic
     \end{split}
 \end{align}
 
-where n is the velocity scaling factor. We now use these expressions to calculate the energy as we have already done in equation \ref{eq:energy}. This gives us the energy in second phase i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be:
+where n is the velocity scaling factor. We now use these expressions to calculate the energy as we have already done in equation \ref{eq:energy}. This gives us the energy in the second phase i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be:
 \begin{equation}
     E_2 = \frac{1}{2}\frac{\left(1 + n^2\right)\pi \rho_0}{kn^2} .
 \end{equation}
@@ -182,7 +187,7 @@ This shows that \ac{ITM} applied causes change in the energy of our system. We c
 The minimum value for this energy jump lies at $n=1$ which means no velocity scaling and no reflections. This case is of no use to us.
 
 \subsection{Constant Impedance \ac{ITM}}
-We know that there is no reflected wave in space interfaces when the impedance stays constant. Here, we test out the same with a time interface i.e., we perform \ac{ITM} such that the velocities scale but the impedance stays constant. This is achieved by scaling the wave speed by $n$ and the density by $\frac{1}{n}$.
+We know that there is no reflected wave in space interfaces when the impedance stays constant(~\parencite[Sec 9.7]{leveque_2002}). Here, we test out the same with a time interface i.e., we perform \ac{ITM} such that the velocities scale but the impedance stays constant. This is achieved by scaling the wave speed by $n$ and the density by $\frac{1}{n}$.
 Similar to section \ref{section:impedanceconstantITM}, we choose the initial conditions as
 
 \begin{align}
@@ -200,7 +205,7 @@ Using these parameters, the energy is once again computed as
 \end{equation}
 
 Using the conditions given in equation \ref{eq:initialconditions2}, we calculate the solution at $t_{ITM}^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
-In this case, we scale the velocities such that the impedance does not change(density is scaled down). Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as
+In this case, we scale the velocities such that the impedance does not change. This is achieved by scaling the density down. Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as
 
 \begin{align}
     \begin{split}
@@ -218,16 +223,12 @@ We now use these as the initial conditions and equation \ref{eq:solutionacoustic
     \end{split}
 \end{align}
 
-where n is the velocity scaling factor. We now use these expressions to calculate the energy as we have already done in equation \ref{eq:energy}. This gives us the energy in second phase i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be:
+where n is the velocity scaling factor. We now use these expressions to calculate the energy as we have already done in equation \ref{eq:energy}. This gives us the energy in the second phase i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be:
 \begin{equation}
     E_2 = \frac{\pi z_{0}}{c_{0} k n} .
 \end{equation}
 
-Two interesting observations that can be made here are that:
-\begin{enumerate}
-    \item There is no extra reflected wave and the wave speed is just increased with a phase shift
-    \item The energy is directly scaled down by the velocity scaling factor
-\end{enumerate}
+We can obverse that there is no extra reflected wave and the wave speed is just increased with a phase shift and that the energy is directly scaled down by the velocity scaling factor. \\
 
 % \begin{figure}
 %     \centering
@@ -242,7 +243,7 @@ Two interesting observations that can be made here are that:
 %     \label{fig:ratio1}
 % \end{figure}
 
-Now the velocity is scaled down again to its original value at $t=t_{ITM}^+$ and defining $\tau = t_{ITM}^+ - t_{ITM}^-$, we do a similar calculation to obtain the solution for the final phase: $t \geq t_{ITM}^+$ and the solution as:
+Now, the velocity is scaled down again to its original value at $t=t_{ITM}^+$ and defining $\tau = t_{ITM}^+ - t_{ITM}^-$, we do a similar calculation to obtain the solution for the final phase: $t \geq t_{ITM}^+$ and the solution as
 
 \begin{align}
     \begin{split}
@@ -251,7 +252,7 @@ Now the velocity is scaled down again to its original value at $t=t_{ITM}^+$ and
     \end{split}
 \end{align}
 
-Using these quantities, we now calculate the energy using the equation \ref{eq:energy}
+Using these quantities, we now calculate the energy using equation \ref{eq:energy}
 \begin{equation}
     E_3 = \frac{\pi Z_0}{c_0 k}
 \end{equation}
