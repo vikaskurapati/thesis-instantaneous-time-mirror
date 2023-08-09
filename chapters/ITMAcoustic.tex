@@ -1,7 +1,7 @@
 % !TeX root = ../main.tex
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
-\chapter{\ac{ITM} on a 1D Acoustic Planar Wave}\label{chapter:ITMAcoustic}
+\section{\ac{ITM} on a 1D Acoustic Planar Wave}\label{section:ITMAcoustic}
 In this chapter, we calculate the analytical solution for a 1D Acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
 For this, we consider a 1D Acoustic Equation [~\parencite[Sec. 2.8]{leveque_2002}] linearized about the motionless state:
 \begin{align}
@@ -96,7 +96,7 @@ where $k$ is the wave number of the wave. The energy of the system is defined as
     \label{eq:energy}
 \end{align}
 
-\section{Impedance Changing \ac{ITM}}\label{section:impedanceconstantITM}
+\subsection{Impedance Changing \ac{ITM}}\label{section:impedanceconstantITM}
 Using the conditions given in equation \ref{eq:initialconditions}, we calculate the solution at $t_ITM^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
 In this case, we scale the velocities such that the impedance also changes(keeping the density constant). Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as:
 
@@ -164,7 +164,7 @@ We observe that this ratio is dependent on the parameters: $k, n, \tau$ and is b
     \frac{\pi \rho_0}{K} \leq E_3 \leq \frac{\pi \rho_0}{2K}\left[n^2 + \frac{1}{n^2}\right]
 \end{equation}
 
-We compare the worst case scenario i.e., what would be the maximum energy increase after the ITM is applied. For that we take the upper bound and plot that function with $n$ as we did before in figure \ref{fig:ratio2}.
+This shows that \ac{ITM} applied causes change in the energy of our system. We compare the worst case scenario i.e., what would be the maximum energy increase after the ITM is applied. For that we take the upper bound and plot that function with $n$ as we did before in figure \ref{fig:ratio2}.
 
 \begin{figure}
     \centering
@@ -181,7 +181,7 @@ We compare the worst case scenario i.e., what would be the maximum energy increa
 
 The minimum value for this energy jump lies at $n=1$ which means no velocity scaling and no reflections. This case is of no use to us.
 
-\section{Constant Impedance \ac{ITM}}
+\subsection{Constant Impedance \ac{ITM}}
 We know that there is no reflected wave in space interfaces when the impedance stays constant. Here, we test out the same with a time interface i.e., we perform \ac{ITM} such that the velocities scale but the impedance stays constant. This is achieved by scaling the wave speed by $n$ and the density by $\frac{1}{n}$.
 Similar to section \ref{section:impedanceconstantITM}, we choose the initial conditions as
 
@@ -199,7 +199,7 @@ Using these parameters, the energy is once again computed as
     E_1 = \frac{\pi Z_0}{c_0 k}
 \end{equation}
 
-Using the conditions given in equation \ref{eq:initialconditions2}, we calculate the solution at $t_ITM^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
+Using the conditions given in equation \ref{eq:initialconditions2}, we calculate the solution at $t_{ITM}^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
 In this case, we scale the velocities such that the impedance does not change(density is scaled down). Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as
 
 \begin{align}
