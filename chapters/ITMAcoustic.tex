@@ -147,7 +147,7 @@ Now the velocity is scaled down again to its original value at $t=t_{ITM}^+$ and
 
 \begin{align}
     \begin{split}
-        p_3\left(x, t\right) & = -\frac{{\frac{1}{4}c_{0}\rho_{0}\left( n^{2} + 1\right)} \cos\left(k x + c_{0} k t - 2 \, c_{0} k \mathit{t_{ITM}^-} - {\left(c_{0} k n + c_{0} k\right)} \tau\right)}{n} \\
+        p_3\left(x, t\right) & = -\frac{{\frac{1}{4}c_{0}\rho_{0}\left( -n^{2} + 1\right)} \cos\left(k x + c_{0} k t - 2 \, c_{0} k \mathit{t_{ITM}^-} - {\left(c_{0} k n + c_{0} k\right)} \tau\right)}{n} \\
         & - \frac{{\frac{1}{4}c_0\rho_0\left(n^{2} - 1\right)} \cos\left(k x + c_{0} k t - 2 \, c_{0} k \mathit{t_{ITM}^-} + {\left(c_{0} k n - c_{0} k\right)} \tau\right)}{n} \\
         & - \frac{{\frac{1}{4}c_0\rho_0\left(n^{2} - 2n + 1\right)} \cos\left(kx -c_{0} k t + {\left(c_{0} k n + c_{0} k\right)} \tau\right)}{n} \\
         & - \frac{{\frac{1}{4}c_0\rho_0\left(-n^{2} - 2n - 1\right)} \cos\left(kx-c_{0} k t - {\left(c_{0} k n - c_{0} k\right)} \tau\right)}{n}, \\
@@ -270,7 +270,7 @@ which is equal to $E_1$. This shows that there is no final energy increase when 
 %     \end{split}
 % \end{align}
 
-\chapter{\ac{ITM} on a 3D Acoustic Planar Wave}\label{chapter:3DITMAcoustic}
+\section{\ac{ITM} on a 3D Acoustic Planar Wave}\label{section:3DITMAcoustic}
 In this chapter, we calculate the analytical solution for a 3D Acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
 
 For this, we consider a 3D Acoustic Equation linearized about the motionless state:
@@ -402,17 +402,58 @@ and the eigenvectors
     \end{split}
 \end{align} .
 
-For the sake of simplicity to verify what happens in the case of ITM, we consider the initial condition to be along one eigenvector(here choosing $r_4$).
-This makes our wave to be of the form 
+For the sake of simplicity, we choose $\left(k_1,k_2,k_3\right) = \left(k,0,0\right)$ inducing our wave to travelling along one of our axis. This makes our eigenvalues and eigenvectors
+
+\begin{align}
+    \begin{split}
+        \omega_1 = -k \sqrt{\frac{K_{0}}{\rho_{0}}},
+        \omega_2 = 0,
+        \omega_3 = 0,
+        \omega_4 = k \sqrt{\frac{K_{0}}{\rho_{0}}},
+    \end{split}
+\end{align}
+
+and our eigenvectors
+
+\begin{align}
+    \begin{split}
+    \mathbf{r_1} = \begin{bmatrix}
+        1 \\
+-\frac{1}{\rho_{0} \sqrt{\frac{K_{0}}{\rho_{0}}}} \\
+0 \\
+0
+        \end{bmatrix},
+        \mathbf{r_2} = \begin{bmatrix}
+            0 \\
+0 \\
+0 \\
+1
+            \end{bmatrix},
+            \mathbf{r_3} = \begin{bmatrix}
+                0 \\
+                0 \\
+                1 \\
+                0
+                \end{bmatrix},
+                \mathbf{r_4} = \begin{bmatrix}
+                    1 \\
+                    \frac{1}{\rho_{0} \sqrt{\frac{K_{0}}{\rho_{0}}}} \\
+                    0 \\
+                    0                    
+                \end{bmatrix},
+    \end{split}
+\end{align} .
+
+We pick an initial condition that enforces that the wave travels in only one direction at $t=0$
 
 \begin{align}
     \begin{split}
         \mathbf{q_1}\left(\mathbf{x}, t\right) = \begin{bmatrix}
             1 \\
-\frac{k_{1}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
-\frac{k_{2}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
-\frac{k_{3}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
-            \end{bmatrix} cos\left(\mathbf{k}\cdot\mathbf{x} - \sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}} t\right) .
+            \frac{1}{\rho_{0} \sqrt{\frac{K_{0}}{\rho_{0}}}} \\
+            0 \\
+            0
+            \end{bmatrix} cos\left(kx - \sqrt{\frac{K_{0}}{\rho_{0}}}t\right) .
     \end{split}
 \end{align}
 It can be verified that this wave form satifies our PDE in equation \ref{eq:3Dacoustic}.
@@ -422,10 +463,10 @@ Now, in phase 2 i.e., when ITM is applied, we get a modified $\mathbf{\hat{A}}$ 
 \begin{align}
     \begin{split}
     \mathbf{\hat{A}_2} = \begin{bmatrix}
-        0 & K_{0} k_{1} n^{2} & K_{0} k_{2} n^{2} & K_{0} k_{3} n^{2} \\
-\frac{k_{1}}{\rho_{0}} & 0 & 0 & 0 \\
-\frac{k_{2}}{\rho_{0}} & 0 & 0 & 0 \\
-\frac{k_{3}}{\rho_{0}} & 0 & 0 & 0
+        0 & K_{0} n^{2} & 0 & 0 \\
+\frac{1}{\rho_{0}} & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
     \end{bmatrix},
     \end{split}
 \end{align}
@@ -434,11 +475,11 @@ with eigenvalues
 
 \begin{align}
     \begin{split}
-    \omega_1^2 = -n \sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}},
+    \omega_1^2 = -n k \sqrt{\frac{K_{0}}{\rho_{0}}},,
     \omega_2^2 = 0,
     \omega_3^2 = 0,
-    \omega_4^2 = n \sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}},
-    \end{split}
+    \omega_4^2 = n k \sqrt{\frac{K_{0}}{\rho_{0}}},
+\end{split}
 \end{align}
 
 and eigenvectors
@@ -447,45 +488,60 @@ and eigenvectors
     \begin{split}
     \mathbf{r_1^2} = \begin{bmatrix}
         1 \\
--\frac{k_{1}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
--\frac{k_{2}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
--\frac{k_{3}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
+-\frac{1}{n \rho_{0} \sqrt{\frac{K_{0}}{\rho_{0}}}} \\
+0 \\
+0
         \end{bmatrix},
         \mathbf{r_2^2} = \begin{bmatrix}
             0 \\
-            1 \\
-            0 \\
-            -\frac{k_{1}}{k_{3}}
+0 \\
+0 \\
+1
             \end{bmatrix},
             \mathbf{r_3^2} = \begin{bmatrix}
                 0 \\
-0 \\
-1 \\
--\frac{k_{2}}{k_{3}}
+                0 \\
+                1 \\
+                0
                 \end{bmatrix},
                 \mathbf{r_4^2} = \begin{bmatrix}
                     1 \\
-                    \frac{k_{1}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
-                    \frac{k_{2}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
-                    \frac{k_{3}}{n \rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
-                    \end{bmatrix},
+                    \frac{1}{n \rho_{0} \sqrt{\frac{K_{0}}{\rho_{0}}}} \\
+                    0 \\
+                    0                    
+                \end{bmatrix},
     \end{split}
 \end{align} .
 
-Now as we expect two waves going in 2 opposite directions, we take weighted sum of the two directional waves and assume an ansatz that in phase 2 i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $, we have the following wave form introducing some phase shift in both the waves:
+At $t = t_{ITM}^-$, we have our solution as 
 
 \begin{align}
     \begin{split}
-        \mathbf{q_2} \left(\mathbf{x}, t\right) = w_1 \mathbf{r_1^2} cos\left(\mathbf{k}\cdot\mathbf{x} -\omega_1^2 t + \phi_1\right) + w_2 \mathbf{r_4^2} cos\left(\mathbf{k}\cdot\mathbf{x} - \omega_4^2 t + \phi_2\right).
-    \end{split}
-    \end{align}
-
-One can verify that this satsfies the PDE by substituting it in the PDE with the modified matrices. Now at $t=t_{ITM}^-$, the solution must be continuos for all space, i.e.,
-
-\begin{align}
-    \begin{split}
-    \mathbf{q_1}\left(\mathbf{x}, t_{ITM}^-\right) = \mathbf{q_2}\left(\mathbf{x}, t_{ITM}^-\right)
+        \mathbf{q}\left(\mathbf{x}, t_{ITM}^-\right) = \begin{bmatrix}
+            1 \\
+            \frac{1}{\rho_{0} \sqrt{\frac{K_{0}}{\rho_{0}}}} \\
+            0 \\
+            0
+            \end{bmatrix} cos\left(kx - \sqrt{\frac{K_{0}}{\rho_{0}}}t_{ITM}^-\right) .
     \end{split}
 \end{align}
 
-Solving for the required coefficients...
+We use this solution as the initial condition for the next phase with the modified PDE. We split this into a linear sum of the eigen vectors of the new flux matrix
+as 
+
+\begin{equation}
+    \mathbf{q}\left(\mathbf{x}, t_{ITM}^-\right) = \alpha_1 \mathbf{r_1^2} + \alpha_2 \mathbf{r_2^2} + \alpha_3 \mathbf{r_3^2} + \alpha_4 \mathbf{r_4^2},
+\end{equation}
+
+with 
+
+\begin{align}
+    \begin{split}
+        \alpha_1 &= \frac{1}{2}cos\left(kx - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) \left(1 - n\right), \\
+        \alpha_2 &= 0, \\
+        \alpha_3 &= 0, \\
+        \alpha_4 &= \frac{1}{2}cos\left(kx - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) \left(1 + n\right) .
+    \end{split}
+\end{align}
+
+% ~\parencite[Sec 18.5]{leveque_2002}

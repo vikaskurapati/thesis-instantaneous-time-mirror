@@ -247,4 +247,79 @@ month = {10}
   school={LMU Munich: Institut für Geowissenschaften},
 }
 
+@phdthesis{breuer,
+  title={High Performance Earthquake Simulations},
+  author={Alexander Nikolas Breuer},
+  year={2015},
+  school={Technische Universität München: Lehrstuhl für Informatik mit Schwerpunkt Wissenschaftliches Rechnen},
+}
 
+@article{dumbser2007arbitrary,
+  title={An arbitrary high-order Discontinuous Galerkin method for elastic waves on unstructured meshes - V. Local time stepping and p-adaptivity},
+  author={Dumbser, Michael and K{\"a}ser, Martin and Toro, Eleuterio F},
+  journal={Geophysical Journal International},
+  year={2007}
+}
+
+@article{castro2009space,
+  title={Space--time adaptive numerical methods for geophysical applications},
+  author={Castro, Manuel and K{\"a}ser, Martin and Toro, Eleuterio F},
+  journal={Philosophical Transactions of the Royal Society of London A: Mathematical, Physical and Engineering Sciences},
+  year={2009}
+}
+
+@inproceedings{rietmann2015loadbalanced,
+  title={Load-Balanced Local Time Stepping for Large-Scale Wave Propagation},
+  author={Rietmann, Markus and Peter, Daniel and Schenk, Olaf and U{\c{c}}ar, Bora and Grote, Marcus},
+  booktitle={Parallel and Distributed Processing Symposium (IPDPS), 2015 IEEE International},
+  organization={IEEE},
+  year={2015}
+}
+
+@article{seny2014efficient,
+  title={An efficient parallel implementation of explicit multirate Runge-Kutta schemes for discontinuous Galerkin computations},
+  author={Seny, Bruno and Lambrechts, Jonathan and Toulorge, Thomas and Legat, Vincent and Remacle, Jean-Fran{\c{c}}ois},
+  journal={Journal of Computational Physics},
+  year={2014}
+}
+
+@article{Gassner2008,
+  title={A Discontinuous Galerkin Scheme based on a Space-Time Expansion II. Viscous Flow Equations in Multi Dimensions},
+  author={Gassner, Gregor and Lörcher, Frank and Munz, Claus-Dieter},
+  journal={Journal of Scientific Computing},
+  year={2008},
+  volume={34},
+  number={3},
+  pages={260--286},
+  month={March},
+  doi={10.1007/s10915-007-9169-1},
+  url={https://doi.org/10.1007/s10915-007-9169-1},
+  issn={1573-7691}
+}
+
+@article{andrew,
+author = {Winters, Andrew and Kopriva, David},
+year = {2014},
+month = {01},
+pages = {},
+title = {High-Order Local Time Stepping on Moving DG Spectral Element Meshes},
+volume = {58},
+journal = {Journal of Scientific Computing},
+doi = {10.1007/s10915-013-9730-z}
+}
+
+@article{SCHLEGEL2009345,
+title = {Multirate Runge–Kutta schemes for advection equations},
+journal = {Journal of Computational and Applied Mathematics},
+volume = {226},
+number = {2},
+pages = {345-357},
+year = {2009},
+note = {Special Issue: Large scale scientific computations},
+issn = {0377-0427},
+doi = {https://doi.org/10.1016/j.cam.2008.08.009},
+url = {https://www.sciencedirect.com/science/article/pii/S0377042708004147},
+author = {Martin Schlegel and Oswald Knoth and Martin Arnold and Ralf Wolke},
+keywords = {Time integration, Runge–Kutta method, Multirate scheme, Flux splitting},
+abstract = {Explicit time integration methods can be employed to simulate a broad spectrum of physical phenomena. The wide range of scales encountered lead to the problem that the fastest cell of the simulation dictates the global time step. Multirate time integration methods can be employed to alter the time step locally so that slower components take longer and fewer time steps, resulting in a moderate to substantial reduction of the computational cost, depending on the scenario to simulate [S. Osher, R. Sanders, Numerical approximations to nonlinear conservation laws with locally varying time and space grids, Math. Comput. 41 (1983) 321–336; H. Tang, G. Warnecke, A class of high resolution schemes for hyperbolic conservation laws and convection-diffusion equations with varying time and pace grids, SIAM J. Sci. Comput. 26 (4) (2005) 1415–1431; E. Constantinescu, A. Sandu, Multirate timestepping methods for hyperbolic conservation laws, SIAM J. Sci. Comput. 33 (3) (2007) 239–278]. In air pollution modeling the advection part is usually integrated explicitly in time, where the time step is constrained by a locally varying Courant–Friedrichs–Lewy (CFL) number. Multirate schemes are a useful tool to decouple different physical regions so that this constraint becomes a local instead of a global restriction. Therefore it is of major interest to apply multirate schemes to the advection equation. We introduce a generic recursive multirate Runge–Kutta scheme that can be easily adapted to an arbitrary number of refinement levels. It preserves the linear invariants of the system and is of third order accuracy when applied to certain explicit Runge–Kutta methods as base method.}
+}
