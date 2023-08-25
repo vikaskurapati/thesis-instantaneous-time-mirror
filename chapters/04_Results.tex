@@ -107,7 +107,7 @@ This makes the velocity of the P-wave to be
 \end{equation}
 
 We choose a computational domain of [-26000,32000] X [-26000,32000] X [0,34000] and a simulation time of $t=10.0$ with \ac{ITM} applied at $t=5.0$ 
-such that the originating waves don't reflect back from the boundaries at the X- and Y- axis ensuring that
+such that the originating waves do not reflect back from the boundaries at the X- and Y- axis ensuring that
 reflections due to \ac{ITM} are clearly noticeable when we take a slice perpendicular to Z- axis. 
 Our velocity impulse source is at [3000,3000,17000] such that it is exactly at the center of the domain. 
 We choose an unstructured mesh with tetrahedral elements with 1391713 elements such that there are more elements near the source to capture the steep gradients like shown in 
@@ -128,6 +128,7 @@ it is applied to. We use the following formulation for the source term
         \dot{S} = \frac{1}{T^2} t e^{-\frac{t}{T}} \\
         S_i = \dot{S} \times C_i ,
     \end{split}
+    \label{eq:source}
 \end{align}
 
 where T is a constant to decide the duration of the source approximately. We choose T=0.1. $i$ is the direction of the source. 
@@ -147,7 +148,7 @@ We choose the source to be in the Z-direction which makes $C_x = 0, C_y = 0, C_z
 \end{figure}
 
 We pick a slice at $Z=20000$ i.e., 3000 away from the source location in Z-direction.
-We visualise the wavefield with velocity in X-direction and the displacement along the X-axis. With this setup and velocity impulse, we see that the velocity in X-direction
+We visualise the wavefield with velocity in X-direction. With this setup and velocity impulse, we see that the velocity in X-direction
 looks like in figure \ref{fig:space-timeplot-acousticnoITM}
 
 \begin{figure}
@@ -184,10 +185,92 @@ location of the wave front from the forward going and reflected waves assuming s
 and has the same speed as the original incident wave in figure \ref{subfig:acousticITMAnnotated}. This confirms that the application of \ac{ITM} produces a reflected wave
 successfully in Acoustic Media. \\
 
-\section{Time-reversal of a velocity impulse point source in an Elastic media}
-We now consider a velocity impulse point source like in Section \ref{sec:acousticITM}
+\section{Time-reversal of a velocity impulse point source in an Elastic media} \label{sec:elasticITM}
+We now consider a velocity impulse point source like in Section \ref{sec:acousticITM}. We choose the material parameters from the half-space of the 
+benchmark case WP2-LOH1~\footnote[1]{https://seissol.readthedocs.io/en/latest/pointsource.html} to make it a homogenous elastic medium. The material parameters 
+are characterized by
+
+\begin{align}
+    \begin{split}
+        \rho &=    2700.0 \\
+        \mu &=     3.23980992e10 \\
+        \lambda &= 3.24038016e10 ,
+    \end{split}
+\end{align}
+
+which makes the velocities of P- and S- waves to be
+
+\begin{align}
+    \begin{split}
+        v_p &= 6000.0 \\
+        v_s &= 3464.0 .
+    \end{split}
+\end{align}
+
+In this case we extend our computational domain even further to [-104000,128000] X [-104000,128000] X [0,136000] and a simulation time of $t=18.0$ with \ac{ITM} applied at $t=9.0$
+such that the originating waves do not reflect back from the boundaries at the X- and Y- axis ensuring that reflections due to the \ac{ITM} are clearly noticeable when we take a slice perpendicular to Z- axis.
+Our velocity impulse source is at [12000,12000,68000] such that it is exactly at the center of the domain.
+We chose to analyse the simulation for a longer time in this scenario as the velocities of P- and S- waves are different and the P- wave travels farther quickly when compared to 
+the S- wave. We choose an unstructured mesh with tetrahedral elements with 12646379 elements similar to the Acoustic Case such that there are more elements near the source
+to capture the steep gradients near the Source. We apply a source which has already been discussed in equation \ref{eq:source} and figure \ref{fig:source}. \\
+
+We pick a slice at $Z = 40000$ and visualise the wavefield with velocity in X-direction and the displacement along the X-axis. With this setup and velocity impulse, 
+we see that the velocity in X-direction looks like in figure \ref{fig:space-timeplot-elasticnoITM}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/noITMElasticvelocity.pdf}
+    \caption{Space Time plot for Waves produced by Velocity Impulse Point Source in Elastic Media}
+    \label{fig:space-timeplot-elasticnoITM}
+\end{figure}
+
+We integrate the obtained velocity field to plot displacement field in X- direction as shown in figure \ref{fig:space-timeplot-elasticnoITMdisplacement}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/noITMElasticdisplacement.pdf}
+    \caption{Space Time plot for Waves produced by Velocity Impulse Point Source in Elastic Media in displacement}
+    \label{fig:space-timeplot-elasticnoITMdisplacement}
+\end{figure}
+
+We can clearly notice two propagating waves as expected as we are dealing with an elastic media now. We notice a static displacement field in between the two waves.
+This is a common phenomenon in displacement fields built with simulation codes in seismic simulations(cite?). 
+We now apply \ac{ITM} on the same setup at $t=9.0$. We notice that the wavefield looks like in figure \ref{fig:space-timeplot-elasticITM}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/Elastic-tworeflections.pdf}
+    \caption{Space Time plot for Waves produced by Velocity Impulse Point Source in Elastic Media with \ac{ITM}}
+    \label{fig:space-timeplot-elasticITM}
+\end{figure}
+
+We notice that there are two clearly reflected waves travelling back to the source. We notice that the faster moving wave i.e., P-wave leaves our slice around 
+$t=13.0$ which is around 4 seconds after the application of \ac{ITM} which is the time it travelled through the slice just before the application of \ac{ITM}. 
+We notice that the slower moving wave i.e., S-wave also has a reflection symmetric about line $t=9.0$. We now plot the displacement plot in x-direction on the 
+slice just like we did in figure \ref{fig:space-timeplot-elasticnoITMdisplacement} in \ref{fig:space-timeplot-elasticITMdisplacement}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/Elastic-tworeflections-displacement.pdf}
+    \caption{Space Time plot for Waves produced by Velocity Impulse Point Source in Elastic Media with \ac{ITM} in displacement}
+    \label{fig:space-timeplot-elasticITMdisplacement}
+\end{figure}
+
+We can clearly see two reflections even in case of displacement wave field too and the static displacements between the two waves persist. But we see extra features
+here in case of displacement wave-field. We obtain extra static displacements in time as vertical streaks which originate from the point where the waves meet the slice
+at \ac{ITM}. These are not yet explained but we suspect they may be explained either by the physical phemonenon or due to the numerical implementation or due to errors
+produced to numerical integration of the velocity wavefields. \\
+
+This shows that both the waves can be reflected simultaneously by scaling the material parameters to change their impedance to obtain a component which 
+is reflected back to its source. \\
 
 \section{Time-reversal of P- wave of a velocity impulse point source in an Elastic media}
-
+We now demonstrate the reflection of just the P- wave by scaling the Lam\'{e} parameter $\lambda$ and keeping the second Lam\'{e} parameter $\mu$ constant.\\
+The same setup is used as in Section \ref{sec:elasticITM} and we try to reflect just the P- wave while letting the S- wave travelled unaffected in time. The slice
+and everything else about the simulation remain the same. The wavefields without \ac{ITM} looks like in figures \ref{fig:space-timeplot-elasticnoITM} and
+\ref{fig:space-timeplot-elasticnoITMdisplacement}
 
 \section{Time-reversal of S-wave of a velocity impulse point source in an Elastic media}
+
+\section{Convergence Test}
+
