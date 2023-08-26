@@ -264,13 +264,83 @@ produced to numerical integration of the velocity wavefields. \\
 This shows that both the waves can be reflected simultaneously by scaling the material parameters to change their impedance to obtain a component which 
 is reflected back to its source. \\
 
-\section{Time-reversal of P- wave of a velocity impulse point source in an Elastic media}
+\section{Time-reversal of P- wave of a velocity impulse point source in an Elastic media} \label{sec:elasticITMpwave}
 We now demonstrate the reflection of just the P- wave by scaling the Lam\'{e} parameter $\lambda$ and keeping the second Lam\'{e} parameter $\mu$ constant.\\
-The same setup is used as in Section \ref{sec:elasticITM} and we try to reflect just the P- wave while letting the S- wave travelled unaffected in time. The slice
+The same setup is used as in Section \ref{sec:elasticITM} and we try to reflect just the P- wave while letting the S- wave travel unaffected in time. The slice
 and everything else about the simulation remain the same. The wavefields without \ac{ITM} looks like in figures \ref{fig:space-timeplot-elasticnoITM} and
 \ref{fig:space-timeplot-elasticnoITMdisplacement}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/pwave-ITM1.pdf}
+    \caption{Reflection of P- wave in Elastic Media with \ac{ITM}}
+    \label{fig:space-timeplot-pwave}
+\end{figure}
+
+After the application of the \ac{ITM}, we see reflections in the wavefield in figure \ref{fig:space-timeplot-pwave}.
+As the reflection in figure \ref{fig:space-timeplot-pwave} is seen but is faint. We plot the same with a different colorbar just to show the reflection in a clearer
+way in figure \ref{fig:space-timeplot-pwave2}
+
+\begin{figure} %% replace pictures. Not clear and being cut
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/pwave-ITM2.pdf}
+    \caption{Reflection of P- wave in Elastic Media with \ac{ITM}}
+    \label{fig:space-timeplot-pwave2}
+\end{figure}
+
+We can clearly see here in this plot that there is a P- wave which is reflected without affecting the S- wave. This provides us a proof of concept where we 
+can reflect one wave by changing its impedance while maintaining the other wave's impedance constant. \\
+
+\begin{figure} %% replace pictures. Not clear and being cut
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/pwave-ITMdisplacement.pdf}
+    \caption{Reflection of P- wave in Elastic Media with \ac{ITM} in displacement}
+    \label{fig:space-timeplot-pwavedisplacement}
+\end{figure}
+
+We plot the displacement wavefield in figure \ref{fig:space-timeplot-pwavedisplacement} and we can see the reflected P- wave in displacement wavefield and the static
+displacement is noticed in this case too just like in the case of reflecting both the waves. 
+
 \section{Time-reversal of S-wave of a velocity impulse point source in an Elastic media}
+Just like in Section \ref{sec:elasticITMpwave}, we now demonstrate the reflection of just the S- wave by modifying the Lam\'{e} parameters such that P-wave does not
+get reflected but the S- wave does. The same setup is used as in section \ref{sec:elasticITM} and we try to reflect just the S- wave while letting the P- wave travel
+unaffected in time. The slice and everything else about the simualtion remain the same. The wavefields without \ac{ITM} looks like in figures in \ref{fig:space-timeplot-elasticnoITM}
+and \ref{fig:space-timeplot-elasticnoITMdisplacement}. \\
+
+After the application of the \ac{ITM}, we see reflections in the wavefield in figure \ref{fig:space-timeplot-swave} showing the zoomed version near the 
+\ac{ITM} so that the reflected part is clearly visible in subfigure \ref{subfig:swavezoomed}.
+
+\begin{figure}
+    \begin{subfigure}[b]{0.49\textwidth}   
+        \centering 
+        \includegraphics[width=\textwidth]{figures/swaveITM1.pdf}
+        \caption{Reflecting S-waves in Elastic media}
+        \label{subfig:swave}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}   
+        \centering 
+        \includegraphics[width=\textwidth]{figures/swaveITM2.pdf}
+        \caption{Zoomed cut section}
+        \label{subfig:swavezoomed}
+    \end{subfigure}
+    \caption{Reflection of S- wave in Elastic Media with \ac{ITM}}
+    \label{fig:space-timeplot-swave}
+\end{figure}
+    
+We plot the displacement wavefield in figure \ref{fig:space-timeplot-swavedisplacement} and we can see the reflected S- wave in displacement 
+wavefield and the static displacement like in previous section persists. We need more investigation into this to make sense of this static displacement.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/swaveITMdisplacement.pdf}
+    \caption{Reflection of S- wave in Elastic Media with \ac{ITM} in displacement}
+    \label{fig:space-timeplot-swavedisplacement}
+\end{figure}
+
+We can clearly see here in this plot that there is a S- wave which is reflected without affecting the P- wave. 
+This provides us a proof of concept where we show that we can reflect one wave by changing its impedance while maintaining the other wave's impedance constant. \\
 
 \section{Convergence Test}
-
+We now perform a convergence test to check for the correctness of our implementation of the \ac{ITM} is convergent with our \ac{ADER}-\ac{DG} scheme. 
+We check the error between our numerical implementation and the analytical solution developed in Section \ref{section:ITMAcoustic}. We use
