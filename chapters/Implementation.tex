@@ -1,20 +1,21 @@
-\section{Implementation}
+\section{Implementation}\label{section:Implementation}
 
 This section outlines the extension incorporated into SeisSol required for the implementation of \ac{ITM}. The implemenetation has been designed in a generic way,
 ensuring that the current code can be easily reused for future experiments. \\
 
-As described in the earlier sections, we need to change the material properties of the medium to induce a time-reversed wave. This is achieved by modifying the Lam\'{e}
-parameters and density from $t_{ITM}^-$ to $t_{ITM}^+$ as per the reflection required. As discussed earlier, we need a change in impedance to ensure that there is a reflected
-component of the waves(~\parencite[Sec 9.8]{leveque_2002}). So, we show the different ways of achieving this change in impedance. \\
+In order to create a time-reversed wave, the material properties of the medium must be altered as described in the previous sections. This can be accomplished via
+modifications to the Lam\'{e} parameters and density from $t_{ITM}^-$ to $t_{ITM}^+$ that correspond with the intended reflection. As previously discussed, an alteration
+to the impedance is required to guarantee the presence of a reflected wave component ~\parencite[Sec 9.8]{leveque_2002}. Consequently, we will present various techniques
+for achieving this impedance change. \\
 
 \subsection{Reflecting both P- and S- waves by changing their velocities}
 
-The first approach is to change the velocities of both P- and S- waves. This is achieved by changing the Lam\'{e} parameters $\lambda$ and $\mu$ as per the following equations from $t_{ITM}^-$ to $t_{ITM}^+$
+The first approach is to change the velocities of both P- and S- waves. This can ne accomplished by modifying the Lam\'{e} parameters $\lambda$ and $\mu$ and the density $\rho$ from $t_{ITM}^-$ to $t_{ITM}^+$ as
 
 \begin{align}
     \begin{split}
-        \hat{\lambda} &= n^2 \lambda \\
-        \hat{\mu} &= n^2 \mu \\
+        \hat{\lambda} &= n^2 \lambda , \\
+        \hat{\mu} &= n^2 \mu ,\\
         \hat{\rho} &= \rho .
     \end{split}
 \end{align}
@@ -23,9 +24,9 @@ This changes the velocities and impedances of both the waves during the duration
 
 \begin{align}
     \begin{split}
-        \hat{v}_p &= n v_p \\
-        \hat{v}_s &= n v_s \\
-        \hat{Z}_p &= n Z_p \\
+        \hat{v}_p &= n v_p ,\\
+        \hat{v}_s &= n v_s ,\\
+        \hat{Z}_p &= n Z_p ,\\
         \hat{Z}_s &= n Z_s .
     \end{split}
 \end{align}
@@ -35,8 +36,8 @@ Here, we keep the velocities of both P- and S- waves constant but yet change the
 
 \begin{align}
     \begin{split}
-        \hat{\lambda} &= n \lambda\\
-        \hat{\mu} &= n \mu\\
+        \hat{\lambda} &= n \lambda ,\\
+        \hat{\mu} &= n \mu ,\\
         \hat{\rho} &= \frac{\rho} {n} .
     \end{split}
 \end{align}
@@ -45,9 +46,9 @@ This changes the impedances of both the waves during the duration of the \ac{ITM
 
 \begin{align}
     \begin{split}
-        \hat{v}_p &= v_p \\
-        \hat{v}_s &= v_s \\
-        \hat{Z}_p &= n Z_p \\
+        \hat{v}_p &= v_p ,\\
+        \hat{v}_s &= v_s ,\\
+        \hat{Z}_p &= n Z_p ,\\
         \hat{Z}_s &= n Z_s .
     \end{split}
 \end{align}
@@ -58,8 +59,8 @@ This is achieved by changing the Lam\'{e} parameter $\lambda$ and keeping $\mu$ 
 
 \begin{align}
     \begin{split}
-        \hat{\lambda} &= n \lambda \\
-        \hat{\mu} &= \mu \\
+        \hat{\lambda} &= n \lambda ,\\
+        \hat{\mu} &= \mu ,\\
         \hat{\rho} &= \rho .
     \end{split}
 \end{align}
@@ -68,25 +69,25 @@ The scaling of velocities and impedances of the P- wave in this case are not str
 
 \begin{align}
     \begin{split}
-        \hat{v}_p = \sqrt{\frac{\hat{\lambda} + 2 \mu}{\rho}} \\
-        \hat{Z}_p = \sqrt{\rho\left(\hat{\lambda} + 2 \mu \right)} \\
-        \hat{v}_s = v_s \\
+        \hat{v}_p = \sqrt{\frac{\hat{\lambda} + 2 \mu}{\rho}} ,\\
+        \hat{Z}_p = \sqrt{\rho\left(\hat{\lambda} + 2 \mu \right)} ,\\
+        \hat{v}_s = v_s ,\\
         \hat{Z}_s = Z_s . 
     \end{split}
 \end{align}
 
-Even though the scaling is not clear and straightforward with a direct relation with the earlier cases, we can still see that the impedance of the P- wave is different during the \ac{ITM}
+Even though the scaling is not clear with a direct relation with the earlier cases, we can still see that the impedance of the P- wave is different during the \ac{ITM}, 
 which ensures that there is a reflected component for that wave keeping the S-wave unaffected. \\
 
 \subsection{Reflecting only S- waves}
 
-The reflection of S-waves by ensuring there is no reflection in P-waves is the trickiest part. There is no one correct way to do this but the one that worked for us
-the best is the follows
+Ensuring that the impedance of S- waves changes while not affecting the P-waves' impedance is essential for reflecting only S- waves. This is thr trickiest
+reflection we try to achieve. The solution to this is not unique but the one that worked for us the best is the follows
 
 \begin{align}
     \begin{split}
-        \hat{\lambda} &= \frac{\lambda + 2 \mu}{n} -  2n \mu\\
-        \hat{\mu} &= n \mu \\
+        \hat{\lambda} &= \frac{\lambda + 2 \mu}{n} -  2n \mu ,\\
+        \hat{\mu} &= n \mu ,\\
         \hat{\rho} &= n \rho .
     \end{split}
 \end{align}
@@ -95,9 +96,9 @@ The scaling of velocities and impedances of both the waves in this case are
 
 \begin{align}
     \begin{split}
-        \hat{v}_p = \frac{v_p}{n} \\
-        \hat{Z}_p = Z_p \\
-        \hat{v}_s = v_s \\
+        \hat{v}_p = \frac{v_p}{n} ,\\
+        \hat{Z}_p = Z_p ,\\
+        \hat{v}_s = v_s ,\\
         \hat{Z}_s = n Z_s .
     \end{split}
 \end{align}
@@ -105,7 +106,7 @@ The scaling of velocities and impedances of both the waves in this case are
 This case is a demonstration where the speed of the wave can change and yet, there will be no reflection of the wave in time when the impedance is constant.
 Similarly, for the S-wave, even though there is no change in the wave speed, the change of impedance causes the reflection of the wave in time. \\
 
-\subsection{Time Step}
+\subsection{Time Step Size}
 \ac{CFL} condition is generally used to limit the maximum time step an element might have for explicit time integration schemes. These are influenced by the order
 of convergence, occuring wave speeds and size of the considered element. \\
 
@@ -141,8 +142,11 @@ So, the time step for the clusters are not scaled and kept the same in this scen
 
 \subsubsection{Reflecting only the S- wave}
 Here, we need to scale up the time step by the factor $n$ as the velocity of the P- wave is scaled down by the factor $n$ to ensure that the simulation still follows
-\ac{CFL} condition in case of a scaling factor less than 1 i.e., $n < 1$. So, the time step for the cluster $i$ is scaled as
+\ac{CFL} condition in case of a scaling factor less than 1, i.e., $n < 1$. So, the time step for the cluster $i$ is scaled as
 
 \begin{equation}
-    \hat{dt}_i = n dt_i .
+    \hat{dt}_i = n \, dt_i .
 \end{equation}
+
+In this section, we present various material modification techniques that were utilized during the \ac{ITM} phase to attain the desired reflection. We also outline
+the necessary adjustments to the time step size to ensure that the \ac{CFL} condition is satisfied, in turn maintaining the stability of the simulation. \\

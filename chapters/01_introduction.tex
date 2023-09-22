@@ -3,44 +3,51 @@
 
 \chapter{Introduction}\label{chapter:introduction}
 
-Studying Seissmic phenoma provides both insights and possible methods to mitigate economic impacts and result in significant decrease of human casualities.
-Therefore, studying seismic phenomena can provide valuable insights into identifying areas that are more susceptible and taking preventive measures. \\
+Studying seismic phenomena provides valuable insights and potential techniques for identifying areas that more susceptible to earthquakes, mitigating economic impacts, 
+and reducing casualities. \\
 
-The field of earthquake simulation has seen significant advancements in recent years, thanks to the availability of powerful supercomputers.
-With these resources, it has become possible to model realistic 3D earthquake/tsunami events on a large scale, something that was not feasible until a few decades ago. 
-Todays simulation software relies heavily on numerical methods to approximate the real life physics. In this process, the volume of the problem is discretized into smaller elements, and numerical solvers are employed in each element to obstain a solution.
-A few examples out of these wide range of numerical methods used to solve wave equations are finite differences, finite volumes, finite elements etc. These numerical methods have played a crucial role in advancing the field of earthquake simulation and are continuously being improved to produce more accurate and efficient simulations. \\
+The field of earthquake simulation has seen significant advancements in recent years, thanks to the availability of powerful supercomputers ~\parencite{inproceedings}, ~\parencite{breuer}, ~\parencite{seissol}.
+With these resources, it has become possible to model realistic 3D earthquake events on a large scale, something that was not feasible until a few decades ago. 
+Todays simulation software relies heavily on numerical methods to approximate real life physics. In this process, the volume of the problem is discretized into smaller elements, and numerical solvers are employed in each element to obstain a solution.
+A few examples out of these wide range of numerical methods used to solve wave equations are finite differences, finite volumes, finite elements. These numerical methods have played a crucial role in advancing the field of earthquake simulation and are continuously being improved to produce more accurate and efficient simulations. \\
 
-SeisSol ~\footnote[1]{https://seissol.org/} is a scientific software that enables the simulation of seismic waves and earthquake phenomena. However, modeling complex 3D geometries can be computationally intensive for modeling complex 3D geometries.
-To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. The software allows for the study of various scenarios, including adjusting material properties to exhibit elastic, viscoelastic and viscoplastic behaviour.
+SeisSol~\footnote{\href{https://seissol.org}{https://seissol.org}} is a scientific software that enables the simulation of seismic waves and earthquake phenomena. 
+However, modeling complex 3D geometries is computationally intensive for modeling complex 3D geometries.
+To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. 
+The software allows for the study of various scenarios, including adjusting material properties to exhibit elastic, viscoelastic and viscoplastic behaviour.
 SeisSol utilizes a combination of \ac{DG} method and \ac{ADER} time-integration approach to solve the problems.
-This combination is called \ac{ADER}-\ac{DG} approach ~\parencite{dumbser}. Dumbser et al. extended this approach to solve the elastic wave equations in three dimensions ~\parencite{dumbser1}. The \ac{ADER}-\ac{DG} approach provides arbitrary high-order accuracy in both space and time, with the solution in each element approximated by polynomials.
+This combination is called \ac{ADER}-\ac{DG} approach ~\parencite{dumbser}. Dumbser et al. extended this approach to solve the elastic wave equations in three dimensions ~\parencite{dumbser1}. The \ac{ADER}-\ac{DG} approach provides arbitrary high-order accuracy in space and time, with the solution in each element approximated by polynomials.
 The degrees of freedom are expressed through the coefficients of the polynomial, which are advanced in time during simulation, allowing for discontinuities across element boundaries ~\parencite{martin}. \\
 
-In this thesis, we utilize SeisSol to implement Wave Reversal of Seismic waves using the \ac{ITM}. 
-The work by Fink et al. describes two techniques for wave reversal, the time-reversal mirror approach and the instantaneous time mirror mimicking Loschmidt for waves ~\parencite{Fink2017}. 
+In this thesis, we extend SeisSol with the implementation of Wave Reversal of Seismic waves using the \acf{ITM}. 
+Time-reversal techniques have been researched in the field of acoustic media, primarily in order to focus the wave below
+the diffraction limit ~\parencite{67072}. This methodology may be applied, for instance, to improve the detection of gallstones within the human body ~\parencite{10.1063/1.881692}. 
+In the context of seismic waves, time-reversal methods may be employed to investigate the source and origin of the seismic waves.
+The work by ~\parencite{Fink2017} describes two techniques for wave reversal, the time-reversal mirror approach and the instantaneous time mirror 
+mimicking Loschmidt~\footnote{\href{https://en.wikipedia.org/wiki/Loschmidt\%27s_paradox}{Loschmidt's Paradox}}~\parencite{wu1975}, ~\parencite{binder2023}, ~\parencite{loschmidt} point of view
+ for waves. 
 While both techniques generate time-reversed waves, we specifically focus on the second approach. 
-This method involves manipulating waves on time boundaries by sudden modifications of the wave speed in the whole medium, effectively mimicking the Loschmidt point of view. 
-This approach is very efficient for radiating time-reversed waves without the use of any antenna. 
-The first approach, which utilizes "time-reversal mirrors" with wave manipulation along a spatial boundary sampled by a finite number of antennas, has numerous applications in telecommunication, imaging, therapy, and defense.
-Bacot et. al ~\parencite{Bacot2016} have experimentally demonstrated the instantaneous time mirrors on surface waves on water by manipulating the wave speed for a period of time using a vertical jolt.
+This method involves manipulating waves on time boundaries by sudden modifications of the wave properties like wave speed in the whole medium, 
+effectively mimicking the Loschmidt point of view. 
+This approach is very efficient for radiating time-reversed waves without the use of any antennas or receivers. 
+The first approach, which utilizes "time-reversal mirrors" with wave manipulation along a spatial boundary sampled by a finite number of antennas, has numerous applications in telecommunication, imaging, therapy, and defense ~\parencite{Fink2017}. 
+~\parencite{Bacot2016} have experimentally demonstrated the instantaneous time mirrors on surface waves on water by manipulating the wave speed for a period of time using a vertical jolt.
 This is shown to refocus the waves at the source position before diverging again.\\
 
-To achieve \ac{ITM}s in a simulation environment, we modify the velocities of waves for a short period of time $t_{ITM} - \tau$ to $t_{ITM} + \tau$ by manipulating 
+To achieve \ac{ITM}s in a simulation environment, we modify the velocities of waves for a short period of time $t_{ITM}$ to $t_{ITM} + \tau$ by manipulating 
 the material properties $\lambda, \mu, \rho$. As the velocities of waves depend on these three properties, this manipulation is 
-sufficient to modify wave velocities and achieve wave reversal using \ac{ITM}s. This approach provides a novel method to determine 
-the epicenter of an earthquake, replacing the common triangulation approach with signals from multiple seismographs.
+sufficient to modify wave velocities and achieve wave reversal using \ac{ITM}s.
 
 It is important to note that the time-reversal presented here, in its simplest form, may not be directly useful in experimental 
 investigations, as we cannot directly modify the material properties. However, it does provide an approach to approximately 
 locate the source of an earthquake when successfully reversed. \\
 
-The current thesis is organized as follows: Chapter 2 focuses on the fundamental theory of elastic wave propagation and the presentation
+The thesis is organized as follows: Chapter \ref{chapter:seismicwaves} focuses on the fundamental theory of elastic wave propagation and the presentation
 of the numerical \ac{ADER}-\ac{DG} scheme as used in SeisSol. The equation of motion in elastic media is derived, and the wave equation is presented
-in the velocity-stress formulation. Chapter 3 describes the theory related to time-reversal, briefly goes through the wave reversal approach,
-and then goes through the concept behind the \ac{ITM}s in more detail. Chapter 4 describes the method and implementation details of \ac{ITM}s
-in SeisSol. Chapter 5 discusses the different parametric studies and results obtained in the process. Finally, the findings are discussed,
-and an outlook to possible future research directions are provided in Chapter 6. 
+in the velocity-stress formulation. Chapter \ref{chapter:TimeReversal} outlines the theory of time-reversal, briefly discussing the wave reversal approach before
+delving into a more detailed explanation of the \ac{ITM}s concept. Section \ref{section:Implementation} describes the method and implementation details of \ac{ITM}s
+in SeisSol. Chapter \ref{chapter:Results} discusses the different parametric studies and results obtained in the process. Finally, we discuss the results
+and possible future research directions in Chapter \ref{chapter:Conclusion}. 
 
 %See~\autoref{tab:sample}, \autoref{fig:sample-drawing}, \autoref{fig:sample-plot}, \autoref{fig:sample-listing}.
 % 

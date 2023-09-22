@@ -1,25 +1,25 @@
-\chapter{Time Reversal}
+\chapter{Time Reversal}\label{chapter:TimeReversal}
 
-Time-reversal methods involve mirroring the propagation of waves in time, aiming to converge the resulting wave back to its source.
-There are primarily two ways to achive time-reversal(~\parencite{Fink2017}). The first method involves \ac{TRM}s, which rely on 
-Cauchy Boundary Conditions. If the wavefield and its normal derivative are known at the entire surface $S$ surrounding the volume
+Time-reversal methods involve mirroring the propagation of waves in time, aiming to converge the resulting wave back to its source.~\parencite{Fink2017} mentions two ways to achieve time-reversal.
+The first method involves \ac{TRM}s, which rely on 
+Cauchy boundary conditions. If the wavefield and its normal derivative are known at the entire surface $S$ surrounding the volume
 $V$ at all times $t$, the wavefield inside the entire volume can be computed. In this approach, the outgoing wave is initially 
 recorded on $S$, then time-reversed and finally emitted from $S$. \\
 
-Alternatively, time-reversal can be achieved with Cauchy Initial Conditions. In this case, the wavefield and its normal derivative
-are known inside the entire volume but only for a specific time. By using Lohschmidt daemons, the velocity of each particle can be
+Alternatively, time-reversal can be achieved with Cauchy initial conditions. In this case, the wavefield and its normal derivative
+are known inside the entire volume but only for a specific time. By using Loschmidt's demons ~\parencite{Weinert2016}, ~\parencite{Fink2017} the velocity of each particle can be
 instantaneously reversed, resulting in a time-reversed wave. This approach is known as the \ac{ITM}.\\
 
-This thesis primarily focuses on the \ac{ITM} approach. In this method, a time-reversed wave is generated through a sudden modification of the wave propagation
-properties of the medium(~\parencite{Bacot2016}). The first part of this chapter delves into the theoretical foundation behind the \ac{ITM}, providing a comprehensive
+This thesis primarily focuses on the \ac{ITM} approach for seismic waves. In this method, a time-reversed wave is generated through a sudden modification of the wave propagation
+properties of the medium~\parencite{Bacot2016}. Section \ref{section:ITMTheory} delves into the theoretical foundation behind the \ac{ITM}, providing a comprehensive
 understanding of its principles. In the latter part of the chapter, we present the implementation of \ac{ITM} within the numerical simulation software SeisSol. The
 description of the implementation is kept as general as possible, allowing for a broad grasp of the method's application and utility.
 
-\section{Theory of Instantaneous Time Mirrors}
+\section{Theory of Instantaneous Time Mirrors}\label{section:ITMTheory}
 
-Time-reversal methods are based on the time-reversal invariance of wave equations. They rely on the fact that any wave-field can be completely determined within
-a volume by knowing the field(and its normal derivative) on any enclosing surface(~\parencite{Bacot2016}). The Elastic wave equation
-
+Time-reversal methods for waves are based on the time-reversal invariance of wave equations. They rely on the fact that any wave-field can be completely determined within
+a volume by knowing the field(and its normal derivative) on any enclosing surface~\parencite{Bacot2016}. We write the elastic wave equation in its second order vector form
+~\parencite[Cha. 2]{aki2002quantitative} as
 \begin{equation}
     \rho \ddot{\mathbf{U}} \left( \mathbf{x}, t\right) - \left( \lambda + 2 \mu \right) \nabla \left(\nabla \cdot \mathbf{U}\left(\mathbf{x}. t\right)\right) 
     + \mu \nabla \times \left(\nabla \times \mathbf{U}\left(\mathbf{x},t\right)\right) = \mathbf{S}\left(\mathbf{x},t\right),
@@ -30,8 +30,8 @@ is a solution, then $\hat{\mathbf{U}}\left(\mathbf{x}, -t\right)$ is also a solu
 
 The \ac{ITM} approach is closely connected to the Cauchy theorem, which states that the wave field evolution can be deduced from the knowledge of thie wave field
 and its derivative at one single time, i.e., the initial conditions. By inducing a sudden modification of the wave propagation properties(such as impedance) in the
-medium, a time-reversed wave is generated. This modification, referred to as the \ac{ITM}, does not necessitate the use of antennas or the memory of the entire wave
-field(~\parencite{Bacot2016}). ~\parencite{Bacot2016} demonstrated this on water waves with physical and numerical experiments resulting in successful refocusing of the generated waves into their
+medium, a time-reversed wave is generated. This modification, referred to as the \ac{ITM}, does not require the use of antennas or the entire wave field's memory~\parencite{Bacot2016}.
+~\parencite{Bacot2016} demonstrated this for water waves with physical and numerical experiments resulting in successful refocusing of the generated waves into their
 sources' shapes. This was achieved by introducing a temporal slab in the wave velocities like in figure \ref{fig:deltavelocity}
 
 \begin{figure}
@@ -41,8 +41,7 @@ sources' shapes. This was achieved by introducing a temporal slab in the wave ve
     \label{fig:deltavelocity}
 \end{figure}
 
-In the context of elastic waves, as we have seen in equations \ref{eq:vectorequation} and \ref{eq:wavevelocities}, we have two waves involved. 
-~\parencite[Sec 9.6-Sec 9.8]{leveque_2002} shows that in case of spacial material interfaces, a discontinuity in the quantity called Impedance $Z = \rho * v$
+In the context of elastic waves, as we have seen in equations \ref{eq:setofequations} and \ref{eq:wavevelocities}, there are two propagating waves, i.e., P- and S- waves. 
+~\parencite[Sec 9.6-Sec 9.8]{leveque_2002} shows that in case of spacial material interfaces, a discontinuity in the quantity called Impedance $Z = \rho v$
 causes reflections across the material interface. ~\parencite[Eq. 1.66 and 1.180]{kaufman} show that impedances of P- and S- waves are defined analogously as
-$Z_p = \rho * v_p$ and $Z_s = \rho * v_s$. We demonstrate the effect of a sudden change in impedance in time in a simple 1D Acoustic Wave equation in section \ref{section:ITMAcoustic}
-
+$Z_p = \rho v_p$ and $Z_s = \rho v_s$.
