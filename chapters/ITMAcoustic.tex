@@ -104,7 +104,7 @@ which simplifies to
 
 for phase 1. Energy defined in equation \ref{eq:energy} is conserved for a particular phase as the system of equations are conservative for every phase ~\parencite{Kopriva2021}. 
 
-\subsection{Impedance Changing \ac{ITM}}\label{section:impedanceconstantITM}
+\subsection{Impedance Changing \ac{ITM}}\label{section:impedancechangingITM}
 Using the conditions given by equation \ref{eq:initialconditions}, we calculate the solution at $t_{ITM}^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
 In this case, we scale the velocities such that the impedance also changes while keeping the density constant. Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as
 
@@ -195,7 +195,7 @@ or relevance to our objective.
 
 \subsection{Constant Impedance \ac{ITM}}
 We know that there is no reflected wave in space interfaces when the impedance stays constant~\parencite[Sec 9.7]{leveque_2002}. Here, we test out the same with a time interface i.e., we perform \ac{ITM} such that the velocities scale but the impedance stays constant. This is achieved by scaling the wave speed by $n$ and the density by $\frac{1}{n}$.
-Similar to section \ref{section:impedanceconstantITM}, we choose the initial conditions as
+Similar to section \ref{section:impedancechangingITM}, we choose the initial conditions as
 
 \begin{align}
     \begin{split}
@@ -534,24 +534,104 @@ At $t = t_{ITM}^-$, we have our solution as
             0
             \end{bmatrix} cos\left(kx - \sqrt{\frac{K_{0}}{\rho_{0}}}t_{ITM}^-\right) .
     \end{split}
+    \label{eq:initphase2}
 \end{align}
 
 We use this solution as the initial condition for the next phase with the modified PDE. We split this into a linear sum of the eigenvectors of the new flux matrix
 as 
 
 \begin{equation}
-    \mathbf{q}\left(\mathbf{x}, t_{ITM}^-\right) = \alpha_1 \mathbf{r_1^2} + \alpha_2 \mathbf{r_2^2} + \alpha_3 \mathbf{r_3^2} + \alpha_4 \mathbf{r_4^2},
+    \mathbf{q_1}\left(\mathbf{x}, t_{ITM}^-\right) = \alpha_1^2 \mathbf{r_1^2} + \alpha_2^2 \mathbf{r_2^2} + \alpha_3^2 \mathbf{r_3^2} + \alpha_4^2 \mathbf{r_4^2},
+    \label{eq:linearsum}
 \end{equation}
 
 with 
 
 \begin{align}
     \begin{split}
-        \alpha_1 &= \frac{1}{2}cos\left(kx - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) \left(1 - n\right), \\
-        \alpha_2 &= 0, \\
-        \alpha_3 &= 0, \\
-        \alpha_4 &= \frac{1}{2}cos\left(kx - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) \left(1 + n\right) .
+        \alpha_1^2 &= \frac{1}{2}cos\left(kx - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) \left(1 - n\right), \\
+        \alpha_2^2 &= 0, \\
+        \alpha_3^2 &= 0, \\
+        \alpha_4^2 &= \frac{1}{2}cos\left(kx - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) \left(1 + n\right) .
     \end{split}
 \end{align}
 
-% ~\parencite[Sec 18.5]{leveque_2002}
+~\parencite[Sec 18.5]{leveque_2002} states that the solution for a linear hyperbolic system with an eigenvector $\mathbf{\hat{q}}$ and an initial condition $\mathbf{q_0} = \mathbf{\hat{q}} \, f\left(\mathbf{n} \cdot \mathbf{x}\right)$
+and eigenvalue s of the system would be $q\left(\mathbf{x}, t\right) = \mathbf{\hat{q}} \, f\left( \mathbf{n} \cdot \mathbf{x} - s t\right)$. 
+Using initial conditions from equation \ref{eq:initphase2} and the linear combindation of the eigenvectors, we get the solution for the second phase as
+
+\begin{align}
+    \begin{split}
+        \mathbf{q_2}\left(\mathbf{x}, t\right) &= 
+        \frac{1}{2} \begin{bmatrix}
+            1 \\
+            -\frac{1}{nZ_0} \\
+            0 \\
+            0
+        \end{bmatrix} \left(1 - n\right) cos\left(kx +nk \sqrt{\frac{K_0}{\rho_0}} \left(t - t_{ITM}^-\right) - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) \\ 
+        &+ \frac{1}{2} 
+        \begin{bmatrix}
+            1 \\
+            \frac{1}{nZ_0} \\
+            0 \\
+            0
+        \end{bmatrix} \left(1 + n\right) cos\left(kx - nk \sqrt{\frac{K_0}{\rho_0}} \left(t - t_{ITM}^-\right) - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) .
+    \end{split}
+\end{align}
+
+We define the duration of \ac{ITM} as $\tau = t_{ITM}^+ - t_{ITM}^-$, this makes the initial conditions for our final phase as
+
+\begin{align}
+    \begin{split}
+        \mathbf{q_2}\left(\mathbf{x}, t_{ITM}^+\right) &= 
+        \frac{1}{2} \begin{bmatrix}
+            1 \\
+            -\frac{1}{nZ_0} \\
+            0 \\
+            0
+        \end{bmatrix} \left(1 - n\right) cos\left(kx +nk \sqrt{\frac{K_0}{\rho_0}} \tau - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) \\ 
+        &+ \frac{1}{2} 
+        \begin{bmatrix}
+            1 \\
+            \frac{1}{nZ_0} \\
+            0 \\
+            0
+        \end{bmatrix} \left(1 + n\right) cos\left(kx - nk \sqrt{\frac{K_0}{\rho_0}} \tau - k \sqrt{\frac{K_0}{\rho_0}} t_{ITM}^-\right) .
+    \end{split}
+    \label{eq:initphase3}
+\end{align}
+
+We have the flux matrix, eigenvalues and eigenvectors for the final phase as the same as the initial phase. We use the initial conditions in equation \ref{eq:initphase3}
+and split the initial conditions into a linear sum of the eigenvectors of the flux matrix similar to what we have done in equation \ref{eq:linearsum}. 
+We get the new coefficients for this phase after defining $c_0 = sqrt{\frac{K_0}{\rho_0}} $as
+
+\begin{align}
+    \begin{split}
+        \frac{2n}{n^2 - 1} \alpha_1^3\left(kx\right) &=  {\cos\left(k x\right) \sin\left(k n \tau c_0\right) \sin\left(k \mathit{t_{ITM}^-} c_0\right) - \cos\left(k \mathit{t_{ITM}^-} c_0\right) \sin\left(k n \tau c_0\right) \sin\left(k x\right)}, \\
+        \alpha_2^3 &= 0, \\
+        \alpha_3^3 &= 0, \\
+        {2n} \alpha_4^3 \left(kx\right) &= {\left(2 \, n \cos\left(k n \tau c_0\right) \cos\left(k \mathit{t_{ITM}^-} c_0\right) - {\left(n^{2} + 1\right)} \sin\left(k n \tau c_0\right) \sin\left(k \mathit{t_{ITM}^-} c_0\right)\right)} \cos\left(k x\right) \\
+        &+ {\left({\left(n^{2} + 1\right)} \cos\left(k \mathit{t_{ITM}^-} c_0\right) \sin\left(k n \tau c_0\right) + 2 \, n \cos\left(k n \tau c_0\right) \sin\left(k \mathit{t_{ITM}^-} c_0\right)\right)} \sin\left(k x\right) .
+    \end{split}
+\end{align}
+
+The final solution for the third phase is then given by
+
+\begin{align}
+    \begin{split}
+        \mathbf{q_2}\left(\mathbf{x}, t\right) = \begin{bmatrix}
+            1 \\
+            -\frac{1}{Z_0} \\
+            0 \\
+            0
+        \end{bmatrix} \alpha_1^3 \left(kx + kc_0 \left(t - t_{ITM}^+\right)\right) + 
+        \begin{bmatrix}
+            1 \\
+            \frac{1}{Z_0} \\
+            0 \\
+            0
+        \end{bmatrix} \alpha_4^3 \left(kx - kc_0 \left(t - t_{ITM}^+\right)\right) .
+    \end{split}
+\end{align}
+
+This shows that the final wave solution obtained after \ac{ITM} has both a forward and a backward going component. This is similar to the solution obtained in section \ref{section:impedancechangingITM}.
