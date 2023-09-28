@@ -18,9 +18,9 @@ velocities $u,v$ and $w$ in $x, y, z$ direction, respectively, can then be defin
 
 \begin{align}
     \begin{split}
-    \frac{\partial U_x}{\partial t} = \dot{U}_x = u, \\
-    \frac{\partial U_y}{\partial t} = \dot{U}_y = v, \\
-    \frac{\partial U_z}{\partial t} = \dot{U}_z = w, \\
+    \frac{\partial U_x}{\partial t} &= \dot{U}_x = u, \\
+    \frac{\partial U_y}{\partial t} &= \dot{U}_y = v, \\
+    \frac{\partial U_z}{\partial t} &= \dot{U}_z = w, \\
     \end{split}
  \end{align}
 
@@ -28,12 +28,12 @@ where the subscript denotes the coordinate direction and a dot over a variable r
 
 \begin{align}
     \begin{split}
-        \frac{\partial U_i}{\partial t} = \partial_t U_i = \dot{U}_i = V_i,
+        \frac{\partial U_i}{\partial t} = \dot{U}_i = V_i,
     \end{split}
     \label{equation1}
 \end{align}
 
-where the velocity vector \textbf{V} is introduced. \\
+where the velocity vector $\mathbf{V} = $ is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously. \\
 
 In the context of linear elasticity, the following extension of Hooke's law  to generalize linear elasticity holds
 
@@ -150,7 +150,8 @@ wave elastic equation for an isotropic medium in velocity-stress formulation
 \label{eq:setofequations}
 \end{align}
 
-where $S_p, p = 1,\dots9,$ are the source terms. \\
+where $S_p, p = 1,\dots9,$ are the source terms. The source terms are used to describe the common sources of seissmic events like double couple or force couple moments.
+These are often used to approximate the faults and slips in Earth's structure ~\parencite{shearer_2019}.\\
 
 Another important term for consideration with this system is the propagation speed of elastic-acoustic waves. In elastic media, we 
 observe two kinds of waves, a primary compression wave and a secondary sheer wave which are called P-waves and S-waves respectively.\\
@@ -323,10 +324,12 @@ a brief understanding about the framework and not to go too much into detail.
 
 \subsection[Discontinuous Galerkin method]{Discontinuous Galerkin Method}\label{subsection:DG}
 
-We have earlier formulated the elastic wave equation as a system of linear hyperbolic partial differential equataions in equation \ref{eq:setofequations}.~\parencite{osti_4491151}
-first used the \ac{DG-FE} to solve systems of hyperbolic partial differential equations numerically.~\parencite{Toro2001} formulated the idea of arbitrary high order generalized
+We have earlier formulated the elastic wave equation as a system of linear hyperbolic partial differential equataions in equation \ref{eq:setofequations}.
+~\parencite{Toro2001} formulated the idea of arbitrary high order generalized
 Riemann Solvers in a finite volume framework and coined the approach \ac{ADER}. Here, the combination of the generalized Riemann Solvers with \ac{DG}
-methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}. Higher-order piecewise polynomial approximations are used
+methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}.In practice, we use an "averaged" normal Riemann problem where first predict
+the solution in time and then solve an the Riemann problem making it in practice an "average" Riemann problem which is equivalent to the generalized Riemann solver. \\
+ Higher-order piecewise polynomial approximations are used
 along with the theory of fluxes across element boundaries from the finite volume methods. The \ac{ADER}-\ac{DG} scheme is an explicit one step scheme.
 It advances the solution by a full time step and needs the computation of inter-cell fluxes once per time-step. \\
 % Time Derivatives are replaced with space derivatives
@@ -334,8 +337,8 @@ It advances the solution by a full time step and needs the computation of inter-
 
 To solve the 3D elastic wave equation with the \ac{ADER}-\ac{DG} method, we use the compact form as in equation \ref{eq:compactform}.
 We use an unstructured mesh and thus divide our computational domain $\Omega \in \mathbb{R}^3$ into tetrahedral elements 
-$\mathcal{T}^{\left(m\right)}$, with unique indices $m\in\mathbb{N}$. $A_{pq}, B_{pq}, C_{pq}$ are assumed to be piecewise constant
-inside each tetrahedron. We now introduce a new coordinate system of $\left(\xi, \eta, \zeta \right)$ with the frame of reference as our tetrahedron as shown 
+$\mathcal{T}^{\left(m\right)}$, with unique indices $m\in\mathbb{N}$. $A_{pq}, B_{pq}, C_{pq}$ are assumed to be piecewise constant. 
+We now introduce a new coordinate system of $\left(\xi, \eta, \zeta \right)$ with the frame of reference as our tetrahedron as shown 
 in figure \ref{fig:transformation} \\
 
 \begin{figure}
@@ -520,3 +523,7 @@ for accurate treatment of the boundary. We implement this using the flux functio
 \end{align}
 
 where $\Gamma_{rs} = diag\left(-1,1,1,-1,1,-1,1,1,1\right)$ is the matrix which mirrors the normal and shear stresses.
+
+\section{Summary}
+In this chapter we have discussed the governing equations of linear elasticity as a sytem of hyperbolic partial differential equations. We then discussed the 
+\ac{ADER}-\ac{DG} method for numerically solving this system of equations. We have also looked at the boundary conditions that we will use in our numerical solver.

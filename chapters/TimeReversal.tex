@@ -1,14 +1,15 @@
 \chapter{Time Reversal}\label{chapter:TimeReversal}
 
 Time-reversal methods involve mirroring the propagation of waves in time, aiming to converge the resulting wave back to its source.~\parencite{Fink2017} mentions two ways to achieve time-reversal.
-The first method involves \ac{TRM}s, which rely on 
-Cauchy boundary conditions. If the wavefield and its normal derivative are known at the entire surface $S$ surrounding the volume
+The first method involves \ac{TRM}s, which rely on Cauchy boundary conditions. If the wavefield and its normal derivative are known at the entire surface $S$ surrounding the volume
 $V$ at all times $t$, the wavefield inside the entire volume can be computed. In this approach, the outgoing wave is initially 
 recorded on $S$, then time-reversed and finally emitted from $S$. \\
 
-Alternatively, time-reversal can be achieved with Cauchy initial conditions. In this case, the wavefield and its normal derivative
-are known inside the entire volume but only for a specific time. By using Loschmidt's demons ~\parencite{Weinert2016}, ~\parencite{Fink2017} the velocity of each particle can be
-instantaneously reversed, resulting in a time-reversed wave. This approach is known as the \ac{ITM}.\\
+Alternatively, time-reversal can be achieved with manipulation of the initial conditions. In this case, the wavefield and its normal derivative
+are known inside the entire volume but only for a specific time. 
+~\parencite{Weinert2016} describes Loschmidt's demon as something hypothetical which reverses the momentum/velocity of each particle instantaneously such that the state of the system is reversed 
+from a fibrillated state to a less fibrillated, smoother state.
+By doing something which mimicks Loschmidt's demons ~\parencite{Weinert2016}, ~\parencite{Fink2017} which act simultaneously on the entire space, the velocity of each particle can be instantaneously reversed, resulting in a time-reversed wave. This approach is known as the \ac{ITM}.\\
 
 This thesis primarily focuses on the \ac{ITM} approach for seismic waves. In this method, a time-reversed wave is generated through a sudden modification of the wave propagation
 properties of the medium~\parencite{Bacot2016}. Section \ref{section:ITMTheory} delves into the theoretical foundation behind the \ac{ITM}, providing a comprehensive
@@ -26,7 +27,8 @@ a volume by knowing the field(and its normal derivative) on any enclosing surfac
 \end{equation}
 
 with the source function $\mathbf{S}\left(\mathbf{x},t\right)$ contains only second order time derivatives. This implies that if $\hat{\mathbf{U}}\left(\mathbf{x},t\right)$
-is a solution, then $\hat{\mathbf{U}}\left(\mathbf{x}, -t\right)$ is also a solution, if $\mathbf{S}$ is symmetric in time. \\
+is a solution, then $\hat{\mathbf{U}}\left(\mathbf{x}, -t\right)$ is also a solution, if $\mathbf{S}$ is symmetric in time such that 
+$\mathbf{S}\left(\mathbf{x}, t\right) = \mathbf{S}\left(\mathbf{x}, -t\right)$. \\
 
 The \ac{ITM} approach is closely connected to the Cauchy theorem, which states that the wave field evolution can be deduced from the knowledge of thie wave field
 and its derivative at one single time, i.e., the initial conditions. By inducing a sudden modification of the wave propagation properties(such as impedance) in the

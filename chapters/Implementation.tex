@@ -10,7 +10,7 @@ for achieving this impedance change. \\
 
 \subsection{Reflecting both P- and S- waves by changing their velocities}
 
-The first approach is to change the velocities of both P- and S- waves. This can ne accomplished by modifying the Lam\'{e} parameters $\lambda$ and $\mu$ and the density $\rho$ from $t_{ITM}^-$ to $t_{ITM}^+$ as
+The first approach is to change the velocities of both P- and S- waves. This is accomplished by modifying the Lam\'{e} parameters $\lambda$ and $\mu$ and the density $\rho$ from $t_{ITM}^-$ to $t_{ITM}^+$ as
 
 \begin{align}
     \begin{split}
@@ -150,3 +150,15 @@ Here, we need to scale up the time step by the factor $n$ as the velocity of the
 
 In this section, we present various material modification techniques that were utilized during the \ac{ITM} phase to attain the desired reflection. We also outline
 the necessary adjustments to the time step size to ensure that the \ac{CFL} condition is satisfied, in turn maintaining the stability of the simulation. \\
+
+\subsection{Summary of the Implementation}
+The implementation of \ac{ITM} in SeisSol is done in a generic way such that it can be used for any of the above mentioned scenarios. 
+Material modifications for \ac{ITM} for different scenarios are discussed and the corresponding time step size modifications to keep the simulation
+stable are also presented. Material modifications are done such that the impedance of only the wave(s) we intend to reflect is changed. 
+The time step size is modified such that the \ac{CFL} condition is satisfied for every phase of the simulation. \\
+
+
+\section{Summary}
+In this chapter we have discussed the theory of time reversal in the context of seismic waves. We have looked at how an \ac{ITM} affects a travelling acoustic
+wave in one dimension and three dimensions. We concluded that we need a shift in impedance rather than velocity of the wave to have a time reflection. We then discussed
+the implementation of the \ac{ITM} method in SeisSol.
