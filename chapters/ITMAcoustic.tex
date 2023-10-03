@@ -38,7 +38,7 @@ The flux matrix of equation \ref{eq:acoustic} has two eigenvalues
 
 \begin{align}
     \begin{split}
-        \lambda_1 = -c_0, \, \lambda_2 = c_0,
+        \lambda_1 = -c_0, \quad \lambda_2 = c_0,
     \end{split}
 \end{align}
 
@@ -56,7 +56,7 @@ is the speed of sound. Waves can propagate in either direction with this speed. 
         r^1 = \begin{bmatrix}
             -\rho_0 c_0 \\
             1
-        \end{bmatrix}, 
+        \end{bmatrix}, \quad
         r^2 = \begin{bmatrix}
             \rho_0 c_0 \\
             1
@@ -278,17 +278,17 @@ which is equal to $E_1$. This shows that there is no final energy increase when 
 %     \end{split}
 % \end{align}
 
-\section{\ac{ITM} on a 3D Acoustic Planar Wave}\label{section:3DITMAcoustic}
+\section{\ac{ITM} on a 3D acoustic planar wave}\label{section:3DITMAcoustic}
 In this chapter, we calculate the analytical solution for a 3D Acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
 
-For this, we consider a 3D Acoustic Equation linearized about the motionless state:
-
-where $p$ is the pressure perturbation, $K_0$ is the bulk modulus of the material and $u$ is the velocity purturbation. 
-This can be written in consolidated matrix vector form as done for first order hyperbolic systems of equations as follows:
+To do this, we consider a three dimenonsional acoustic equation linearised over the stationary state, where p is the pressure perturbation, $K_0$ is the bulk
+modulus of the material and $u$ is the velocity perturbation.
+This can be written in consolidated matrix vector form as done for first order hyperbolic systems of equations as
 
 \begin{align}
     \begin{split}
-        \mathbf{q_t} + \mathbf{Aq_x} + \mathbf{Bq_y} + \mathbf{Cq_z} = 0,
+        \frac{\partial}{\partial t}\mathbf{q} + \mathbf{A}\frac{\partial}{\partial x}\mathbf{q} + \mathbf{B}\frac{\partial}{\partial y}\mathbf{q} + 
+        \mathbf{C}\frac{\partial}{\partial z}\mathbf{q} = 0,
     \end{split}
     \label{eq:3Dacoustic}
 \end{align}
@@ -302,25 +302,25 @@ where
             u \\
             v \\
             w 
-        \end{bmatrix},
+        \end{bmatrix}, \quad
         \mathbf{A} = \begin{bmatrix}
             0 & K_0 & 0 & 0 \\
             \frac{1}{\rho_0} & 0 & 0 & 0 \\
             0 & 0 & 0 & 0 \\
             0 & 0 & 0 & 0 \\
-        \end{bmatrix},
+        \end{bmatrix}, \quad
         \mathbf{B} = \begin{bmatrix}
             0 & 0 & K_0 & 0 \\
             0 & 0 & 0 & 0 \\
             \frac{1}{\rho_0} & 0 & 0 & 0 \\
             0 & 0 & 0 & 0 \\
-        \end{bmatrix},
+        \end{bmatrix}, \quad
         \mathbf{C} = \begin{bmatrix}
             0 & 0 & 0 & K_0 \\
             0 & 0 & 0 & 0 \\
             0 & 0 & 0 & 0 \\
             \frac{1}{\rho_0} & 0 & 0 & 0 \\
-        \end{bmatrix}.
+        \end{bmatrix} \quad .
     \end{split}
 \end{align}
 
@@ -373,9 +373,9 @@ with the set of eigenvalues
 
 \begin{align}
     \begin{split}
-        \omega_1 = -\sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}},
-        \omega_2 = 0,
-        \omega_3 = 0,
+        \omega_1 = -\sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}}, \quad
+        \omega_2 = 0, \quad
+        \omega_3 = 0, \quad 
         \omega_4 = \sqrt{\frac{K_{0} k_{1}^{2}}{\rho_{0}} + \frac{K_{0} k_{2}^{2}}{\rho_{0}} + \frac{K_{0} k_{3}^{2}}{\rho_{0}}}, 
     \end{split}
 \end{align}
@@ -389,19 +389,19 @@ and the eigenvectors
 -\frac{k_{1}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
 -\frac{k_{2}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
 -\frac{k_{3}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}}
-        \end{bmatrix}, \,
+        \end{bmatrix}, \quad
         \mathbf{r_2} = \begin{bmatrix}
             0 \\
 1 \\
 0 \\
 -\frac{k_{1}}{k_{3}}
-            \end{bmatrix}, \,
+            \end{bmatrix}, \quad
             \mathbf{r_3} = \begin{bmatrix}
                 0 \\
                 0 \\
                 1 \\
                 -\frac{k_{2}}{k_{3}}
-                \end{bmatrix}, \,
+                \end{bmatrix}, \quad
                 \mathbf{r_4} = \begin{bmatrix}
                     1 \\
 \frac{k_{1}}{\rho_{0} \sqrt{\frac{K_{0} k_{1}^{2} + K_{0} k_{2}^{2} + K_{0} k_{3}^{2}}{\rho_{0}}}} \\
@@ -415,9 +415,9 @@ For the sake of simplicity, we choose $\left(k_1,k_2,k_3\right) = \left(k,0,0\ri
 
 \begin{align}
     \begin{split}
-        \omega_1 = -k \sqrt{\frac{K_{0}}{\rho_{0}}},
-        \omega_2 = 0,
-        \omega_3 = 0,
+        \omega_1 = -k \sqrt{\frac{K_{0}}{\rho_{0}}}, \quad
+        \omega_2 = 0, \quad
+        \omega_3 = 0, \quad
         \omega_4 = k \sqrt{\frac{K_{0}}{\rho_{0}}} .
     \end{split}
 \end{align}
@@ -431,19 +431,19 @@ Using the definition of impedance as $Z_0 = \rho_0 \sqrt{\frac{K_0}{\rho_0}}$ , 
 -\frac{1}{Z_0} \\
 0 \\
 0
-        \end{bmatrix},
+        \end{bmatrix}, \quad
         \mathbf{r_2} = \begin{bmatrix}
             0 \\
 0 \\
 0 \\
 1
-            \end{bmatrix},
+            \end{bmatrix}, \quad
             \mathbf{r_3} = \begin{bmatrix}
                 0 \\
                 0 \\
                 1 \\
                 0
-                \end{bmatrix},
+                \end{bmatrix}, \quad
                 \mathbf{r_4} = \begin{bmatrix}
                     1 \\
                     \frac{1}{Z_0} \\
@@ -462,7 +462,7 @@ We pick an initial condition that enforces that the wave travels in only one dir
             \frac{1}{Z_0} \\
             0 \\
             0
-            \end{bmatrix} cos\left(kx - \sqrt{\frac{K_{0}}{\rho_{0}}}t\right) .
+            \end{bmatrix} cos\left(kx - k \sqrt{\frac{K_{0}}{\rho_{0}}}t\right) .
     \end{split}
 \end{align}
 
@@ -485,9 +485,9 @@ with eigenvalues
 
 \begin{align}
     \begin{split}
-    \omega_1^2 = -n k \sqrt{\frac{K_{0}}{\rho_{0}}}, \,
-    \omega_2^2 = 0, \,
-    \omega_3^2 = 0, \,
+    \omega_1^2 = -n k \sqrt{\frac{K_{0}}{\rho_{0}}}, \quad
+    \omega_2^2 = 0, \quad
+    \omega_3^2 = 0, \quad
     \omega_4^2 = n k \sqrt{\frac{K_{0}}{\rho_{0}}},
 \end{split}
 \end{align}
@@ -501,19 +501,19 @@ and eigenvectors
 -\frac{1}{n Z_0} \\
 0 \\
 0
-        \end{bmatrix}, \,
+        \end{bmatrix}, \quad
         \mathbf{r_2^2} = \begin{bmatrix}
             0 \\
 0 \\
 0 \\
 1
-            \end{bmatrix}, \,
+            \end{bmatrix}, \quad
             \mathbf{r_3^2} = \begin{bmatrix}
                 0 \\
                 0 \\
                 1 \\
                 0
-                \end{bmatrix}, \,
+                \end{bmatrix}, \quad
                 \mathbf{r_4^2} = \begin{bmatrix}
                     1 \\
                     \frac{1}{n Z_0} \\
@@ -532,7 +532,7 @@ At $t = t_{ITM}^-$, we have our solution as
             \frac{1}{Z_0} \\
             0 \\
             0
-            \end{bmatrix} cos\left(kx - \sqrt{\frac{K_{0}}{\rho_{0}}}t_{ITM}^-\right) .
+            \end{bmatrix} cos\left(kx - k \sqrt{\frac{K_{0}}{\rho_{0}}}t_{ITM}^-\right) .
     \end{split}
     \label{eq:initphase2}
 \end{align}

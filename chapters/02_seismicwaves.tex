@@ -33,7 +33,7 @@ where the subscript denotes the coordinate direction and a dot over a variable r
     \label{equation1}
 \end{align}
 
-where the velocity vector $\mathbf{V} = $ is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously. \\
+where the velocity vector $\mathbf{V} $ is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously. \\
 
 In the context of linear elasticity, the following extension of Hooke's law  to generalize linear elasticity holds
 
@@ -167,7 +167,7 @@ For the investigation of the eigenstructure of the systems, we need to transform
 where $\mathbf{Q}$ is the state vector with p unknown variables which contains the stresses and velocities, i.e.,
 
 \begin{equation}
-    \mathbf{Q} = \left(\sigma_{xx}, \sigma_{yy}, \sigma_{zz}, \sigma_{xy}, \sigma_{yz}, \sigma_{xz}, u, v, w \right)^T
+    \mathbf{Q} = \left(\sigma_{xx}, \, \sigma_{yy}, \, \sigma_{zz}, \, \sigma_{xy}, \, \sigma_{yz}, \, \sigma_{xz}, \, u, \, v, \, w \right)^T
 \end{equation}
 
 and $A_{pq}, B_{pq}, C_{pq}$ are space-dependent flux matrices. Where
@@ -229,13 +229,13 @@ and $A_{pq}, B_{pq}, C_{pq}$ are space-dependent flux matrices. Where
 The eigenvalues of the flux matrices $A_{pq}, B_{pq}, C_{pq}$ determine the propagation velocities of elastic waves. These velocities can be expressed as
 
 \begin{equation}
-    s_1 = -v_p, s_2 = -v_s, s_3 = -v_s, s_4=0, s_5 = 0, s_6 = 0, s_7 = v_s, s_8 = v_s, s_9 = v_p,
+    s_1 = -v_p, \, s_2 = -v_s, \, s_3 = -v_s, \, s_4=0, \, s_5 = 0, \, s_6 = 0, \, s_7 = v_s, \, s_8 = v_s, \, s_9 = v_p,
 \end{equation}
 
 where
 
 \begin{equation}
-    v_p = \sqrt{\frac{\lambda + 2\mu}{\rho}}, v_s = \sqrt{\frac{\mu}{\rho}}.
+    v_p = \sqrt{\frac{\lambda + 2\mu}{\rho}}, \, v_s = \sqrt{\frac{\mu}{\rho}}.
     \label{eq:wavevelocities}
 \end{equation}
 
@@ -310,7 +310,7 @@ Equation \ref{eq:acousticequations} is written in the form of equation \ref{eq:c
 with eigenvalues
 
 \begin{equation}
-    s_1 = -v_p, s_2 = 0, s_3 = 0, s_4 = v_p.
+    s_1 = -v_p, \, s_2 = 0, \, s_3 = 0, \, s_4 = v_p \, .
 \end{equation}
 
 This shows that there is only kind of propagating wave in the acoustic case with $\mu = 0$. \\
