@@ -1,9 +1,11 @@
 \chapter{Results and Discussion}\label{chapter:Results}
 
-This chapter presents and analyses the results obtained from applying the \ac{ITM} on seismic waves. We first go through the travelling planar wave and then deal with
-a velocity impulse point source. This chapter is split into three parts. As a starting point, the time-reversal is analysed in an acoustic media with an initial condition
-as a travelling planar P-Wave. The second part deals with the time-reversal of a velocity impulse point source in an Acoustic media. The third part deals with the time-Reversal
-of a velocity impulse point source in an Elastic Media with refocusing of both P- and S- waves together and separately. In all the cases, we check if the refocused
+This chapter presents and analyses the results obtained from applying the \ac{ITM} on seismic waves. This chapter is split into three parts.
+We will begin by examining the travelling planar wave before addressing the velocity impulse point source. 
+As a starting point, the time-reversal is analysed in an acoustic media with an initial condition
+as a travelling planar P-Wave in section \ref{sec:acoustictravelling}. The second part deals with the time-reversal of a velocity impulse point source in an acoustic media. The third part deals with the time-Reversal
+of a velocity impulse point source in an elastic media with refocusing of both P- and S- waves together and separately in sections \ref{sec:acousticITM} to \ref{sec:elasticITMswave}. 
+In all the cases, we check if the refocused
 wave will converge to the location of the source as we expect the reversed wave to have the same speed as the original wave. \\
 
 We analyse all cases with a homogenous medium to deliver on a sound proof of concept of the \ac{ITM} being useful to refocus different kind of waves. We used a modification
@@ -30,7 +32,7 @@ $\lambda = 1.0$. This gives us a timeperiod of $T=2.0$. We choose a cubic comput
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/mesh_cube.png}
-    \caption{Mesh used for the acoustic case}
+    \caption{Mesh used for the simulation of a travelling planar wave in acoustic medium with \ac{ITM}}
     \label{fig:acoustic_mesh}
 \end{figure}
 
@@ -68,12 +70,12 @@ forward going wave.
         \includegraphics[width=\textwidth]{figures/travellingwave_t4.png}
         \caption{{t=4.0}}
     \end{subfigure}
-    \caption{\ac{ITM} applied on a travelling planar P-wave in an acoustic media.}
+    \caption{\ac{ITM} applied on a travelling planar wave in an acoustic media.}
 \end{figure}
 
 Here, we notice that there is a reflection of the forward going wave and it meets the the forward going wave at the origin at $t=4.0$. This is a proof of concept that the \ac{ITM} can be used to refocus waves in an acoustic media. \\
 
-To observe the refocusing in a clearer way, we choose a slice perpendicular to the Z-axis at $x=0$ and plot the wavefield in terms of u-velocity along the x-axis
+To observe the refocusing in a clearer way, we choose a slice perpendicular to the z-axis at $x=0$ and plot the wavefield in terms of u-velocity along the x-axis
 at different times.We can see that at $t=2.0$, there is a reflected component along with the forward component. At $t=3.0$, i.e., half the time-period after
 the application of the \ac{ITM}, we notice that the reflected component interacts with the forward wave for the first time. This shows that in half the time-period, the reflected wave travelled half the wave length interacting
 with the forward travelling wave. At $t=4.0$, we notice that the reflected wave has travelled the entire wave length and is refocused at the origin. 
@@ -82,7 +84,7 @@ This is shown in figure \ref{fig:space-timeplot-travelling}.
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/space-time-plot-travelling.pdf}
-    \caption{Space Time plot for Acoustic Travelling Wave with \ac{ITM}}
+    \caption{Space Time plot for Acoustic Travelling Wave with \ac{ITM}. We take a slice perpendicular to the z-axis at $x=0$ and plot the u-velocity along the x-axis at different times.}
     \label{fig:space-timeplot-travelling}
 \end{figure}
 
@@ -96,32 +98,31 @@ The medium is characterized by the following parameters
     \begin{split}
         \rho &=    2700.0 \\
         \mu &=     0.0 \\
-        \lambda &= 3.24038016e10 ,
+        \lambda &= 3.24038016 \cdot 10^{10},
     \end{split}
 \end{align}
 
 This makes the velocity of the P-wave to be
 
 \begin{equation}
-    v_p = \sqrt{\frac{3.24038016e10}{2700}} \approx 3464 .
+    v_p = \sqrt{\frac{3.24038016 \cdot 10^{10}}{2700}} \approx 3464 .
 \end{equation}
 
 We choose a computational domain of [-26000,32000] X [-26000,32000] X [0,34000] and a simulation time of $t=10.0$ with \ac{ITM} applied at $t=5.0$ 
-such that the originating waves do not reflect back from the boundaries at the X- and Y- axis ensuring that
-reflections due to \ac{ITM} are clearly noticeable when we take a slice perpendicular to Z- axis. 
-Our velocity impulse source is at [3000,3000,17000] such that it is exactly at the center of the domain. 
-We choose an unstructured mesh with tetrahedral elements with 1391713 elements such that there are more elements near the source to capture the steep gradients like shown in 
-figure \ref{fig:mesh-loh1}.
+such that the originating waves do not reflect back from the boundaries at the x- and y-axis ensuring that
+reflections due to \ac{ITM} are clearly noticeable. 
+Our velocity impulse source is at [3000,3000,17000], the center of the domain. 
+We have used an unstructured tetrahedral mesh with around 1.4 million elements. We have used more refinement in the region close to the source to capture the steep gradients as in figure \ref{fig:mesh-loh1}.
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/mesh_loh1.png}
-    \caption{Sample Mesh for Velocity Impulse Point Source Simulations}
+    \caption{Example mesh for simulations with a point source acting as a velocity pulse. We have a finer mesh near the source and a coarser mesh away from the source.}
     \label{fig:mesh-loh1}
 \end{figure}
 
-We apply a source such that it dies exponentially with time multiplied with a constant. It is then applied in equation \ref{eq:setofequations} as per the direction
-it is applied to. We use the following formulation for the source term
+We apply a source as given in equation \ref{eq:source}. The source is then applied to equations 7 to 9 in equation \ref{eq:setofequations} as per the direction
+$i$. $i=9$ is a velocity impulse point source in the Z-direction.
 
 \begin{align}
     \begin{split}
@@ -131,56 +132,59 @@ it is applied to. We use the following formulation for the source term
     \label{eq:source}
 \end{align}
 
-where T is a constant to decide the duration of the source approximately. We choose T=0.1. $i$ is the direction of the source. 
-We choose the source to be in the Z-direction which makes $C_x = 0, C_y = 0, C_z = 1.2e16$. With this, our source looks like in figure \ref{fig:source}
+where T is a constant to decide the duration of the source approximately. We choose T=0.1. $i$ is the direction of the source. $i=7$ is a source applied in x-direction,
+$i=8$ is a source applied in y-direction and $i=9$ is a source applied in z-direction. 
+We choose the source to be in the Z-direction leads to $C_7 = 0, C_8 = 0, C_9 = 1.2 \cdot 10^{16}$. With this, our source looks like in figure \ref{fig:source}
 
 \begin{figure}
     \centering
     \begin{tikzpicture}[scale=1.0]
         \begin{axis}[
-            ylabel = $S_z$,
+            ylabel = $S_9$,
             xlabel = $t$]
-            \addplot[domain=0:4, black, ultra thick]{1.2e16 * x*exp(-x/0.1)/(0.1*0.1)};
+            \addplot[domain=0:4, samples=1001, black, ultra thick]{1.2e16 * x*exp(-x/0.1)/(0.1*0.1)};
         \end{axis}
     \end{tikzpicture}
-    \caption{Source term used for Velocity Impulse Point Source}
+    \caption{Source term used for velocity impulse point source applied to z-velocity}
     \label{fig:source}
 \end{figure}
 
-We pick a slice at $Z=20000$, i.e., 3000 away from the source location in Z-direction.
-We visualise the wavefield with velocity in X-direction. With this setup and velocity impulse, we see that the velocity in X-direction
+We pick a slice at $Z=20000$, i.e., 3000 away from the source location in z-direction.
+We visualise the wavefield with velocity in x-direction. With this setup and velocity impulse, we see that the velocity in x-direction
 looks like in figure \ref{fig:space-timeplot-acousticnoITM}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/Acoustic-noITM.pdf}
-    \caption{Space Time plot for Wave produced by Velocity Impulse Point Source in Acoustic Media}
+    \caption{Space time plot for wave produced by velocity impulse point Source in acoustic Media. We take a slice at $Z=20000$ perpendicular to z-axis 
+    and plot the u-velocity along x-axis at different times.}
     \label{fig:space-timeplot-acousticnoITM}
 \end{figure}
 
-We notice that we have only one wave propagating in time as expected as we have an acoustic media and it reaches our slice around 1.5 seconds. We notice another 
-strange static velocity near the source which is not expected and yet to be made sense of with the package. But it does not affect our refocusing and has nothing to do with
+We notice that we have only one wave propagating in time as expected as we have an acoustic media and it reaches our slice around 1.5 seconds. 
+We have observed an unexpected stationary velocity in the vicinity of the source, which requires a thorough investigation by means of SeisSol. But it does not affect our refocusing and has nothing to do with
 our application of \ac{ITM}. We now apply ITM on the same setup at $t=5.0$. We notice that the wavefield looks like in figure \ref{fig:space-timeplot-acousticITM}
 
 \begin{figure}
-\begin{subfigure}[b]{0.49\textwidth}   
+\begin{subfigure}[t]{0.49\textwidth}   
     \centering 
     \includegraphics[width=\textwidth]{figures/AcousticITM.pdf}
-    \caption{Wave produced by Velocity Impulse in Acoustic Media with \ac{ITM}}
+    \caption{Wave produced by velocity impulse in acoustic media with \ac{ITM}}
 \end{subfigure}
 \hfill
-\begin{subfigure}[b]{0.49\textwidth}   
+\begin{subfigure}[t]{0.49\textwidth}   
     \centering 
     \includegraphics[width=\textwidth]{figures/AcousticITMAnnotated.pdf}
-    \caption{Expected location of forward and reflected waves in Time}
+    \caption{Expected location of forward and reflected waves in time. The dashed lines denote the expected location of the wavefronts at given time.}
     \label{subfig:acousticITMAnnotated}
 \end{subfigure}
-\caption{Space Time plot for Wave produced by Velocity Impulse Point Source in Acoustic Media with \ac{ITM}}
+\caption{Space time plot for wave produced by velocity impulse point source in acoustic media with \ac{ITM}. We take a slice at $Z=20000$ perpendicular to z-axis
+and plot the u-velocity along x-axis at different times.}
 \label{fig:space-timeplot-acousticITM}
 \end{figure}
 
-We notice that there is a reflected wave travelling back to the source. We notice that the reflected wave leaves our slice around $t=8.5$ showing that the reflected wave
-is reflected along the line $t=5.0$ which is our point in time when we applied the \ac{ITM}. In figure \ref{fig:space-timeplot-acousticITM}, we plot the expected
+We notice that there is a reflected wave travelling back to the source. We notice that the reflected wave leaves our slice around $t=8.5$, showing that the reflected wave
+is reflected along the line $t=5.0$, which is our point in time when we applied the \ac{ITM}. In figure \ref{fig:space-timeplot-acousticITM}, we plot the expected
 location of the wave front from the forward going and reflected waves assuming spherical waves being generated at the source and that the reflected wave is spherical
 and has the same speed as the original incident wave in figure \ref{subfig:acousticITMAnnotated}. This confirms that the application of \ac{ITM} produces a reflected wave
 successfully in Acoustic Media. \\
@@ -193,12 +197,12 @@ are characterized by
 \begin{align}
     \begin{split}
         \rho &=    2700.0 \\
-        \mu &=     3.23980992e10 \\
-        \lambda &= 3.24038016e10 ,
+        \mu &=     3.23980992 \cdot 10^{10} \\
+        \lambda &= 3.24038016 \cdot 10^{10} ,
     \end{split}
 \end{align}
 
-which makes the velocities of P- and S- waves to be
+which makes the velocities of P- and S-waves to be
 
 \begin{align}
     \begin{split}
@@ -208,19 +212,19 @@ which makes the velocities of P- and S- waves to be
 \end{align}
 
 In this case we extend our computational domain even further to [-104000,128000] X [-104000,128000] X [0,136000] and a simulation time of $t=18.0$ with \ac{ITM} applied at $t=9.0$
-such that the originating waves do not reflect back from the boundaries at the X- and Y- axis ensuring that reflections due to the \ac{ITM} are clearly noticeable when we take a slice perpendicular to Z- axis.
+such that the originating waves do not reflect back from the boundaries at the x- and y-axis ensuring that reflections due to the \ac{ITM} are clearly noticeable.
 Our velocity impulse source is at [12000,12000,68000] such that it is exactly at the center of the domain.
-We chose to analyse the simulation for a longer time in this scenario as the velocities of P- and S- waves are different and the P- wave travels farther quickly when compared to 
-the S- wave. We choose an unstructured mesh with tetrahedral elements with 12646379 elements similar to the Acoustic Case such that there are more elements near the source
-to capture the steep gradients near the Source. We apply a source which has already been discussed in equation \ref{eq:source} and figure \ref{fig:source}. \\
+We chose to analyse the simulation for a longer time in this scenario such that the S-wave reaches the slice. We choose an unstructured tetrahedral mesh with around 13 million elements similar to the acoustic case. 
+We apply a source which has already been discussed in equation \ref{eq:source} and figure \ref{fig:source}. \\
 
-We pick a slice at $Z = 40000$ and visualise the wavefield with velocity in X-direction and the displacement along the X-axis. With this setup and velocity impulse, 
-we see that the velocity in X-direction looks like in figure \ref{fig:space-timeplot-elasticnoITM}.
+We pick a slice at $Z = 40000$ and visualise the wavefield with velocity in x-direction and the displacement along the x-axis. With this setup and velocity impulse, 
+we see that the velocity in x-direction looks like in figure \ref{fig:space-timeplot-elasticnoITM}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/noITMElasticvelocity.pdf}
-    \caption{Space Time plot for Waves produced by Velocity Impulse Point Source in Elastic Media}
+    \caption{Space time plot for waves produced by velocity impulse point source in elastic media. We take a slice at $Z=40000$ perpendicular to z-axis
+    and plot the u-velocity along x-axis at different times.}
     \label{fig:space-timeplot-elasticnoITM}
 \end{figure}
 
@@ -229,7 +233,8 @@ We integrate the obtained velocity field to plot displacement field in X- direct
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/noITMElasticdisplacement.pdf}
-    \caption{Space Time plot for Waves produced by Velocity Impulse Point Source in Elastic Media in displacement}
+    \caption{Space time plot for waves produced by velocity impulse point source in elastic media. We take a slice at $Z=40000$ perpendicular to z-axis
+    and plot the displacement in x-direction along x-axis at different times. We integrate the velocity field to obtain the displacement field.}
     \label{fig:space-timeplot-elasticnoITMdisplacement}
 \end{figure}
 
@@ -240,7 +245,8 @@ We now apply \ac{ITM} on the same setup at $t=9.0$. We notice that the wavefield
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/Elastic-tworeflections.pdf}
-    \caption{Space Time plot for Waves produced by Velocity Impulse Point Source in Elastic Media with \ac{ITM}}
+    \caption{Space time plot for waves produced by velocity impulse point source in elastic media with \ac{ITM}. We take a slice at $Z=40000$ perpendicular to z-axis
+    and plot the u-velocity along x-axis at different times.}
     \label{fig:space-timeplot-elasticITM}
 \end{figure}
 
@@ -252,12 +258,13 @@ slice just like we did in figure \ref{fig:space-timeplot-elasticnoITMdisplacemen
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/Elastic-tworeflections-displacement.pdf}
-    \caption{Space Time plot for Waves produced by Velocity Impulse Point Source in Elastic Media with \ac{ITM} in displacement}
+    \caption{Space time plot for waves produced by velocity impulse point source in elastic media with \ac{ITM}. We take a slice at $Z=40000$ perpendicular to z-axis
+    and plot the displacement in x-direction along x-axis at different times. We integrate the velocity field to obtain the displacement field.}
     \label{fig:space-timeplot-elasticITMdisplacement}
 \end{figure}
 
-We can clearly see two reflections even in case of displacement wave field too and the static displacements between the two waves persist. But we see extra features
-here in case of displacement wave-field. We obtain extra static displacements in time as vertical streaks which originate from the point where the waves meet the slice
+We can clearly see two reflections even in case of the displacement wave field too and the static displacements between the two waves persist. But we see extra features
+here in case of the displacement wave-field. We obtain extra static displacements in time as vertical streaks which originate from the point where the waves meet the slice
 at \ac{ITM}. These are not yet explained but we suspect they may be explained either by the physical phemonenon or due to the numerical implementation or due to errors
 produced to numerical integration of the velocity wavefields. \\
 
@@ -273,7 +280,8 @@ and everything else about the simulation remain the same. The wavefields without
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/pwave-ITM1.pdf}
-    \caption{Reflection of P- wave in Elastic Media with \ac{ITM}}
+    \caption{Reflection of P-wave in elastic Media with \ac{ITM}. We take a slice at $Z=40000$ perpendicular to z-axis
+    and plot the u-velocity along x-axis at different times.}
     \label{fig:space-timeplot-pwave}
 \end{figure}
 
@@ -284,7 +292,8 @@ way in figure \ref{fig:space-timeplot-pwave2}
 \begin{figure} %% replace pictures. Not clear and being cut
     \centering
     \includegraphics[width=0.75\linewidth]{figures/pwave-ITM2.pdf}
-    \caption{Reflection of P- wave in Elastic Media with \ac{ITM}}
+    \caption{Reflection of P-wave in elastic media with \ac{ITM}. We take a slice at $Z=40000$ perpendicular to z-axis
+    and plot the u-velocity along x-axis at different times. We use a different colorbar from figure \ref{fig:space-timeplot-pwave} to show the reflection more clearly.}
     \label{fig:space-timeplot-pwave2}
 \end{figure}
 
@@ -294,37 +303,38 @@ can reflect one wave by changing its impedance while maintaining the other wave'
 \begin{figure} %% replace pictures. Not clear and being cut
     \centering
     \includegraphics[width=0.75\linewidth]{figures/pwave-ITMdisplacement.pdf}
-    \caption{Reflection of P- wave in Elastic Media with \ac{ITM} in displacement}
+    \caption{Reflection of P-wave in Elastic Media with \ac{ITM}. We take a slice at $Z=40000$ perpendicular to z-axis
+    and plot the displacement in x-direction along x-axis at different times. We integrate the velocity field to obtain the displacement field.}
     \label{fig:space-timeplot-pwavedisplacement}
 \end{figure}
 
 We plot the displacement wavefield in figure \ref{fig:space-timeplot-pwavedisplacement} and we can see the reflected P- wave in displacement wavefield and the static
 displacement is noticed in this case too just like in the case of reflecting both the waves. 
 
-\section{Time-reversal of S-wave of a velocity impulse point source in an Elastic media}
-Just like in Section \ref{sec:elasticITMpwave}, we now demonstrate the reflection of just the S- wave by modifying the Lam\'{e} parameters such that P-wave does not
-get reflected but the S- wave does. The same setup is used as in section \ref{sec:elasticITM} and we try to reflect just the S- wave while letting the P- wave travel
-unaffected in time. The slice and everything else about the simualtion remain the same. The wavefields without \ac{ITM} looks like in figures in \ref{fig:space-timeplot-elasticnoITM}
+\section{Time-reversal of S-wave of a velocity impulse point source in an Elastic media} \label{sec:elasticITMswave}
+In this section, we demonstrate the reflection of just the S- wave by modifying the Lam\'{e} parameters such that P-wave does not
+get reflected but the S- wave does. The same setup is used as in section \ref{sec:elasticITM}. The wavefields without \ac{ITM} looks like in figures in \ref{fig:space-timeplot-elasticnoITM}
 and \ref{fig:space-timeplot-elasticnoITMdisplacement}. \\
 
 After the application of the \ac{ITM}, we see reflections in the wavefield in figure \ref{fig:space-timeplot-swave} showing the zoomed version near the 
 \ac{ITM} so that the reflected part is clearly visible in subfigure \ref{subfig:swavezoomed}.
 
 \begin{figure}
-    \begin{subfigure}[b]{0.49\textwidth}   
+    \begin{subfigure}[t]{0.49\textwidth}   
         \centering 
         \includegraphics[width=\textwidth]{figures/swaveITM1.pdf}
-        \caption{Reflecting S-waves in Elastic media}
+        \caption{Reflecting S-wave in elastic media. We take a slice at $Z=40000$ perpendicular to z-axis
+        and plot u-velocity along x-axis at different times.}
         \label{subfig:swave}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.49\textwidth}   
+    \begin{subfigure}[t]{0.49\textwidth}   
         \centering 
         \includegraphics[width=\textwidth]{figures/swaveITM2.pdf}
-        \caption{Zoomed cut section}
+        \caption{Zoomed cut section of figure \ref{subfig:swave} to show the reflected S-wave more clearly.}
         \label{subfig:swavezoomed}
     \end{subfigure}
-    \caption{Reflection of S- wave in Elastic Media with \ac{ITM}}
+    \caption{Reflection of S-wave in elastic media with \ac{ITM}. We take a slice at $Z=40000$ perpendicular to z-axis and plot u-velocity along x-axis at different times.}
     \label{fig:space-timeplot-swave}
 \end{figure}
     
@@ -334,7 +344,8 @@ wavefield and the static displacement like in previous section persists. We need
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/swaveITMdisplacement.pdf}
-    \caption{Reflection of S- wave in Elastic Media with \ac{ITM} in displacement}
+    \caption{Reflection of S-wave in elastic media with \ac{ITM}. We take a slice at $Z=40000$ perpendicular to z-axis
+    and plot the displacement in x-direction along x-axis at different times. We integrate the velocity field to obtain the displacement field.}
     \label{fig:space-timeplot-swavedisplacement}
 \end{figure}
 
@@ -350,22 +361,23 @@ like in figure \ref{fig:space-timeplot-pressurenoITM}.
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/pressureimpulsewave-noITM.pdf}
-    \caption{Pressure impulse in Acoustic Media}
+    \caption{Pressure impulse in acoustic media}
     \label{fig:space-timeplot-pressurenoITM}
 \end{figure}
 
 \section{Convergence Test}
-We now perform a convergence test to check for the correctness of our implementation of the \ac{ITM} is convergent with our \ac{ADER}-\ac{DG} scheme. 
+We now perform a convergence test to verify that our \ac{ITM} implementation is accurate and converges with our \ac{ADER}-\ac{DG} scheme. 
 We check the error between our numerical implementation and the analytical solution developed in Section \ref{section:3DITMAcoustic}. We use the mesh setup
 from section \ref{sec:acoustictravelling} with varying mesh sizes. Our solution domain is within [-1, 1] X [-1, 1] X [-1, 1] and we vary the number of elements
-in each direction in [4, 8, 16, 32, 64, 128] and calculate the $L_2$ error of the solution with the analytical solution. We calculate this error for different polynomial
+in each direction in [4, 8, 16, 32, 64, 128] and calculate the $L^2$ error of the solution with the analytical solution. We calculate this error for different polynomial
 orders within [1, 2, 3, 4, 5] used in the reference element of the \ac{DG} scheme. We expect a convergence order of $p+1$ where $p$ is the polynomial order used in the
-\ac{DG} scheme used ~\parencite{cockburn2011discontinuous}. We mow plot the $L_2$ error norm of $u$- velocity in figure \ref{fig:convergence}.
+\ac{DG} scheme used ~\parencite{cockburn2011discontinuous}. We mow plot the $L^2$ error norm of $u$- velocity in figure \ref{fig:convergence}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{figures/error1.pdf}
-    \caption{Convergence plot for $L_2$ norm of $u$-velocity for Acoustic travelling wave with \ac{ITM}}
+    \caption{Convergence plot for $L^2$ norm of $u$-velocity for acoustic travelling wave with \ac{ITM}. The error is calculated with respect to the analytical solution
+    in section \ref{section:3DITMAcoustic}.}
     \label{fig:convergence}
 \end{figure}
 
@@ -377,6 +389,8 @@ We get the following convergence orders for different polynomial orders shown in
 \begin{center}
 \begin{table}[]
     \centering
+    \caption{Convergence order vs polynomial order obtained from the convergence study of acoustic travelling wave with \ac{ITM}}.
+    \label{table:convergenceorder}
     \begin{tabular}{|l|l|}
         \hline
      \textbf{Polynomial Order}& \textbf{Convergence Order}  \\
@@ -392,15 +406,14 @@ We get the following convergence orders for different polynomial orders shown in
         5 & 5.77\\
         \hline
     \end{tabular}
-    \caption{Convergence Order vs Polynomial Order}
-    \label{table:convergenceorder}
     \end{table}
 \end{center}
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/error2.pdf}
-    \caption{Linear fit of $L_2$ norm in loglog plot for Acoustic travelling wave with \ac{ITM}}
+    \caption{Linear fit of $\log\left(L^2\right)$ and $\log\left(grid size\right)$  plot for acoustic travelling wave with \ac{ITM}. The slope of the dashed lines denote the 
+    obtained convergence order.The outlier for $p=5$ is removed from the fit.}
     \label{fig:convergenceorder}
 \end{figure}
 
@@ -409,7 +422,8 @@ We now plot the expected error with the expected convergence order vs the actual
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/error3.pdf}
-    \caption{Expected $L_2$ norm vs Actual $L_2$ norm for Acoustic travelling wave with \ac{ITM}}
+    \caption{Expected $L^2$ norm vs actual $L^2$ norm for acoustic travelling wave with \ac{ITM}. The expected error is calculated with the expected convergence order
+    as the slope and the mean of logarithms of errors as the intercept of the line.}
     \label{fig:expectedvsactualerror}
 \end{figure}
 
