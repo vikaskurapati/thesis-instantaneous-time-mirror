@@ -88,7 +88,7 @@ This is shown in figure \ref{fig:space-timeplot-travelling}.
     \label{fig:space-timeplot-travelling}
 \end{figure}
 
-\section{Time-reversal of a velocity impulse point source in an Acoustic media} \label{sec:acousticITM}
+\section{Time-reversal of a velocity impulse point source in acoustic media} \label{sec:acousticITM}
 
 We now consider a velocity impulse point source in an acoustic media. We pick the Lam\'{e} parameter $\lambda$, density $\rho$ 
 from the half-space of the benchmark case WP2-LOH1~\footnote[1]{https://seissol.readthedocs.io/en/latest/pointsource.html} to make it a homogenous acoustic medium. 
@@ -189,7 +189,7 @@ location of the wave front from the forward going and reflected waves assuming s
 and has the same speed as the original incident wave in figure \ref{subfig:acousticITMAnnotated}. This confirms that the application of \ac{ITM} produces a reflected wave
 successfully in Acoustic Media. \\
 
-\section{Time-reversal of a velocity impulse point source in an Elastic media} \label{sec:elasticITM}
+\section{Time-reversal of a velocity impulse point source in an elastic media} \label{sec:elasticITM}
 We now consider a velocity impulse point source like in Section \ref{sec:acousticITM}. We choose the material parameters from the half-space of the 
 benchmark case WP2-LOH1~\footnote[1]{https://seissol.readthedocs.io/en/latest/pointsource.html} to make it a homogenous elastic medium. The material parameters 
 are characterized by
@@ -271,7 +271,7 @@ produced to numerical integration of the velocity wavefields. \\
 This shows that both the waves can be reflected simultaneously by scaling the material parameters to change their impedance to obtain a component which 
 is reflected back to its source. \\
 
-\section{Time-reversal of P- wave of a velocity impulse point source in an Elastic media} \label{sec:elasticITMpwave}
+\section{Time-reversal of P- wave of a velocity impulse point source in elastic media} \label{sec:elasticITMpwave}
 We now demonstrate the reflection of just the P- wave by scaling the Lam\'{e} parameter $\lambda$ and keeping the second Lam\'{e} parameter $\mu$ constant.\\
 The same setup is used as in Section \ref{sec:elasticITM} and we try to reflect just the P- wave while letting the S- wave travel unaffected in time. The slice
 and everything else about the simulation remain the same. The wavefields without \ac{ITM} looks like in figures \ref{fig:space-timeplot-elasticnoITM} and
@@ -311,7 +311,7 @@ can reflect one wave by changing its impedance while maintaining the other wave'
 We plot the displacement wavefield in figure \ref{fig:space-timeplot-pwavedisplacement} and we can see the reflected P- wave in displacement wavefield and the static
 displacement is noticed in this case too just like in the case of reflecting both the waves. 
 
-\section{Time-reversal of S-wave of a velocity impulse point source in an Elastic media} \label{sec:elasticITMswave}
+\section{Time-reversal of S-wave of a velocity impulse point source in elastic media} \label{sec:elasticITMswave}
 In this section, we demonstrate the reflection of just the S- wave by modifying the Lam\'{e} parameters such that P-wave does not
 get reflected but the S- wave does. The same setup is used as in section \ref{sec:elasticITM}. The wavefields without \ac{ITM} looks like in figures in \ref{fig:space-timeplot-elasticnoITM}
 and \ref{fig:space-timeplot-elasticnoITMdisplacement}. \\
@@ -352,7 +352,7 @@ wavefield and the static displacement like in previous section persists. We need
 We can clearly see here in this plot that there is a S- wave which is reflected without affecting the P- wave. 
 This provides us a proof of concept where we show that we can reflect one wave by changing its impedance while maintaining the other wave's impedance constant. \\
 
-\section{Time-reversal of a Pressure impulse point source in an Acoustic media}
+\section{Time-reversal of a pressure impulse point source in acoustic media}
 We choose the same material and mesh as in section \ref{sec:acousticITM} and change the source term to a pressure impulse. A pressure impulse source term is a moment tensor
 with all non-diagonal elements zero and equal non-zero diagonal elements. These are applied to the first three equations of the set of equations \ref{eq:setofequations}. 
 An exponentially decaying source is chosen similar to the source in section \ref{sec:acousticITM}. With this setup, the normal propagation of the wave looks at a slice which is already explained in section \ref{sec:acousticITM}
@@ -365,11 +365,11 @@ like in figure \ref{fig:space-timeplot-pressurenoITM}.
     \label{fig:space-timeplot-pressurenoITM}
 \end{figure}
 
-\section{Convergence Test}
+\section{Convergence Test}\label{sec:convergence}
 We now perform a convergence test to verify that our \ac{ITM} implementation is accurate and converges with our \ac{ADER}-\ac{DG} scheme. 
-We check the error between our numerical implementation and the analytical solution developed in Section \ref{section:3DITMAcoustic}. We use the mesh setup
-from section \ref{sec:acoustictravelling} with varying mesh sizes. Our solution domain is within [-1, 1] X [-1, 1] X [-1, 1] and we vary the number of elements
-in each direction in [4, 8, 16, 32, 64, 128] and calculate the $L^2$ error of the solution with the analytical solution. We calculate this error for different polynomial
+We check the error between our numerical implementation and the analytical solution developed in section \ref{section:3DITMAcoustic}. 
+The mesh is setup with equal triangular elements on a cubic domain of [-1, 1] X [-1, 1] X [-1, 1] with the number of elements in each direction varying in [4, 8, 16, 32, 64, 128].
+We calculate the $L^2$ error of the solution with respect to the analytical solution as per section \ref{section:3DITMAcoustic}. We calculate this error for different polynomial
 orders within [1, 2, 3, 4, 5] used in the reference element of the \ac{DG} scheme. We expect a convergence order of $p+1$ where $p$ is the polynomial order used in the
 \ac{DG} scheme used ~\parencite{cockburn2011discontinuous}. We mow plot the $L^2$ error norm of $u$- velocity in figure \ref{fig:convergence}.
 

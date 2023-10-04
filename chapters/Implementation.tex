@@ -8,9 +8,9 @@ modifications to the Lam\'{e} parameters and density from $t_{ITM}^-$ to $t_{ITM
 to the impedance is required to guarantee the presence of a reflected wave component ~\parencite[Sec 9.8]{leveque_2002}. Consequently, we will present various techniques
 for achieving this impedance change. \\
 
-\subsection{Reflecting both P- and S- waves by changing their velocities}
+\subsection{Reflecting both P- and S-waves by changing their velocities}\label{sec:reflecting_both}
 
-The first approach is to change the velocities of both P- and S- waves. This is accomplished by modifying the Lam\'{e} parameters $\lambda$ and $\mu$ and the density $\rho$ from $t_{ITM}^-$ to $t_{ITM}^+$ as
+The first approach is to change the velocities of both P- and S-waves. This is accomplished by modifying the Lam\'{e} parameters $\lambda$ and $\mu$ and the density $\rho$ from $t_{ITM}^-$ to $t_{ITM}^+$ as
 
 \begin{align}
     \begin{split}
@@ -31,8 +31,8 @@ This changes the velocities and impedances of both the waves during the duration
     \end{split}
 \end{align}
 
-\subsection{Reflecting both P- and S- waves by keeping their velocities constant}
-Here, we keep the velocities of both P- and S- waves constant but yet change their impedance by manipulating density along with the Lame\`{e} parameters. This is achieved by the following manipulation of the material properties
+\subsection{Reflecting both P- and S-waves by keeping their velocities constant}\label{sec:reflecting_both_constant}
+Here, we keep the velocities of both P- and S-waves constant but yet change their impedance by manipulating density along with the Lame\`{e} parameters. This is achieved by the following manipulation of the material properties
 
 \begin{align}
     \begin{split}
@@ -53,7 +53,7 @@ This changes the impedances of both the waves during the duration of the \ac{ITM
     \end{split}
 \end{align}
 
-\subsection{Reflecting only P- waves}
+\subsection{Reflecting only P-wave}\label{sec:reflecting_p}
 
 This is achieved by changing the Lam\'{e} parameter $\lambda$ and keeping $\mu$ constant from $t_{ITM}^-$ to $t_{ITM}^+$
 
@@ -65,7 +65,7 @@ This is achieved by changing the Lam\'{e} parameter $\lambda$ and keeping $\mu$ 
     \end{split}
 \end{align}
 
-The scaling of velocities and impedances of the P- wave in this case are not straightforward 
+The scaling of velocities and impedances of the P-wave in this case are not straightforward 
 
 \begin{align}
     \begin{split}
@@ -76,12 +76,12 @@ The scaling of velocities and impedances of the P- wave in this case are not str
     \end{split}
 \end{align}
 
-Even though the scaling is not clear with a direct relation with the earlier cases, we can still see that the impedance of the P- wave is different during the \ac{ITM}, 
+Even though the scaling is not clear with a direct relation with the earlier cases, we can still see that the impedance of the P-wave is different during the \ac{ITM}, 
 which ensures that there is a reflected component for that wave keeping the S-wave unaffected. \\
 
-\subsection{Reflecting only S- waves}
+\subsection{Reflecting only S-wave}\label{sec:reflecting_s}
 
-Ensuring that the impedance of S- waves changes while not affecting the P-waves' impedance is essential for reflecting only S- waves. This is thr trickiest
+Ensuring that the impedance of S-wave changes while not affecting the P-wave's impedance is essential for reflecting only S-waves. This is the trickiest
 reflection we try to achieve. The solution to this is not unique but the one that worked for us the best is the follows
 
 \begin{align}
@@ -106,7 +106,7 @@ The scaling of velocities and impedances of both the waves in this case are
 This case is a demonstration where the speed of the wave can change and yet, there will be no reflection of the wave in time when the impedance is constant.
 Similarly, for the S-wave, even though there is no change in the wave speed, the change of impedance causes the reflection of the wave in time. \\
 
-\subsection{Time Step Size}
+\subsection{Time Step Size}\label{sec:time_step_size}
 \ac{CFL} condition is generally used to limit the maximum time step an element might have for explicit time integration schemes. These are influenced by the order
 of convergence, occuring wave speeds and size of the considered element. \\
 
@@ -119,7 +119,7 @@ speeds of propagation of the waves. For more details on \ac{LTS} schemes, intere
 
 It the cluster $i$ has the time step $dt_i$, this is how the time step is modified for the \ac{ITM} duration in different cases
 
-\subsubsection{Reflecting both the P- and S- waves by changing their velocities or just the P- wave}
+\subsubsection{Reflecting both the P- and S-waves by changing their velocities or just the P-wave}
 This this case, we just need to scale down the time step by the same factor as the velocities of the waves. So, the time step for the cluster $i$ is scaled as
 
 \begin{equation}
@@ -132,7 +132,7 @@ Here, we notice that in case of reflecting just the P- wave, we still scale by t
 to maintain simplicity in the code as the scaling of the velocities of just the P- wave is not straightforward. Nevertheless, \ac{CFL} condition is still 
 satisfied with scaling. \\
 
-\subsubsection{Reflecting both the P- and S- waves by keeping their velocities constant}
+\subsubsection{Reflecting both the P- and S-waves by keeping their velocities constant}
 In this case, we do not need to scale down the time step by the factor $n$ as the velocity is not scaled here but only the impedance of the waves. 
 So, the time step for the clusters are not scaled and kept the same in this scenario.
 
@@ -140,7 +140,7 @@ So, the time step for the clusters are not scaled and kept the same in this scen
     \hat{dt}_i = dt_i .
 \end{equation}
 
-\subsubsection{Reflecting only the S- wave}
+\subsubsection{Reflecting only the S-wave}
 Here, we need to scale up the time step by the factor $n$ as the velocity of the P- wave is scaled down by the factor $n$ to ensure that the simulation still follows
 \ac{CFL} condition in case of a scaling factor less than 1, i.e., $n < 1$. So, the time step for the cluster $i$ is scaled as
 
