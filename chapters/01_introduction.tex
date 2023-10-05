@@ -8,15 +8,14 @@ and reducing casualities. \\
 
 The field of earthquake simulation has seen significant advancements in recent years, thanks to the availability of powerful supercomputers ~\parencite{inproceedings}, ~\parencite{breuer}, ~\parencite{seissol}.
 With these resources, it has become possible to model realistic 3D earthquake events on a large scale, something that was not feasible until a few decades ago. 
-Todays simulation software relies heavily on numerical methods to approximate real life physics. In this process, the volume of the problem is discretized into smaller elements, and numerical solvers are employed in each element to obstain a solution.
+Today's simulation software heavily relies on numerical methods to approximate real-life physics. In this process, the volume of the problem is discretized into smaller elements, and numerical solvers are employed in each element to obstain a solution.
 A few examples out of these wide range of numerical methods used to solve wave equations are finite differences, finite volumes, finite elements. These numerical methods have played a crucial role in advancing the field of earthquake simulation and are continuously being improved to produce more accurate and efficient simulations. \\
 
-SeisSol~\footnote{\href{https://seissol.org}{https://seissol.org}} is a scientific software that enables the simulation of seismic waves and earthquake phenomena. 
-However, modeling complex 3D geometries is computationally intensive for modeling complex 3D geometries.
-To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. 
+SeisSol\footnote{\href{https://seissol.org}{https://seissol.org}} is a scientific software that enables the simulation of seismic waves and earthquake phenomena. 
+However, the modelling of complex 3D geometries can be computationally intensive. To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. 
 The software allows for the study of various scenarios, including adjusting material properties to exhibit elastic, viscoelastic and viscoplastic behaviour.
-SeisSol utilizes a combination of \ac{DG} method and \ac{ADER} time-integration approach to solve the problems.
-This combination is called \ac{ADER}-\ac{DG} approach ~\parencite{dumbser}. Dumbser et al. extended this approach to solve the elastic wave equations in three dimensions ~\parencite{dumbser1}. The \ac{ADER}-\ac{DG} approach provides arbitrary high-order accuracy in space and time, with the solution in each element approximated by polynomials.
+SeisSol utilizes a combination of \acf{DG} method and \acf{ADER} time-integration approach to solve the problems.
+This combination is called \ac{ADER}-\ac{DG} approach ~\parencite{dumbser}. ~\parencite{dumbser1} extended this approach to solve the elastic wave equations in three dimensions. The \ac{ADER}-\ac{DG} approach provides arbitrary high-order accuracy in space and time, with the solution in each element approximated by polynomials.
 The degrees of freedom are expressed through the coefficients of the polynomial, which are advanced in time during simulation, allowing for discontinuities across element boundaries ~\parencite{martin}. \\
 
 In this thesis, we extend SeisSol with the implementation of Wave Reversal of Seismic waves using the \acf{ITM}. 
@@ -26,8 +25,8 @@ In the context of seismic waves, time-reversal methods may be employed to invest
 The work by ~\parencite{Fink2017} describes two techniques for wave reversal. The first approach is the time-reversal mirror approach, which involves recording the wavefield at some 
 receiver locations and reversing the wavefield. This approach has been used experimentally to reverse wavefields in elastic solids ~\parencite{PhysRevLett.100.064301}.
 ~\parencite{Weinert2016} describes Loschmidt's demon as something which reverses the momentum/velocity of each particle instantaneously such that the state of the system is reversed 
-from a fibrillated state to a less fibrillated, smoother state. The second approach is called the \acf{ITM} approach, which involves
-mimicking Loschmidt's Demons for waves ~\parencite{Fink2017} for waves. 
+from a fibrillated state to a less fibrillated, smoother state. The second approach for wave-reversal is called the \acf{ITM} approach, which involves
+mimicking Loschmidt's Demons for waves ~\parencite{Fink2017}. 
 While both techniques generate time-reversed waves, we specifically focus on the \ac{ITM} approach. 
 This method involves manipulating waves on time boundaries by sudden modifications of the wave properties like wave speed in the whole medium, 
 effectively mimicking the Loschmidt point of view. 
@@ -42,13 +41,13 @@ sufficient to modify wave velocities and achieve wave reversal using \ac{ITM}s.
 
 It is important to note that the time-reversal presented here, in its simplest form, may not be directly useful in experimental 
 investigations, as we cannot directly modify the material properties. However, it does provide an approach to approximately 
-locate the source of an earthquake when successfully reversed. \\
+locate the source of an earthquake when successfully reversed.
 
 The thesis is organized as follows: Chapter \ref{chapter:seismicwaves} focuses on the fundamental theory of elastic wave propagation and the presentation
 of the numerical \ac{ADER}-\ac{DG} scheme as used in SeisSol. The equation of motion in elastic media is derived, and the wave equation is presented
 in the velocity-stress formulation. Chapter \ref{chapter:TimeReversal} outlines the theory of time-reversal, briefly discussing the wave reversal approach before
 delving into a more detailed explanation of the \ac{ITM}s concept. Section \ref{section:Implementation} describes the method and implementation details of \ac{ITM}s
-in SeisSol. Chapter \ref{chapter:Results} discusses the different parametric studies and results obtained in the process. Finally, we discuss the results
+in SeisSol. Chapter \ref{chapter:Results} discusses the different studies and results obtained in the process for different scenarios. Finally, we discuss the conclusions
 and possible future research directions in Chapter \ref{chapter:Conclusion}. 
 
 %See~\autoref{tab:sample}, \autoref{fig:sample-drawing}, \autoref{fig:sample-plot}, \autoref{fig:sample-listing}.

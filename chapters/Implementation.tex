@@ -1,16 +1,16 @@
 \section{Implementation}\label{section:Implementation}
 
 This section outlines the extension incorporated into SeisSol required for the implementation of \ac{ITM}. The implemenetation has been designed in a generic way,
-ensuring that the current code can be easily reused for future experiments. \\
+ensuring that the current code can be easily reused for future experiments.
 
 In order to create a time-reversed wave, the material properties of the medium must be altered as described in the previous sections. This can be accomplished via
 modifications to the Lam\'{e} parameters and density from $t_{ITM}^-$ to $t_{ITM}^+$ that correspond with the intended reflection. As previously discussed, an alteration
 to the impedance is required to guarantee the presence of a reflected wave component ~\parencite[Sec 9.8]{leveque_2002}. Consequently, we will present various techniques
-for achieving this impedance change. \\
+for achieving this impedance change.
 
 \subsection{Reflecting both P- and S-waves by changing their velocities}\label{sec:reflecting_both}
 
-The first approach is to change the velocities of both P- and S-waves. This is accomplished by modifying the Lam\'{e} parameters $\lambda$ and $\mu$ and the density $\rho$ from $t_{ITM}^-$ to $t_{ITM}^+$ as
+The first approach is to change the velocities of both P- and S-waves. This is accomplished by modifying the Lam\'{e} parameters $\lambda$ and $\mu$ from $t_{ITM}^-$ to $t_{ITM}^+$ as
 
 \begin{align}
     \begin{split}
@@ -31,8 +31,11 @@ This changes the velocities and impedances of both the waves during the duration
     \end{split}
 \end{align}
 
+where $\hat{v}_p, \hat{v}_s, \hat{Z}_p, \hat{Z}_s$ are the velocities and impedances of the P- and S-waves during the \ac{ITM} duration and 
+$v_p, v_s, Z_p, Z_s$ are the velocities and impedances of the P- and S-waves outside of the \ac{ITM} duration.
+
 \subsection{Reflecting both P- and S-waves by keeping their velocities constant}\label{sec:reflecting_both_constant}
-Here, we keep the velocities of both P- and S-waves constant but yet change their impedance by manipulating density along with the Lame\`{e} parameters. This is achieved by the following manipulation of the material properties
+Here, we keep the velocities of both P- and S-waves constant but yet change their impedance by manipulating density along with the Lam\`{e} parameters. This is achieved by the following manipulation of the material properties
 
 \begin{align}
     \begin{split}
@@ -77,7 +80,7 @@ The scaling of velocities and impedances of the P-wave in this case are not stra
 \end{align}
 
 Even though the scaling is not clear with a direct relation with the earlier cases, we can still see that the impedance of the P-wave is different during the \ac{ITM}, 
-which ensures that there is a reflected component for that wave keeping the S-wave unaffected. \\
+which ensures that there is a reflected component for that wave keeping the S-wave unaffected. 
 
 \subsection{Reflecting only S-wave}\label{sec:reflecting_s}
 
@@ -104,37 +107,37 @@ The scaling of velocities and impedances of both the waves in this case are
 \end{align}
 
 This case is a demonstration where the speed of the wave can change and yet, there will be no reflection of the wave in time when the impedance is constant.
-Similarly, for the S-wave, even though there is no change in the wave speed, the change of impedance causes the reflection of the wave in time. \\
+Similarly, for the S-wave, even though there is no change in the wave speed, the change of impedance causes the reflection of the wave in time.
 
 \subsection{Time Step Size}\label{sec:time_step_size}
 \ac{CFL} condition is generally used to limit the maximum time step an element might have for explicit time integration schemes. These are influenced by the order
-of convergence, occuring wave speeds and size of the considered element. \\
+of convergence, occuring wave speeds and size of the considered element.
 
 SeisSol uses \ac{LTS} schemes for explicit time-stepping. The \ac{LTS} scheme uses different time steps for different elements in our mesh. 
 SeisSol clustures the elements to reduce the heterogeneity of the \ac{LTS} algorithm. The clusters summarize the elements in the computational domain advancing
-with a common time step. We need to modify this common time step of all the clusters accordingly when the material properties are changed as that changes the 
+with a common time step. We need to modify this common time step of all the clusters accordingly when the material properties are changed as this modification changes the 
 speeds of propagation of the waves. For more details on \ac{LTS} schemes, interested readers are referred to ~\parencite{breuer}, ~\parencite{dumbser2007arbitrary},
 ~\parencite{castro2009space}, ~\parencite{rietmann2015loadbalanced}, ~\parencite{seny2014efficient}, ~\parencite{Gassner2008}, ~\parencite{andrew}, 
-~\parencite{SCHLEGEL2009345}. \\
+~\parencite{SCHLEGEL2009345}.
 
-It the cluster $i$ has the time step $dt_i$, this is how the time step is modified for the \ac{ITM} duration in different cases
+If the cluster $i$ has the time step $dt_i$, this is how the time step is modified for the \ac{ITM} duration in different cases
 
-\subsubsection{Reflecting both the P- and S-waves by changing their velocities or just the P-wave}
-This this case, we just need to scale down the time step by the same factor as the velocities of the waves. So, the time step for the cluster $i$ is scaled as
+\subsubsection{Reflecting both the P- and S-waves by changing their velocities or reflecting just the P-wave}
+In this case, we just need to scale down the time step by the same factor as the velocities of the waves. So, the time step for the cluster $i$ is scaled as
 
 \begin{equation}
     \hat{dt}_i = \frac{dt_i}{n} ,
 \end{equation}
 
-where $\hat{dt}_i$ is the time step of cluster $i$ during the \ac{ITM} duration. \\
+where $\hat{dt}_i$ is the time step of cluster $i$ during the \ac{ITM} duration. 
 
 Here, we notice that in case of reflecting just the P- wave, we still scale by the factor $n$ even though the velocity is not exactly scaled by $n$. This is
-to maintain simplicity in the code as the scaling of the velocities of just the P- wave is not straightforward. Nevertheless, \ac{CFL} condition is still 
-satisfied with scaling. \\
+to maintain simplicity in the code as the scaling of the velocities of just the P-wave is not straightforward. Nevertheless, \ac{CFL} condition is still 
+satisfied with scaling. 
 
 \subsubsection{Reflecting both the P- and S-waves by keeping their velocities constant}
 In this case, we do not need to scale down the time step by the factor $n$ as the velocity is not scaled here but only the impedance of the waves. 
-So, the time step for the clusters are not scaled and kept the same in this scenario.
+So, the time step for the clusters are unchanged in this scenario.
 
 \begin{equation}
     \hat{dt}_i = dt_i .
@@ -148,15 +151,11 @@ Here, we need to scale up the time step by the factor $n$ as the velocity of the
     \hat{dt}_i = n \, dt_i .
 \end{equation}
 
-In this section, we present various material modification techniques that were utilized during the \ac{ITM} phase to attain the desired reflection. We also outline
-the necessary adjustments to the time step size to ensure that the \ac{CFL} condition is satisfied, in turn maintaining the stability of the simulation. \\
-
 \subsection{Summary of the Implementation}
 The implementation of \ac{ITM} in SeisSol is done in a generic way such that it can be used for any of the above mentioned scenarios. 
 Material modifications for \ac{ITM} for different scenarios are discussed and the corresponding time step size modifications to keep the simulation
 stable are also presented. Material modifications are done such that the impedance of only the wave(s) we intend to reflect is changed. 
-The time step size is modified such that the \ac{CFL} condition is satisfied for every phase of the simulation. \\
-
+The time step size is modified such that the \ac{CFL} condition is satisfied for every phase of the simulation. 
 
 \section{Summary}
 In this chapter we have discussed the theory of time reversal in the context of seismic waves. We have looked at how an \ac{ITM} affects a travelling acoustic

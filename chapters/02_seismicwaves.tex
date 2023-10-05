@@ -2,11 +2,11 @@
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
 \chapter{Seismic Waves and ADER-DG formulation}\label{chapter:seismicwaves}
-In this chapter, the necessary theoretical foundations for this are established through the derivation of fundamental equations governing the propagation of elastic waves.
+In this chapter, the necessary theoretical foundations for this thesis are established through the derivation of fundamental equations governing the propagation of elastic waves.
 The equation of motion corresponding to this will be presented later on in the velocity-stress formulation.
-We only consider isotropic media and utilize this assumption in particular symmtery arguments. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}. \\
+We only consider isotropic media and utilize this assumption in particular symmtery arguments. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}.
 
-The next section of the thesis discusses SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
+The section \ref{section:ADER-DG} discusses SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
 of the \ac{DG-FE} method and a time integration scheme based on the solution of \ac{ADER}, as described in previous works ~\parencite{dumbser1}, ~\parencite{seissol}. This approach, known as 
 \ac{ADER}-\ac{DG} will be introduced in more detail in the following sections.
 
@@ -33,7 +33,7 @@ where the subscript denotes the coordinate direction and a dot over a variable r
     \label{equation1}
 \end{align}
 
-where the velocity vector $\mathbf{V} $ is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously. \\
+where the velocity vector $\mathbf{V} $ is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously.
 
 In the context of linear elasticity, the following extension of Hooke's law  to generalize linear elasticity holds
 
@@ -62,20 +62,21 @@ Consequently, this leads to the time derivative of the strain tensor
 
 \begin{align}
     \begin{split}
-        \dot{\epsilon}_{kl} = \frac{1}{2}\left( \partial_k V_l + \partial_l V_k \right) ,
+        \partial_t \epsilon_{kl} = \frac{1}{2}\left(\partial_k V_l + \partial_l V_k \right) ,
+        % \dot{\epsilon}_{kl} = \frac{1}{2}\left( \partial_k V_l + \partial_l V_k \right) ,
     \end{split}
 \end{align}
 
-expressed in terms of the spatial derivatives of the velocities $V_i$. As the constants $c_{ijkl}$ remain constant over time,
+expressed in terms of the spatial derivatives of the velocities $V_i$. Here, $\partial_t$ denotes the time derivative. As the constants $c_{ijkl}$ remain constant over time,
 
 \begin{align}
     \begin{split}
-        \dot{\sigma}_{ij} = c_{ijkl}\dot{\epsilon}_{kl} .
+        \partial_t \sigma_{ij} = c_{ijkl}\dot{\epsilon}_{kl} .
     \end{split}
     \label{eq:stress}
 \end{align}
 
-We can apply symmetry considerations to the term $c_{ijkl}$ in equation \ref{eq:hookeslaw} and reduce the number of independent components from 81 to 21 ~\parencite[Cha. 2]{aki2002quantitative}.
+We can apply symmetry considerations of the stress tensor i.e., $sigma_{ij} = sigma_{ji}$ to the term $c_{ijkl}$ in equation \ref{eq:hookeslaw} and reduce the number of independent components from 81 to 21 ~\parencite[Cha. 2]{aki2002quantitative}.
 This in turn lets us define the tensor in terms of two constants in isotropic media with the general form of
 
 \begin{equation}
@@ -83,7 +84,7 @@ This in turn lets us define the tensor in terms of two constants in isotropic me
     \label{eq:isotropic}
 \end{equation}
 
-where $\delta$ is the Kronecker delta function and $\lambda, \mu$ are the Lam\'e parameters. \\
+where $\delta$ is the Kronecker delta function and $\lambda, \mu$ are the Lam\'e parameters.
 
 We now write a force balance in a volume $V$ within a surface $S$. The momentum within the volume changes at a rate equal
 to the forces acting on that volume. Therefore, the forces acting on these comprise a body force and a surface force, which result
@@ -130,9 +131,8 @@ Expanding equation \ref{eq:force} in $j$ and using $V_i = \frac{\partial U_i}{\p
     \label{eq:finalequation}
 \end{equation}
 
-The body force $f_i$ will be discussed later in terms of the source terms. \\
-
-Combining equations \ref{eq:stress}, \ref{eq:isotropic} and \ref{eq:finalequation}, we obtain the final 3D 
+The body force $f_i$ will be discussed later in terms of the source terms.
+\par Combining equations \ref{eq:stress}, \ref{eq:isotropic} and \ref{eq:finalequation}, we obtain the final 3D 
 wave elastic equation for an isotropic medium in velocity-stress formulation
 
 \begin{align}
@@ -151,10 +151,10 @@ wave elastic equation for an isotropic medium in velocity-stress formulation
 \end{align}
 
 where $S_p, p = 1,\dots9,$ are the source terms. The source terms are used to describe the common sources of seismic events like double couple or force couple moments.
-These are often used to approximate the faults and slips in Earth's structure ~\parencite{shearer_2019}.\\
+These are often used to approximate the faults and slips in Earth's structure ~\parencite{shearer_2019}.
 
 Another important term for consideration with this system is the propagation speed of elastic-acoustic waves. In elastic media, we 
-observe two kinds of waves, a primary compression wave and a secondary sheer wave which are called P-waves and S-waves respectively.\\
+observe two kinds of waves, a primary compression wave and a secondary sheer wave which are called P-waves and S-waves respectively.
 
 For the investigation of the eigenstructure of the systems, we need to transform it into a more compact form of hyperbolic equations
 
@@ -235,11 +235,11 @@ The eigenvalues of the flux matrices $A_{pq}, B_{pq}, C_{pq}$ determine the prop
 where
 
 \begin{equation}
-    v_p = \sqrt{\frac{\lambda + 2\mu}{\rho}}, \, v_s = \sqrt{\frac{\mu}{\rho}}.
+    v_p = \sqrt{\frac{\lambda + 2\mu}{\rho}}, \quad v_s = \sqrt{\frac{\mu}{\rho}}.
     \label{eq:wavevelocities}
 \end{equation}
 
-These two velocities are the propagation velocities with $v_p$ as the propagation velocity of the P-wave and $v_s$ as the propagation velocity of the S-wave. \\
+These two velocities are the propagation velocities with $v_p$ as the propagation velocity of the P-wave and $v_s$ as the propagation velocity of the S-wave.
 
 The elastic wave propagation is simplified to an acoustic wave propagation when we set $\mu = 0$. Further simplifications like
 
@@ -313,9 +313,8 @@ with eigenvalues
     s_1 = -v_p, \, s_2 = 0, \, s_3 = 0, \, s_4 = v_p \, .
 \end{equation}
 
-This shows that there is only kind of propagating wave in the acoustic case with $\mu = 0$. \\
-
-\section{\ac{ADER}-\ac{DG}}\label{section:ADER-DG}
+This shows that there is only kind of propagating wave in the acoustic case with $\mu = 0$.
+\section{\texorpdfstring{\ac{ADER}-\ac{DG}}{ADER-DG}}\label{section:ADER-DG}
 
 In this section, we will discuss on the fundamental framework of SeisSol, which is the \ac{ADER}-\ac{DG} method. This section is to provide
 a brief understanding about the framework and not to go too much into detail. 
@@ -324,14 +323,14 @@ a brief understanding about the framework and not to go too much into detail.
 
 \subsection[Discontinuous Galerkin method]{Discontinuous Galerkin Method}\label{subsection:DG}
 
-We have earlier formulated the elastic wave equation as a system of linear hyperbolic partial differential equataions in equation \ref{eq:setofequations}.
-~\parencite{Toro2001} formulated the idea of arbitrary high order generalized
+We have earlier formulated the elastic wave equation as a system of linear hyperbolic partial differential equataions in equation \ref{eq:setofequations}.~
+\parencite{Toro2001} formulated the idea of arbitrary high order generalized
 Riemann Solvers in a finite volume framework and coined the approach \ac{ADER}. Here, the combination of the generalized Riemann Solvers with \ac{DG}
-methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}.In practice, we use an "averaged" normal Riemann problem where first predict
-the solution in time and then solve an the Riemann problem making it in practice an "average" Riemann problem which is equivalent to the generalized Riemann solver. \\
- Higher-order piecewise polynomial approximations are used
+methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}. In practice, we use an "averaged" normal Riemann problem where first predict
+the solution in time and then solve an the Riemann problem making it in practice an "average" Riemann problem which is equivalent to the generalized Riemann solver.
+\par Higher-order piecewise polynomial approximations are used
 along with the theory of fluxes across element boundaries from the finite volume methods. The \ac{ADER}-\ac{DG} scheme is an explicit one step scheme.
-It advances the solution by a full time step and needs the computation of inter-cell fluxes once per time-step. \\
+It advances the solution by a full time step and needs the computation of inter-cell fluxes once per time-step.
 % Time Derivatives are replaced with space derivatives
 % using Cauchy-Kowalevski or Lax-Wendroff procedure to achieve arbitrary high-order accuracy in both space and time.
 
@@ -400,7 +399,7 @@ the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$. This allows us 
 \label{eq:solution}
 \end{equation}
 
-where $l$ denotes the $l^{th}$ basis function. Multiplying equation \ref{eq:compactform} with the test function $\Psi_k$(~\parencite{cockburn2011discontinuous})
+where $l$ denotes the $l^{th}$ basis function. Multiplying equation \ref{eq:compactform} with the test function $\Psi_k$ ~\parencite{cockburn2011discontinuous}
 and integrating over our tetrahedral element $\mathcal{T}^{\left(m\right)}$ gives
 
 \begin{equation}
@@ -422,12 +421,15 @@ The flux between the tetrahedron $\mathcal{T}^{\left(m\right)}$ with the boundar
 and one of its neighboring tetrahedra $\mathcal{T}^{\left(m_j\right)} \left(j=1,2,3,4\right)$ is computed in the global, coordinate system using the flux
 matrix $A_{pq}$ from equation \ref{eq:fluxmatrix}
 
-\begin{equation}
-    F_p^h = \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} + \left|A_{qr}^{\left(m\right)}\right|\right)\left(T_{rs}\right)^{-1}
-    \hat{Q}_{sl}^{\left(m\right)} \Psi_l^{\left(m\right)} + \frac{1}{2}T_{pq}\left(A_{qr}^{\left(m\right)} - \left|A_{qr}^{\left(m\right)}\right|\right)
-    \left(T_{rs}\right)^{-1}\hat{Q}_{sl}^{\left(m_j\right)}\Psi_l^{\left(m_j\right)},
-    \label{eq:fluxcalculation}
-\end{equation}
+    \begin{align}
+        \begin{split}
+            F_p^h &= \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} + \left|A_{qr}^{\left(m\right)}\right|\right)\left(T_{rs}\right)^{-1}
+            \hat{Q}_{sl}^{\left(m\right)} \Psi_l^{\left(m\right)} \\
+            &+ \frac{1}{2}T_{pq}\left(A_{qr}^{\left(m\right)} - \left|A_{qr}^{\left(m\right)}\right|\right)
+            \left(T_{rs}\right)^{-1}\hat{Q}_{sl}^{\left(m_j\right)}\Psi_l^{\left(m_j\right)},            
+        \end{split}
+        \label{eq:fluxcalculation}
+    \end{align}
 
 where
 
@@ -461,22 +463,23 @@ We finally get the semi-discrete \ac{DG} formulation of the ODE system within th
         & \frac{\partial \hat{Q}_{pl}^{\left(m\right)}}{\partial t} \left|J\right| \int_{\mathcal{T}_E} \Phi_k \Phi_l d\xi d\eta d\zeta \\
         & + \sum_{j=1}^4 T_{pq}^j \frac{1}{2} \left(A_{qr}^{\left(m\right)} + \left| A_{qr}^{\left(m\right)}\right| \right) \left(T_{rs}^j\right)^{-1} \hat{Q}_{sl}^{\left(m\right)} \left|S_j\right| F_{kl}^{-,j} \\
         & + \sum_{j=1}^4 T_{pq}^j \frac{1}{2} \left(A_{qr}^{\left(m\right)} - \left| A_{qr}^{\left(m\right)}\right| \right) \left(T_{rs}^j\right)^{-1} \hat{Q}_{sl}^{\left(m_j\right)}\left|S_j\right| F_{kl}^{+,j,i,h} \\ 
-        & - A_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \xi} \Phi_l d\xi d\eta d\zeta
-        - B_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \eta} \Phi_l d\xi d\eta d\zeta
-        - C_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \zeta} \Phi_l d\xi d\eta d\zeta = 0,
+        & - A_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \xi} \Phi_l d\xi d\eta d\zeta \\
+        & - B_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \eta} \Phi_l d\xi d\eta d\zeta \\
+        & - C_{pq}^* \hat{Q}_{ql}^{\left(m\right)} \left|J\right| \int_{\mathcal{T}_E} \frac{\partial \Phi_k}{\partial \zeta} \Phi_l d\xi d\eta d\zeta = 0,
     \end{split}
     \label{eq:finalform}
 \end{align}
 
-where $\left|S_j\right|$ is the area of the face $j$ of the tetrahedron.
+where $F_{kl}^{-,j}$ accounts for the contribution of the element$\left(m\right)$ itself to the fluxes over face j, $F_{kl}^{+,j,i,h}$ accounts for the contribution
+of the element's direct side neighbor$\left(k_j\right)$ to the fluxes over the face $j$ and $\left|S_j\right|$ is the area of the face $j$ of the tetrahedron ~\parencite{dumbser1}.
 
 \subsection[ADER Time Discretization]{ADER Time Discretization}
 
 Instead of now utilizing the Runge-Kutta method to derive a limited fourth-order in time Runge-Kutta \ac{DG} scheme, we adopt the 
 \ac{ADER} approach to achieve an arbitrary high-order accuracy in both spatial and temporal dimensions. Runge-Kutta schemes of order
-higher than 4 tend to become inefficient as the number of calculation steps required exceeds the order of accuracy due to the Butcher barriers(~\parencite{butcher1987numerical}). \\
+higher than 4 tend to become inefficient as the number of calculation steps required exceeds the order of accuracy due to the Butcher barriers~\parencite{butcher1987numerical}.
 
-By applying the \ac{ADER} scheme to the \ac{DG} formulation described in equation \ref{eq:finalform}, we obtain the \ac{ADER}-\ac{DG} scheme.
+\par By applying the \ac{ADER} scheme to the \ac{DG} formulation described in equation \ref{eq:finalform}, we obtain the \ac{ADER}-\ac{DG} scheme.
 The crucial step in this approach involves using the Cauchy-Kovalewski procedure to replace time-derivatives with pure space derivatives.
 As a consequence, the Cauchy-Kovalewski procedure provides the $k^{th}$ time-derivative as shown in equation \ref{eq:cauchy-kovalewski} in the face-aligned coordinate system, allowing us to
 achieve higher accuracy without the limitations of tradiational Runge-Kutta schemes
@@ -487,18 +490,17 @@ achieve higher accuracy without the limitations of tradiational Runge-Kutta sche
 \end{equation}
 
 $Q_p$ can be expanded in a Taylor series with respect to time, and then the time derivatives can be substituted with space derivatives
-using the equation \ref{eq:cauchy-kovalewski}(~\parencite[Sec. 3.2]{dumbser1}). By adopting this approach, we can achieve arbitrary high-order
+using the equation \ref{eq:cauchy-kovalewski}~\parencite[Sec. 3.2]{dumbser1}. By adopting this approach, we can achieve arbitrary high-order
 accuracy in both spatial and temporal dimensions. As previously mentioned, the \ac{ADER}-\ac{DG} schemes conduct time integration
 within a single time step, considering only the current element and its neighboring elements, making it well-suited for parallelization.
-Moreover, studies have demonstrated that the \ac{ADER}-\ac{DG} method outperforms traditional schemes such as \ac{RK-DG} scheme(~\parencite{dumbser2005ader}).
+Moreover, studies have demonstrated that the \ac{ADER}-\ac{DG} method outperforms traditional schemes such as \ac{RK-DG} scheme ~\parencite{dumbser2005ader}.
 
 \subsection{Boundary Conditions}
 Up until now, we have explored the time-discretization and space-discretization aspects of our problem. To complete our numerical
 solver, we must establish suitable boundary conditions for the problem. We mainly have three kinds of boundaries in consideration.
 
 \subsubsection{Absorbing Boundaries}
-With the implementation of absorbing boundary conditions, the physical volume is enclosed by such boundaries in the forward direction.
-This means that no waves enter the computational domain, and any outgoing waves smoothly pass through the boundary without experiencing
+With the implementation of absorbing boundary conditions, the physical volume is enclosed by such boundaries in the forward direction. This means that no waves enter the computational domain, and any outgoing waves smoothly pass through the boundary without experiencing
 reflection. A careful examination of equation \ref{eq:fluxcalculation} reveals that its first term on the right-hand side corresponds
 to the outflow from the current element, while the second term represents the inflow from neighboring elements. To prevent incoming
 waves from affecting the solution, we set the second term to zero. Consequently, the flux at all absorbing faces of the respective
@@ -513,7 +515,7 @@ At a free-surface boundary, the elastic medium is in contact with the surroundin
 acting on the outside of the elastic medium. To ensure that normal and shear stresses vanish at the free surface, a technique involving
 ghost cells is employed. These ghost cells are used to mirror the stresses, such that their values have the same magnitude as the actual
 stresses but with the opposite sign. This approach effectively satisfies the condition of stress equilibrium at the free surface, allowing
-for accurate treatment of the boundary. We implement this using the flux function (~\parencite{dumbser1})
+for accurate treatment of the boundary. We implement this using the flux function ~\parencite{dumbser1}
 
 \begin{align}
     \begin{split}

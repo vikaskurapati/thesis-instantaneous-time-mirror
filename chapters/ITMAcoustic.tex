@@ -1,9 +1,9 @@
 % !TeX root = ../main.tex
 % Add the above to each chapter to make compiling the PDF easier in some editors.
 
-\section{\ac{ITM} on a one-dimenonsional acoustic planar wave}\label{section:ITMAcoustic}
+\section{\texorpdfstring{\ac{ITM} on a one-dimensional acoustic planar wave}{ITM on a one-dimensional acoustic planar wave}}\label{section:ITMAcoustic}
 In this chapter, we calculate the analytical solution for a one-dimensional acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
-For this, we consider a one-dimensional Acoustic Equation ~\parencite[Sec. 2.8]{leveque_2002} linearized about the motionless state
+For this, we consider a one-dimensional acoustic equation ~\parencite[Sec. 2.8]{leveque_2002} linearized about the motionless state
 \begin{align}
     \begin{split}
         p_t + K_0u_x = 0, \\
@@ -11,7 +11,7 @@ For this, we consider a one-dimensional Acoustic Equation ~\parencite[Sec. 2.8]{
     \end{split}
 \end{align}
 
-where $p$ is the pressure perturbation, $K_0$ is the bulk modulus of the material and $u$ is the velocity purturbation. 
+where $p$ is the pressure perturbation, $K_0$ is the bulk modulus of the material and $u$ is the velocity perturbation. 
 This can be written in consolidated matrix vector form as done for first order hyperbolic systems of equations as follows
 
 \begin{align}
@@ -82,8 +82,8 @@ We use this solution to find the analytical solution of a 1D acoustic wave after
 This defines our initial conditions as
 \begin{align}
     \begin{split}
-        p^0\left(x\right) &= \rho_0c_0cos\left(kx\right), \\
-        u^0\left(x\right) &= cos\left(kx\right)
+        p^0\left(x\right) &= \rho_0c_0 \cos\left(kx\right), \\
+        u^0\left(x\right) &= \cos\left(kx\right)
     \end{split}
     \label{eq:initialconditions}
 \end{align}
@@ -104,14 +104,14 @@ which simplifies to
 
 for phase 1. Energy defined in equation \ref{eq:energy} is conserved for a particular phase as the system of equations are conservative for every phase ~\parencite{Kopriva2021}. 
 
-\subsection{Impedance Changing \ac{ITM}}\label{section:impedancechangingITM}
+\subsection{\texorpdfstring{Impedance Changing \ac{ITM}}{Impedance Changing ITM}}\label{section:impedancechangingITM}
 Using the conditions given by equation \ref{eq:initialconditions}, we calculate the solution at $t_{ITM}^-$ and use them as initial conditions for the new equation where the wave velocities are scaled.
 In this case, we scale the velocities such that the impedance also changes while keeping the density constant. Using \ref{eq:solutionacoustic}, we get the initial conditions for the next phase of the simulation$\left(t_{ITM}^- \leq t \leq t_{ITM}^+ \right)$ at $t_{ITM}^-$ as
 
 \begin{align}
     \begin{split}
-        p^0_{t_{ITM}^-}\left(x\right) &= c_0 \rho_0 cos\left(kx - c_0kt_{ITM}^-\right), \\
-        u^0_{t_{ITM}^-}\left(x\right) &= cos\left(kx - c_0kt_{ITM}^-\right) .
+        p^0_{t_{ITM}^-}\left(x\right) &= c_0 \rho_0 \cos\left(kx - c_0kt_{ITM}^-\right), \\
+        u^0_{t_{ITM}^-}\left(x\right) &= \cos\left(kx - c_0kt_{ITM}^-\right) .
     \end{split}
 \end{align}
 
@@ -119,10 +119,10 @@ We now use these as the initial conditions and equation \ref{eq:solutionacoustic
 
 \begin{align}
     \begin{split}
-        p_{2}\left(x, t\right) &= -\frac{1}{2} \left(n-1\right)c_0\rho_0cos\left(kx + c_0knt - \left(c_0kn + c_0k\right)t_{ITM}^-\right) \\
-        &+ \frac{1}{2} \left(n+1\right)c_0\rho_0cos\left(kx - c_0knt + \left(c_0kn - c_0k\right)t_{ITM}^-\right), \\
-        u_{2}\left(x, t\right) &= \frac{1}{2}\left(n-1\right)cos\left(kx + c_0knt - \left(c_0kn + c_0k\right)t_{ITM}^-\right)\\
-        &+ \frac{1}{2}\left(n+1\right)cos\left(kx - c_0knt + \left(c_0kn-c_0k\right)t_{ITM^-}\right)
+        p_{2}\left(x, t\right) &= -\frac{1}{2} \left(n-1\right)c_0\rho_0 \cos\left(kx + c_0knt - \left(c_0kn + c_0k\right)t_{ITM}^-\right) \\
+        &+ \frac{1}{2} \left(n+1\right)c_0\rho_0\cos\left(kx - c_0knt + \left(c_0kn - c_0k\right)t_{ITM}^-\right), \\
+        u_{2}\left(x, t\right) &= \frac{1}{2}\left(n-1\right)\cos\left(kx + c_0knt - \left(c_0kn + c_0k\right)t_{ITM}^-\right)\\
+        &+ \frac{1}{2}\left(n+1\right)\cos\left(kx - c_0knt + \left(c_0kn-c_0k\right)t_{ITM^-}\right)
     \end{split}
 \end{align}
 
@@ -147,7 +147,7 @@ This shows that the energy drops when the velocity is scaled up. We then check t
     \label{fig:ratio1}
 \end{figure}
 
-Now, the velocity is scaled back to its initial value at $t=T_{ITM}^+$. By defining $\tau = t_{ITM}^+ - t_{ITM}^-$, a similar calculation is performed to acquire the
+Now, the velocity is scaled back to its initial value at $t=t_{ITM}^+$. By defining $\tau = t_{ITM}^+ - t_{ITM}^-$, a similar calculation is performed to acquire the
 solution for the final phase, i.e., $t \geq t_{ITM}^+$, and the resulting solution is
 
 \begin{align}
@@ -193,14 +193,14 @@ This demonstrates that the application of \ac{ITM} leads to a change in the ener
 The minimum value for this energy jump lies at $n=1$, which means no velocity scaling and no reflections. This particular scenario does not offer any practical utility
 or relevance to our objective.
 
-\subsection{Constant Impedance \ac{ITM}}
+\subsection{\texorpdfstring{Constant Impedance \ac{ITM}}{Constant Impedance ITM}}
 We know that there is no reflected wave in space interfaces when the impedance stays constant~\parencite[Sec 9.7]{leveque_2002}. Here, we test out the same with a time interface i.e., we perform \ac{ITM} such that the velocities scale but the impedance stays constant. This is achieved by scaling the wave speed by $n$ and the density by $\frac{1}{n}$.
 Similar to section \ref{section:impedancechangingITM}, we choose the initial conditions as
 
 \begin{align}
     \begin{split}
-        p^0\left(x\right) &= Z_0cos\left(kx\right), \\
-        u^0\left(x\right) &= cos\left(kx\right) .
+        p^0\left(x\right) &= Z_0 \cos\left(kx\right), \\
+        u^0\left(x\right) &= \cos\left(kx\right) .
     \end{split}
     \label{eq:initialconditions2}
 \end{align}
@@ -216,8 +216,8 @@ In this case, we scale the velocities such that the impedance does not change. T
 
 \begin{align}
     \begin{split}
-        p^0_{t_{ITM}^-}\left(x\right) &= Z_0 cos\left(kx - c_0kt_{ITM}^-\right), \\
-        u^0_{t_{ITM}^-}\left(x\right) &= cos\left(kx - c_0kt_{ITM}^-\right) .
+        p^0_{t_{ITM}^-}\left(x\right) &= Z_0 \cos\left(kx - c_0kt_{ITM}^-\right), \\
+        u^0_{t_{ITM}^-}\left(x\right) &= \cos\left(kx - c_0kt_{ITM}^-\right) .
     \end{split}
 \end{align}
 
@@ -231,12 +231,12 @@ We used ~\parencite{sagemath} to perform the simplifications for the arithmetic.
     \end{split}
 \end{align}
 
-where n is the velocity scaling factor. We now use these expressions to calculate the energy as we have already done in equation \ref{eq:energy}. This gives us the energy in the second phase, i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be:
+where n is the velocity scaling factor. We now use these expressions to calculate the energy using equation \ref{eq:energy}. This gives us the energy in the second phase, i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be:
 \begin{equation}
     E_2 = \frac{\pi z_{0}}{c_{0} k n} .
 \end{equation}
 
-We obverse that there is no extra reflected wave and the wave speed is just increased with a phase shift and that the energy is directly scaled down by the velocity scaling factor. \\
+We obverse that there is no extra reflected wave and the wave speed is just increased with a phase shift and that the energy is directly scaled down by the velocity scaling factor.
 
 % \begin{figure}
 %     \centering
@@ -251,7 +251,7 @@ We obverse that there is no extra reflected wave and the wave speed is just incr
 %     \label{fig:ratio1}
 % \end{figure}
 
-Now, the velocity is scaled down again to its original value at $t=t_{ITM}^+$ and defining $\tau = t_{ITM}^+ - t_{ITM}^-$, we do a similar calculation to obtain the solution for the final phase, i.e., $t \geq t_{ITM}^+$ and the solution as
+Now, the velocity is scaled down again to its original value at $t=t_{ITM}^+$ and defining $\tau = t_{ITM}^+ - t_{ITM}^-$, we do a similar calculation to obtain the solution for the final phase, i.e., $t \geq t_{ITM}^+$ as
 
 \begin{align}
     \begin{split}
@@ -281,7 +281,7 @@ which is equal to $E_1$. This shows that there is no final energy increase when 
 \section{\ac{ITM} on a 3D acoustic planar wave}\label{section:3DITMAcoustic}
 In this chapter, we calculate the analytical solution for a 3D Acoustic wave when an \ac{ITM} is applied from $t_{ITM}^-$ to $t_{ITM}^+$.
 
-To do this, we consider a three dimenonsional acoustic equation linearised over the stationary state, where p is the pressure perturbation, $K_0$ is the bulk
+To do this, we consider a three dimensional acoustic equation linearised over the stationary state, where p is the pressure perturbation, $K_0$ is the bulk
 modulus of the material and $u$ is the velocity perturbation.
 This can be written in consolidated matrix vector form as done for first order hyperbolic systems of equations as
 
@@ -326,17 +326,17 @@ where
 
 We assume an ansatz of 
 \begin{equation}
-    \mathbf{q}\left(\mathbf{x}, t\right) = \mathbf{q_0} cos\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right),
+    \mathbf{q}\left(\mathbf{x}, t\right) = \mathbf{q_0} \cos\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right),
 \end{equation}
 
 where $\mathbf{k}=\left(k_1, k_2, k_3\right)$ is the direction of the planar wave. Using the derivatives of equation \ref{eq:3Dacoustic},
 
 \begin{align}
     \begin{split}
-    \frac{\partial \mathbf{q}}{\partial t} &= \omega \mathbf{q_0} sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right), \\
-    \frac{\partial \mathbf{q}}{\partial x} &= -k_1 \mathbf{q_0} sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right), \\
-    \frac{\partial \mathbf{q}}{\partial y} &= -k_2 \mathbf{q_0} sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right), \\
-    \frac{\partial \mathbf{q}}{\partial z} &= -k_3 \mathbf{q_0} sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right).
+    \frac{\partial \mathbf{q}}{\partial t} &= \omega \mathbf{q_0} \sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right), \\
+    \frac{\partial \mathbf{q}}{\partial x} &= -k_1 \mathbf{q_0} \sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right), \\
+    \frac{\partial \mathbf{q}}{\partial y} &= -k_2 \mathbf{q_0} \sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right), \\
+    \frac{\partial \mathbf{q}}{\partial z} &= -k_3 \mathbf{q_0} \sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right).
 \end{split}
 \end{align}
 
@@ -344,11 +344,11 @@ Substituting these back in the equation we get
 
 \begin{align}
     \begin{split}
-        \left(\omega - \mathbf{A}k_1 - \mathbf{B}k_2 - \mathbf{C}k_3\right)\mathbf{q_0}sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right) = 0.
+        \left(\omega - \mathbf{A}k_1 - \mathbf{B}k_2 - \mathbf{C}k_3\right)\mathbf{q_0}\sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right) = 0.
     \end{split}
 \end{align}
 
-Dividing by $sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right)$ and rearranging the terms, we get
+Dividing by $\sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right)$ and rearranging the terms, we get
 
 \begin{align}
     \begin{split}
@@ -463,7 +463,7 @@ the speed of sound,
             \frac{1}{Z_0} \\
             0 \\
             0
-            \end{bmatrix} cos\left(kx - k ct\right) .
+            \end{bmatrix} \cos\left(kx - k ct\right) .
     \end{split}
 \end{align}
 
@@ -533,7 +533,7 @@ At $t = t_{ITM}^-$, the solution is
             \frac{1}{Z_0} \\
             0 \\
             0
-            \end{bmatrix} cos\left(kx - k c t_{ITM}^-\right) .
+            \end{bmatrix} \cos\left(kx - k c t_{ITM}^-\right) .
     \end{split}
     \label{eq:initphase2}
 \end{align}
@@ -550,10 +550,10 @@ with
 
 \begin{align}
     \begin{split}
-        \alpha_1^2 &= \frac{1}{2}cos\left(kx - k c t_{ITM}^-\right) \left(1 - n\right), \\
+        \alpha_1^2 &= \frac{1}{2}\cos\left(kx - k c t_{ITM}^-\right) \left(1 - n\right), \\
         \alpha_2^2 &= 0, \\
         \alpha_3^2 &= 0, \\
-        \alpha_4^2 &= \frac{1}{2}cos\left(kx - k c t_{ITM}^-\right) \left(1 + n\right) .
+        \alpha_4^2 &= \frac{1}{2}\cos\left(kx - k c t_{ITM}^-\right) \left(1 + n\right) .
     \end{split}
 \end{align}
 
@@ -569,14 +569,14 @@ Using initial conditions from equation \ref{eq:initphase2} and the linear combin
             -\frac{1}{nZ_0} \\
             0 \\
             0
-        \end{bmatrix} \left(1 - n\right) cos\left(kx +nk c \left(t - t_{ITM}^-\right) - k c t_{ITM}^-\right) \\ 
+        \end{bmatrix} \left(1 - n\right) \cos\left(kx +nk c \left(t - t_{ITM}^-\right) - k c t_{ITM}^-\right) \\ 
         &+ \frac{1}{2} 
         \begin{bmatrix}
             1 \\
             \frac{1}{nZ_0} \\
             0 \\
             0
-        \end{bmatrix} \left(1 + n\right) cos\left(kx - nk c \left(t - t_{ITM}^-\right) - k c t_{ITM}^-\right) .
+        \end{bmatrix} \left(1 + n\right) \cos\left(kx - nk c \left(t - t_{ITM}^-\right) - k c t_{ITM}^-\right) .
     \end{split}
 \end{align}
 
@@ -590,14 +590,14 @@ We define the duration of \ac{ITM} as $\tau = t_{ITM}^+ - t_{ITM}^-$, this makes
             -\frac{1}{nZ_0} \\
             0 \\
             0
-        \end{bmatrix} \left(1 - n\right) cos\left(kx +nk c \tau - k c t_{ITM}^-\right) \\ 
+        \end{bmatrix} \left(1 - n\right) \cos\left(kx +nk c \tau - k c t_{ITM}^-\right) \\ 
         &+ \frac{1}{2} 
         \begin{bmatrix}
             1 \\
             \frac{1}{nZ_0} \\
             0 \\
             0
-        \end{bmatrix} \left(1 + n\right) cos\left(kx - nk c \tau - k c t_{ITM}^-\right) .
+        \end{bmatrix} \left(1 + n\right) \cos\left(kx - nk c \tau - k c t_{ITM}^-\right) .
     \end{split}
     \label{eq:initphase3}
 \end{align}
