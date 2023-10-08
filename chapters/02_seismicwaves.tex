@@ -6,16 +6,15 @@ In this chapter, the necessary theoretical foundations for this thesis are estab
 The equation of motion corresponding to this will be presented later on in the velocity-stress formulation.
 We only consider isotropic media and utilize this assumption in particular symmtery arguments. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}.
 
-The section \ref{section:ADER-DG} discusses SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
+The section \ref{section:ADER-DG} discusses the fundamental framework of SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
 of the \ac{DG-FE} method and a time integration scheme based on the solution of \ac{ADER}, as described in previous works ~\parencite{dumbser1}, ~\parencite{seissol}. This approach, known as 
-\ac{ADER}-\ac{DG} will be introduced in more detail in the following sections.
+\ac{ADER}-\ac{DG} will be introduced in more detail.
 
 \section{Elastic Wave Equation}\label{section:elasticwaveequation}
 An elastic medium is characterized by an undeformed state, in which stresses and strains are zero, to which it will return to in the absence
 of outer forces. If the stresses and strains the medium experiences are infinitesimal, the theory of linear elasticity applies. We define
 the displacement vector $\mathbf{U}$ describing the shortest distance between the initial and current position of a point. The particle
-velocities $u,v$ and $w$ in $x, y, z$ direction, respectively, can then be defined as the temporal derivate of $\mathbf{U}$
-
+velocities $u,v$ and $w$ in $x, y, z$ direction, respectively, can then be defined as the temporal derivative of $\mathbf{U}$
 \begin{align}
     \begin{split}
     \frac{\partial U_x}{\partial t} &= \dot{U}_x = u, \\
@@ -23,68 +22,56 @@ velocities $u,v$ and $w$ in $x, y, z$ direction, respectively, can then be defin
     \frac{\partial U_z}{\partial t} &= \dot{U}_z = w, \\
     \end{split}
  \end{align}
-
 where the subscript denotes the coordinate direction and a dot over a variable represents its partial time derivative leading to the following notation:
-
 \begin{align}
     \begin{split}
         \frac{\partial U_i}{\partial t} = \dot{U}_i = V_i,
     \end{split}
     \label{equation1}
 \end{align}
-
-where the velocity vector $\mathbf{V} $ is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously.
+where the velocity vector $\mathbf{V} $ is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously.\\
 
 In the context of linear elasticity, the following extension of Hooke's law  to generalize linear elasticity holds
-
 \begin{align}
     \begin{split}
         \sigma_{ij} = c_{ijkl}\epsilon_{kl},
     \end{split}
     \label{eq:hookeslaw}
 \end{align}
-
 with the medium specific constants $c_{ijkl}$. The Einstein summation convention
 is followed, where an index appearing twice is summed over all possible values. In this context, $\sigma_{ij}$ represents the stress tensor
 and $\epsilon_{kl}$ represents the strain tensor. Hooke's law expresses that stress tensor components are linear combinations of strain tensor
 components. For infinitesimally small perturbations, the strain tensor components $\epsilon_{kl}$ are defined as follows
-
 \begin{align}
     \begin{split}
         \epsilon_{kl} = \frac{1}{2}\left(\partial_k U_l + \partial_l U_k \right) ,
     \end{split}
 \end{align}
-
-where $\partial_k$ represents the spatial derivative in k-direction and $U_i$ represents the displacement in i-direction.
+where $\partial_k$ represents the spatial derivative in $k$-direction and $U_i$ represents the displacement in $i$-direction.
 Previously, we mentioned our focus on the velocity-stress formulation rather than the displacement-stress formulation.
 To eliminate the displacements $U_i$, we introduced velocities $V_i$ in equation \ref{equation1}.
 Consequently, this leads to the time derivative of the strain tensor
-
 \begin{align}
     \begin{split}
         \partial_t \epsilon_{kl} = \frac{1}{2}\left(\partial_k V_l + \partial_l V_k \right) ,
         % \dot{\epsilon}_{kl} = \frac{1}{2}\left( \partial_k V_l + \partial_l V_k \right) ,
     \end{split}
 \end{align}
-
 expressed in terms of the spatial derivatives of the velocities $V_i$. Here, $\partial_t$ denotes the time derivative. As the constants $c_{ijkl}$ remain constant over time,
-
 \begin{align}
     \begin{split}
-        \partial_t \sigma_{ij} = c_{ijkl}\dot{\epsilon}_{kl} .
+        \partial_t \sigma_{ij} = c_{ijkl} \partial_t {\epsilon}_{kl} .
     \end{split}
     \label{eq:stress}
 \end{align}
 
-We can apply symmetry considerations of the stress tensor i.e., $sigma_{ij} = sigma_{ji}$ to the term $c_{ijkl}$ in equation \ref{eq:hookeslaw} and reduce the number of independent components from 81 to 21 ~\parencite[Cha. 2]{aki2002quantitative}.
+We can apply symmetry considerations of the stress tensor i.e., $\sigma_{ij} = \sigma_{ji}$ to the term $c_{ijkl}$ in equation \ref{eq:hookeslaw} and reduce the number of independent components from 81 to 21 ~\parencite[Cha. 2]{aki2002quantitative}.
 This in turn lets us define the tensor in terms of two constants in isotropic media with the general form of
-
 \begin{equation}
     c_{ijkl} = \lambda \delta_{ij}\delta_{kl} + \mu\left(\delta_{ik}\delta_{jl} + \delta_{il}\delta_{jk}\right),
     \label{eq:isotropic}
 \end{equation}
-
-where $\delta$ is the Kronecker delta function and $\lambda, \mu$ are the Lam\'e parameters.
+where $\delta$ is the Kronecker delta function and $\lambda, \mu$ are the Lam\'e parameters. \\
 
 We now write a force balance in a volume $V$ within a surface $S$. The momentum within the volume changes at a rate equal
 to the forces acting on that volume. Therefore, the forces acting on these comprise a body force and a surface force, which result
@@ -94,15 +81,12 @@ from the presence of normal and shear stresses. This can be written mathematical
     \frac{\partial}{\partial t} \int_V \rho \frac{\partial \mathbf{U}}{\partial t}dV = \int_V \mathbf{f}dV + \oint_S \mathbf{T\left(n\right)}dS,
     \label{eq:forcebalance}
 \end{equation}
-
 where $\frac{\partial}{\partial t} \int_V \rho \frac{\partial \mathbf{U}}{\partial t}dV$, is the momentum of the control volume with density $\rho$, and $\mathbf{T}$
 is the traction vector which is related to the stress tensor by Cauchy's stress theorem %~\parencite{cauchy-stress-theorem}
-
 \begin{equation}
     T_j\left(n\right) = \sigma_{ij}n_i,
     \label{eq:tractionvector}
 \end{equation}
-
 with the normal vector $n_i$. Applying Gauss' divergence theorem
 
 \begin{equation}
@@ -113,28 +97,25 @@ with the normal vector $n_i$. Applying Gauss' divergence theorem
 Replacing $\mathbf{T}$ in equation \refeq{eq:forcebalance} using equations \ref{eq:tractionvector} and \ref{eq:gaussdivergence} and reshuffling gives us
 
 \begin{equation}
-    \int_V \left(\rho \ddot{U}_i - f_i - \partial_j \sigma_{ij}\right)dV = 0.
+    \int_V \left(\rho \frac{\partial^2 {U}_i}{\partial t^2} - f_i - \partial_j \sigma_{ij}\right)dV = 0.
 \end{equation}
 
 Here we assumed that the stress tensor is symmetric, i.e., $\sigma_{ij}=\sigma_{ji}$. As it is true for any general volume, we can
 equate the integrand to zero. This gives us the equation
-
 \begin{equation}
-    \rho \ddot{U}_i = f_i + \partial_j \sigma_{ij}.
+    \rho \frac{\partial^2 {U}_i}{\partial t^2} = f_i + \partial_j \sigma_{ij}.
     \label{eq:force}
 \end{equation}
 
 Expanding equation \ref{eq:force} in $j$ and using $V_i = \frac{\partial U_i}{\partial t}$, we get
-
 \begin{equation}
     \rho \frac{\partial V_i}{\partial t} = f_i + \partial_x \sigma_{xi} + \partial_y \sigma_{yi} + \partial_z \sigma_{zi},
     \label{eq:finalequation}
 \end{equation}
 
-The body force $f_i$ will be discussed later in terms of the source terms.
+The body force $f_i$ will be discussed later in terms of the source terms. \\
 \par Combining equations \ref{eq:stress}, \ref{eq:isotropic} and \ref{eq:finalequation}, we obtain the final 3D 
-wave elastic equation for an isotropic medium in velocity-stress formulation
-
+wave elastic equation for an isotropic medium in velocity-stress formulation as
 \begin{align}
     \begin{split}
     \frac{\partial \sigma_{xx}}{\partial t} - \left(\lambda  + 2\mu\right)\frac{\partial u}{\partial x} - \lambda \frac{\partial v}{\partial y} - \lambda\frac{\partial w}{\partial z} &= S_1, \\    
@@ -149,29 +130,23 @@ wave elastic equation for an isotropic medium in velocity-stress formulation
 \end{split}
 \label{eq:setofequations}
 \end{align}
-
 where $S_p, p = 1,\dots9,$ are the source terms. The source terms are used to describe the common sources of seismic events like double couple or force couple moments.
 These are often used to approximate the faults and slips in Earth's structure ~\parencite{shearer_2019}.
 
 Another important term for consideration with this system is the propagation speed of elastic-acoustic waves. In elastic media, we 
-observe two kinds of waves, a primary compression wave and a secondary sheer wave which are called P-waves and S-waves respectively.
+observe two kinds of waves, a primary compression wave and a secondary sheer wave which are called P- and S-waves respectively.
 
 For the investigation of the eigenstructure of the systems, we need to transform it into a more compact form of hyperbolic equations
-
 \begin{equation}
     \frac{\partial Q_p}{\partial t} + A_{pq} \frac{\partial Q_q}{\partial x} + 
     B_{pq} \frac{\partial Q_q}{\partial y} + C_{pq} \frac{\partial Q_q}{\partial z} = 0,
     \label{eq:compactform}
 \end{equation}
-
-where $\mathbf{Q}$ is the state vector with p unknown variables which contains the stresses and velocities, i.e.,
-
+where $\mathbf{Q}$ is the state vector with $p$ unknown variables which contains the stresses and velocities, i.e.,
 \begin{equation}
     \mathbf{Q} = \left(\sigma_{xx}, \, \sigma_{yy}, \, \sigma_{zz}, \, \sigma_{xy}, \, \sigma_{yz}, \, \sigma_{xz}, \, u, \, v, \, w \right)^T
 \end{equation}
-
 and $A_{pq}, B_{pq}, C_{pq}$ are space-dependent flux matrices. Where
-
 \begin{align}
     \begin{split}
     A_{pq} = 
@@ -189,7 +164,6 @@ and $A_{pq}, B_{pq}, C_{pq}$ are space-dependent flux matrices. Where
     \end{split}
     \label{eq:fluxmatrix}
 \end{align}
-
 \begin{align}
     \begin{split}
     B_{pq} = 
@@ -207,7 +181,6 @@ and $A_{pq}, B_{pq}, C_{pq}$ are space-dependent flux matrices. Where
     \end{split}
     \label{eq:fluxmatrixB}
 \end{align}
-
 \begin{align}
     \begin{split}
     C_{pq} = 
@@ -227,38 +200,30 @@ and $A_{pq}, B_{pq}, C_{pq}$ are space-dependent flux matrices. Where
 \end{align}
 
 The eigenvalues of the flux matrices $A_{pq}, B_{pq}, C_{pq}$ determine the propagation velocities of elastic waves. These velocities can be expressed as
-
 \begin{equation}
     s_1 = -v_p, \, s_2 = -v_s, \, s_3 = -v_s, \, s_4=0, \, s_5 = 0, \, s_6 = 0, \, s_7 = v_s, \, s_8 = v_s, \, s_9 = v_p,
 \end{equation}
-
 where
-
 \begin{equation}
     v_p = \sqrt{\frac{\lambda + 2\mu}{\rho}}, \quad v_s = \sqrt{\frac{\mu}{\rho}}.
     \label{eq:wavevelocities}
 \end{equation}
-
 These two velocities are the propagation velocities with $v_p$ as the propagation velocity of the P-wave and $v_s$ as the propagation velocity of the S-wave.
 
 The elastic wave propagation is simplified to an acoustic wave propagation when we set $\mu = 0$. Further simplifications like
-
 \begin{equation}
     \sigma_{ij} = 0, \forall i \neq j
 \end{equation}
-
 can be derived from the set of equations \ref{eq:setofequations}. All the diagonal elements $\sigma_{ii} = \lambda \partial_j u_j$
 are equal to each other which is analogous to the physical pressure in acoustic media. 
-
 \begin{equation}
-    -p = \sigma_{xx} = \sigma_{yy} = \sigma_{zz} = \lambda \partial_iu_i .
+    -p = \sigma_{xx} = \sigma_{yy} = \sigma_{zz} .
 \end{equation}
 
 % We get only one propagating wave when we set $\mu = 0$ with $v_p = \sqrt{\frac{\lambda}{\rho}}$ and simplifies the elastic wave propagation to an acoustic case.
 % We start our time reversal by reversing an acoustic wave(put reference to the section here) and then move on to the elastic case. Further simplifications like 
 
 This condenses the equations of motion as
-
 \begin{align}
     \begin{split}
         \frac{\partial p}{\partial t} + \lambda \frac{\partial u}{\partial x} + \lambda \frac{\partial v}{\partial y} + \lambda \frac{\partial w}{\partial z} &= S_1, \\
@@ -269,7 +234,7 @@ This condenses the equations of motion as
     \label{eq:acousticequations}
 \end{align}
 
-Equation \ref{eq:acousticequations} is written in the form of equation \ref{eq:compactform}, we get 
+When equation \ref{eq:acousticequations} is written in the form of equation \ref{eq:compactform}, we get 
 
 \begin{align}
     \begin{split}
@@ -306,47 +271,42 @@ Equation \ref{eq:acousticequations} is written in the form of equation \ref{eq:c
     \end{bmatrix},
     \end{split}
 \end{align}
-
 with eigenvalues
-
 \begin{equation}
-    s_1 = -v_p, \, s_2 = 0, \, s_3 = 0, \, s_4 = v_p \, .
+    s_1 = -v_p, \, s_2 = 0, \, s_3 = 0, \, s_4 = v_p \, ,
 \end{equation}
-
+with
+\begin{equation}
+    v_p = \sqrt{\frac{\lambda}{\rho}}.
+\end{equation}
 This shows that there is only kind of propagating wave in the acoustic case with $\mu = 0$.
 \section{\texorpdfstring{\ac{ADER}-\ac{DG}}{ADER-DG}}\label{section:ADER-DG}
-
-In this section, we will discuss on the fundamental framework of SeisSol, which is the \ac{ADER}-\ac{DG} method. This section is to provide
-a brief understanding about the framework and not to go too much into detail. 
-
+In this section, we outline the fundamental framework of SeisSol. Our aim is provide a concise understanding of the framework avoiding excessive detail.
 %Interested readers are redirected to ~\parencite{martin}, ~\parencite{Toro2002},~\parencite{dumbser1}, ~\parencite{DUMBSER2005683}, ~\parencite{Toro2001}, ~\parencite{seissol}.
-
 \subsection[Discontinuous Galerkin method]{Discontinuous Galerkin Method}\label{subsection:DG}
-
-We have earlier formulated the elastic wave equation as a system of linear hyperbolic partial differential equataions in equation \ref{eq:setofequations}.~
+We have earlier formulated the elastic wave equation as a system of linear hyperbolic \ac{PDE}s in equation \ref{eq:setofequations}.~
 \parencite{Toro2001} formulated the idea of arbitrary high order generalized
 Riemann Solvers in a finite volume framework and coined the approach \ac{ADER}. Here, the combination of the generalized Riemann Solvers with \ac{DG}
-methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}. In practice, we use an "averaged" normal Riemann problem where first predict
-the solution in time and then solve an the Riemann problem making it in practice an "average" Riemann problem which is equivalent to the generalized Riemann solver.
+methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}. In practice, we use an time-averaged normal Riemann problem where first predict
+the solution in time and then solve a Riemann problem making it in practice a time-averaged Riemann problem which is equivalent to the generalized Riemann solver.
 \par Higher-order piecewise polynomial approximations are used
 along with the theory of fluxes across element boundaries from the finite volume methods. The \ac{ADER}-\ac{DG} scheme is an explicit one step scheme.
-It advances the solution by a full time step and needs the computation of inter-cell fluxes once per time-step.
+It advances the solution by a full time step and needs the computation of inter-cell fluxes once per timestep.
 % Time Derivatives are replaced with space derivatives
 % using Cauchy-Kowalevski or Lax-Wendroff procedure to achieve arbitrary high-order accuracy in both space and time.
 
 To solve the 3D elastic wave equation with the \ac{ADER}-\ac{DG} method, we use the compact form as in equation \ref{eq:compactform}.
 We use an unstructured mesh and thus divide our computational domain $\Omega \in \mathbb{R}^3$ into tetrahedral elements 
 $\mathcal{T}^{\left(m\right)}$, with unique indices $m\in\mathbb{N}$. $A_{pq}, B_{pq}, C_{pq}$ are assumed to be piecewise constant. 
-We now introduce a new coordinate system of $\left(\xi, \eta, \zeta \right)$ with the frame of reference as our tetrahedron as shown 
+We now introduce a new coordinate system of $\left(\xi, \eta, \zeta \right)$ with the frame of reference as a tetrahedron as shown 
 in figure \ref{fig:transformation} \\
 
-\begin{figure}
+\begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.6\linewidth]{figures/m_167-1-319-fig001.png}
     \caption{Transforming tetrahedron into a reference frame.(Figure taken from Figure 1 in ~\parencite{dumbser1})}
     \label{fig:transformation}
 \end{figure}
-
 As we are dealing with a new transformed coordinate system, we would need a Transformation matrix to transform the vector $Q_p$
 from the global Cartesian system to the vector $Q_q^n$ in the normal, face-aligned frame. The transformation would be of the form
 
@@ -354,7 +314,7 @@ from the global Cartesian system to the vector $Q_q^n$ in the normal, face-align
     Q_p = T_{pq}Q_q^n .
 \end{equation}
 
-~\parencite{dumbser1} calculates the transformation matrix $T_{pq}$ as
+\parencite{dumbser1} calculates the transformation matrix $T_{pq}$ as
 
 \begin{align}
     \begin{split}
@@ -372,38 +332,37 @@ from the global Cartesian system to the vector $Q_q^n$ in the normal, face-align
     \end{bmatrix},
     \end{split}
 \end{align}
-
 where $\mathbf{n} = \left(n_x, n_y, n_z\right)^T$ are the components of the normal vector, and $\mathbf{s} = \left(s_x, s_y, s_z\right)^T$ and
 $\mathbf{t} = \left(t_x, t_y, t_z\right)^T$ are the tangential vectors of the boundary face of the tetrahedron. $\mathbf{n}, \mathbf{s}, \mathbf{t}$
-are orthogonal to each other. Mapping the physical coordinates $\left(x, y, z\right)$ with the reference element $\left(\xi, \eta, \zeta\right)$
+are orthogonal to each other. To represent the numerical solution $Q_h$ as a linear combination of pure spatial and pure time dependent functions, we introduce
+the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$.
 
 \begin{equation}
     Q_p^{\left(m\right)} \left(x,y,z,t\right) = \hat{Q}_{pl}^{\left(m\right)} \left(t\right) \Psi_l \left(x, y, z\right),
     \label{eq:mapping}
 \end{equation}
-
-where $\Psi_l\left(x,y,z\right)$ are spatial polynomial basis functions defined on the physical element. We express \ref{eq:mapping} in 
-the frame of the reference element using a suitable coordinate transformation M
+where $\Psi_l\left(x,y,z\right)$ are spatial polynomial basis functions defined on the physical element. As it is more practical to define the polynomial 
+basis functions on the reference element so that we can pre-calculate the integrals, we express \ref{eq:mapping} in 
+the frame of the reference element using a suitable coordinate transformation M which maps the physical coordinates $\left(x, y, z\right)$ with the reference element $\left(\xi, \eta, \zeta\right)$
 
 \begin{equation}
-     Q_p^{\left(m\right)}\left(x,y,z,t\right) = \hat{Q}_{pl}^{\left(m\right)}\left(t\right) \Psi_l\left(M\left(\xi, \eta, \zeta\right)\right).
+     Q_p^{\left(m\right)}\left(x,y,z,t\right) = \hat{Q}_{pl}^{\left(m\right)}\left(t\right) \Psi_l\left(M\left(x, y, z\right)\right).
 \end{equation}
 
 This formulation allows us to define the polynomial basis functions on the reference element $\Phi_l\left(\xi, \eta, \zeta\right)$.
 As we can compute the integrals in the reference system beforehand, the coordinate transformation makes our implementation more computationally
-efficient. To represent the numerical solution $Q_h$ as a linear combination of pure spatial and pure time dependent functions, we introduce
-the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$. This allows us to express $Q_h$ in each tetrahedron as 
+efficient. This allows us to express $Q_h$ in each tetrahedron after the transformation of the coordinates
+as 
 
 \begin{equation}
     \left[Q_H^{\left(m\right)}\right]_p \left(\xi, \eta, \zeta, t\right) = \hat{Q}_{pl}^m \left(t\right) \Phi_l \left(\xi, \eta. \zeta\right),
 \label{eq:solution}
 \end{equation}
-
-where $l$ denotes the $l^{th}$ basis function. Multiplying equation \ref{eq:compactform} with the test function $\Psi_k$ ~\parencite{cockburn2011discontinuous}
+where $l$ denotes the $l^{th}$ basis function. Multiplying equation \ref{eq:compactform} with the test function $\Phi_k$ ~\parencite{cockburn2011discontinuous}
 and integrating over our tetrahedral element $\mathcal{T}^{\left(m\right)}$ gives
 
 \begin{equation}
-    \int_{\mathcal{T}^{\left(m\right)}} \Psi_k \frac{\partial Q_p}{\partial t} dV + \int_{\mathcal{T}^{\left(m\right)}} \Psi_k \left(A_{pq} 
+    \int_{\mathcal{T}^{\left(m\right)}} \Phi_k \frac{\partial Q_p}{\partial t} dV + \int_{\mathcal{T}^{\left(m\right)}} \Phi_k \left(A_{pq} 
     \frac{\partial Q_q}{\partial x} + B_{pq}\frac{\partial Q_q}{\partial y} + C_{pq}\frac{\partial Q_q}{\partial z}\right)dV = 0.
     \label{eq:preweakformulation}
 \end{equation}
@@ -411,43 +370,38 @@ and integrating over our tetrahedral element $\mathcal{T}^{\left(m\right)}$ give
 We add fluxes $F_p^h$ at the boundaries of the tetrahedron to equation \ref{eq:preweakformulation} to include discontinuities in $Q_h$ and we integrate by parts to obtain the weak form as
 
 \begin{equation}
-    \int_{\mathcal{T}^{\left(m\right)}} \Psi_k \frac{\partial Q_p}{\partial t} dV + \int_{\partial \mathcal{T}^{\left(m\right)}} F_p^h dS
-    - \int_{\mathcal{T}^{\left(m\right)}} \left(\frac{\partial \Psi_k}{\partial x} A_{pq}Q_q + \frac{\partial \Psi_k}{\partial y}B_{pq}Q_q
-    + \frac{\partial \Psi_k}{\partial z}C_{pq}Q_q\right) dV = 0.
+    \int_{\mathcal{T}^{\left(m\right)}} \Phi_k \frac{\partial Q_p}{\partial t} dV + \int_{\partial \mathcal{T}^{\left(m\right)}} F_p^h dS
+    - \int_{\mathcal{T}^{\left(m\right)}} \left(\frac{\partial \Phi_k}{\partial x} A_{pq}Q_q + \frac{\partial \Phi_k}{\partial y}B_{pq}Q_q
+    + \frac{\partial \Phi_k}{\partial z}C_{pq}Q_q\right) dV = 0.
 \label{eq:weakformulation}
 \end{equation}
 
-The flux between the tetrahedron $\mathcal{T}^{\left(m\right)}$ with the boundary extrapolated numerical solution $\hat{Q}_{sl} \Psi_l^{\left(m\right)}$
+The flux between the tetrahedron $\mathcal{T}^{\left(m\right)}$ with the boundary extrapolated numerical solution $\hat{Q}_{sl} \Phi_l^{\left(m\right)}$
 and one of its neighboring tetrahedra $\mathcal{T}^{\left(m_j\right)} \left(j=1,2,3,4\right)$ is computed in the global, coordinate system using the flux
 matrix $A_{pq}$ from equation \ref{eq:fluxmatrix}
 
     \begin{align}
         \begin{split}
             F_p^h &= \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} + \left|A_{qr}^{\left(m\right)}\right|\right)\left(T_{rs}\right)^{-1}
-            \hat{Q}_{sl}^{\left(m\right)} \Psi_l^{\left(m\right)} \\
+            \hat{Q}_{sl}^{\left(m\right)} \Phi_l^{\left(m\right)} \\
             &+ \frac{1}{2}T_{pq}\left(A_{qr}^{\left(m\right)} - \left|A_{qr}^{\left(m\right)}\right|\right)
-            \left(T_{rs}\right)^{-1}\hat{Q}_{sl}^{\left(m_j\right)}\Psi_l^{\left(m_j\right)},            
+            \left(T_{rs}\right)^{-1}\hat{Q}_{sl}^{\left(m_j\right)}\Phi_l^{\left(m_j\right)},            
         \end{split}
         \label{eq:fluxcalculation}
     \end{align}
-
 where
 
 \begin{equation}
 \left|A_{qr}^{\left(m\right)}\right| = R_{qp}^A \left|\Lambda_{ps}\right| \left(R_{sr}\right)^{-1},
 \end{equation}
-    
 and $\Lambda$ is the diagonal matrix with eigenvalues of $A_{pq}$ and $R_{pq}$ with right eigenvectors of $A_{pq}$ stacked in columns.
 The next step would be inserting fluxes from equation \ref{eq:fluxcalculation} and $Q_h$ from equation \ref{eq:solution} into the weak
 formulation in equation \ref{eq:weakformulation}. But as the basis functions $\Phi_l$ are defined in $\left(\xi, \eta, \zeta\right)$, we need
 to transform the resulting equation with the transformation
-
 \begin{equation}
     \text{d}x\, \text{d}y \, \text{d}z = \left|J\right| \text{d}\xi \,\text{d}\eta \,\text{d}\zeta,
 \end{equation}
-
 where $\left|J\right|$ is the determinant of the Jacobian matrix of the coordinate transformation and linear combination of the flux matrices to create transformed flux matrices
-
 \begin{align}
     \begin{split}
         A_{pq}^{*} &= A_{pq} \frac{\partial \xi}{\partial x} + B_{pq} \frac{\partial \xi}{\partial y} + C_{pq} \frac{\partial \xi}{\partial z}, \\
@@ -457,7 +411,6 @@ where $\left|J\right|$ is the determinant of the Jacobian matrix of the coordina
 \end{align}
 
 We finally get the semi-discrete \ac{DG} formulation of the ODE system within the reference tetrahedron $\mathcal{T}_E$
-
 \begin{align}
     \begin{split}
         & \frac{\partial \hat{Q}_{pl}^{\left(m\right)}}{\partial t} \left|J\right| \int_{\mathcal{T}_E} \Phi_k \Phi_l d\xi d\eta d\zeta \\
@@ -469,9 +422,19 @@ We finally get the semi-discrete \ac{DG} formulation of the ODE system within th
     \end{split}
     \label{eq:finalform}
 \end{align}
+where 
+\begin{align}
+    \begin{split}
+        F_{kl}^{-,j} &= \int_{\partial \left(\mathcal{T}_E\right)_j} \Phi_k \left(\xi^{\left(j\right)}\left(\chi, \tau\right)\right)\Phi_l \left(\xi^{\left(j\right)}\left(\chi, \tau\right)\right) d\chi d\tau, \quad \forall 1 \leq j\leq4 , \\
+        F_{kl}^{+,j,i,h} &= \int_{\partial \left(\mathcal{T}_E\right)_j} \Phi_k \left(\xi^{\left(j\right)}\left(\chi, \tau\right)\right)\Phi_l \left(\xi^{\left(i\right)} \left( \tilde{\chi}^{(h)}\left(\chi, \tau\right), \tilde{\tau}^{\left(h\right)}\left(\chi, \tau\right) \right)\right) d\chi d\tau, \quad \forall 1 \leq i \leq 4, \quad 1 \leq h \leq 3.
+    \end{split}
+\end{align}
 
-where $F_{kl}^{-,j}$ accounts for the contribution of the element$\left(m\right)$ itself to the fluxes over face j, $F_{kl}^{+,j,i,h}$ accounts for the contribution
-of the element's direct side neighbor$\left(k_j\right)$ to the fluxes over the face $j$ and $\left|S_j\right|$ is the area of the face $j$ of the tetrahedron ~\parencite{dumbser1}.
+$F_{kl}^{-,j}$ accounts for the contribution of the element$\left(m\right)$ itself to the fluxes over face j and
+$F_{kl}^{+,j,i,h}$ accounts for the contribution
+of the element's direct side neighbor$\left(k_j\right)$ to the fluxes over the face $j$ and $\left|S_j\right|$ is the area of the face $j$ of the tetrahedron ~\parencite{dumbser1}. \\
+
+\par We have not considered the source terms in the final formulation given in equation \ref{eq:finalform}. The source terms are dealt with as presented in~\parencite{10.1785/0120060253}.
 
 \subsection[ADER Time Discretization]{ADER Time Discretization}
 
@@ -494,11 +457,9 @@ using the equation \ref{eq:cauchy-kovalewski}~\parencite[Sec. 3.2]{dumbser1}. By
 accuracy in both spatial and temporal dimensions. As previously mentioned, the \ac{ADER}-\ac{DG} schemes conduct time integration
 within a single time step, considering only the current element and its neighboring elements, making it well-suited for parallelization.
 Moreover, studies have demonstrated that the \ac{ADER}-\ac{DG} method outperforms traditional schemes such as \ac{RK-DG} scheme ~\parencite{dumbser2005ader}.
-
 \subsection{Boundary Conditions}
 Up until now, we have explored the time-discretization and space-discretization aspects of our problem. To complete our numerical
 solver, we must establish suitable boundary conditions for the problem. We mainly have three kinds of boundaries in consideration.
-
 \subsubsection{Absorbing Boundaries}
 With the implementation of absorbing boundary conditions, the physical volume is enclosed by such boundaries in the forward direction. This means that no waves enter the computational domain, and any outgoing waves smoothly pass through the boundary without experiencing
 reflection. A careful examination of equation \ref{eq:fluxcalculation} reveals that its first term on the right-hand side corresponds
@@ -523,7 +484,6 @@ for accurate treatment of the boundary. We implement this using the flux functio
     \\ &+ \frac{1}{2} T_{pq} \left(A_{qr}^{\left(m\right)} - \left|A_{qr}^{\left(m\right)}\right|\right) \Gamma_{rs} \left(T_{st}\right)^{-1} \hat{Q}_{tl}^{\left(m\right)} \Phi_l^{\left(m\right)} ,
     \end{split}
 \end{align}
-
 where $\Gamma_{rs} = diag\left(-1,1,1,-1,1,-1,1,1,1\right)$ is the matrix which mirrors the normal and shear stresses.
 
 \section{Summary}

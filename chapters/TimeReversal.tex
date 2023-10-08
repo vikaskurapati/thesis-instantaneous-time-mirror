@@ -6,9 +6,9 @@ $V$ at all times $t$, the wavefield inside the entire volume can be computed. In
 recorded on $S$, then time-reversed and finally emitted from $S$. 
 
 \par Alternatively, time-reversal can be achieved with manipulation of the initial conditions. In this case, the wavefield and its normal derivative
-are known inside the entire volume but only for a specific time. ~\parencite{Weinert2016} describes Loschmidt's demon as something hypothetical which reverses the momentum/velocity of each particle instantaneously such that the state of the system is reversed 
+are known inside the entire volume but only for a specific time.~\parencite{Weinert2016} describes Loschmidt's demon as something hypothetical which reverses the momentum/velocity of each particle instantaneously such that the state of the system is reversed 
 from a fibrillated state to a less fibrillated, smoother state.
-By emulating Loschmidt's demons ~\parencite{Weinert2016},  which act on the whole space simultaneously, it is possible to instantly reverse
+By emulating Loschmidt's demons~\parencite{Weinert2016},  which act on the whole space simultaneously, it is possible to instantly reverse
 the velocity of each particle ~\parencite{Fink2017}. This leads to the creation of a time-reversed wave. This approach is commonly referred to as the \acf{ITM}.
 
 \par This thesis primarily focuses on the \ac{ITM} approach for seismic waves. In this method, a time-reversed wave is generated through a sudden modification of the wave propagation
@@ -17,7 +17,6 @@ understanding of its principles. In the latter part of the chapter, we present t
 description of the implementation is kept as general as possible, allowing for a broad grasp of the method's application and utility.
 
 \section{Theory of Instantaneous Time Mirrors}\label{section:ITMTheory}
-
 Time-reversal methods for waves are based on the time-reversal invariance of wave equations. They rely on the fact that any wave-field can be completely determined within
 a volume by knowing the field(and its normal derivative) on any enclosing surface~\parencite{Bacot2016}. We write the elastic wave equation in its second order vector form
 ~\parencite[Cha. 2]{aki2002quantitative} as
@@ -25,18 +24,17 @@ a volume by knowing the field(and its normal derivative) on any enclosing surfac
     \rho \ddot{\mathbf{U}} \left( \mathbf{x}, t\right) - \left( \lambda + 2 \mu \right) \nabla \left(\nabla \cdot \mathbf{U}\left(\mathbf{x}. t\right)\right) 
     + \mu \nabla \times \left(\nabla \times \mathbf{U}\left(\mathbf{x},t\right)\right) = \mathbf{S}\left(\mathbf{x},t\right),
 \end{equation}
-
 with the source function $\mathbf{S}\left(\mathbf{x},t\right)$ contains only second order time derivatives. This implies that if $\hat{\mathbf{U}}\left(\mathbf{x},t\right)$
 is a solution, then $\hat{\mathbf{U}}\left(\mathbf{x}, -t\right)$ is also a solution, if $\mathbf{S}$ is symmetric in time such that 
 $\mathbf{S}\left(\mathbf{x}, t\right) = \mathbf{S}\left(\mathbf{x}, -t\right)$. \\
 
-The \ac{ITM} approach is closely connected to the Cauchy theorem, which states that the wave field evolution can be deduced from the knowledge of thie wave field
+The \ac{ITM} approach is closely connected to the Cauchy theorem, which states that the wave field evolution can be deduced from the knowledge of the wave field
 and its derivative at one single time, i.e., the initial conditions. By inducing a sudden modification of the wave propagation properties(such as impedance) in the
 medium, we change the initial conditions at two different instances creating a time-reversed wave. This modification, referred to as the \ac{ITM}, does not require the use of antennas or the entire wave field's memory~\parencite{Bacot2016}.
 ~\parencite{Bacot2016} demonstrated this for water waves with physical and numerical experiments resulting in successful refocusing of the generated waves into their
 sources' shapes. This was achieved by introducing a temporal slab in the wave velocities like in figure \ref{fig:deltavelocity}
 
-\begin{figure}
+\begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.6\linewidth]{figures/delta_speed.png}
     \caption{Rectangular profile for the wave velocity. Properties of the wave are changed during the duration of \ac{ITM}. (Figure taken from Figure 1 in ~\parencite[Supplementary Material]{Bacot2016})}
