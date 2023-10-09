@@ -178,7 +178,7 @@ location of the wave front from the forward going and reflected waves assuming t
 It is clear that the reflected wavefronts coincide with the expected locations of the wavefronts. This confirms our hypothesis that the reflected wave has the same speed
 as the forward going wave.This also confirms that the application of \ac{ITM} produces a reflected wave successfully in acoustic Media.
 
-\section{Time-reversal of waves created by a velocity impulse point source in an elastic media} \label{sec:elasticITM}
+\section{Time-reversal of waves created by a velocity impulse point source in elastic media} \label{sec:elasticITM}
 Here, we apply a velocity impulse point source like in section \ref{sec:acousticITM} but on an elastic medium. We choose the material parameters from the half-space of the 
 benchmark case WP2-LOH1\footnote[1]{https://seissol.readthedocs.io/en/latest/pointsource.html} to make it a homogenous elastic medium. The material parameters 
 are characterized by
@@ -255,12 +255,12 @@ is reflected back to its source.
 
 \section{Time-reversal of P-wave created by a velocity impulse point source in elastic media} \label{sec:elasticITMpwave}
 We now demonstrate the reflection of just the P-wave by scaling the Lam\'{e} parameter $\lambda$ and keeping the second Lam\'{e} parameter $\mu$ constant.
-\par The same setup is used as in Section \ref{sec:elasticITM} and we try to reflect just the P-wave while letting the S-wave travel unaffected in time. The slice
+\par The same setup is used as in section \ref{sec:elasticITM} and we try to reflect just the P-wave while letting the S-wave travel unaffected in time. The slice
 and everything else about the simulation setup remain the same. The wavefields without \ac{ITM} looks like in figures \ref{fig:space-timeplot-elasticnoITM} and
 \ref{fig:space-timeplot-elasticnoITMdisplacement}
 \par After the application of the \ac{ITM}, we see a reflection in the wavefield in figure \ref{fig:space-timeplot-pwave}.
 As the reflection in figure \ref{fig:space-timeplot-pwave} is seen but is faint, we plot the same with a different colorbar just to show the reflection in a clearer
-way in figure \ref{fig:space-timeplot-pwave2}
+way as depicted in figure \ref{fig:space-timeplot-pwave2}
 \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.75\linewidth]{figures/pwave-ITM1.pdf}
@@ -295,7 +295,7 @@ In this section, we demonstrate the reflection of just the S-wave by modifying t
 get reflected but the S-wave does. The same setup is used as in section \ref{sec:elasticITM}. The wavefields without \ac{ITM} looks like in figures in \ref{fig:space-timeplot-elasticnoITM}
 and \ref{fig:space-timeplot-elasticnoITMdisplacement}.
 \par After the application of the \ac{ITM}, we see reflections in the wavefield in figure \ref{fig:space-timeplot-swave} showing the zoomed version near the 
-\ac{ITM} so that the reflected part is clearly visible in subfigure \ref{subfig:swavezoomed}.
+\ac{ITM} so that the reflected part is clearly visible in figure \ref{subfig:swavezoomed}.
 
 \begin{figure}[!htpb]
     \begin{subfigure}[t]{0.49\textwidth}   
@@ -372,7 +372,7 @@ We now apply a force couple moment tensor as a source term in an elastic media.~
     \end{split}
 \end{align}
 
-where $M_{ij}$ is a pair of opposing forces pointing in $i$ direction, separated in the $j$ direction. The condition that angular momentum is conserved requires that $M_{ij} = M_{ji}$. As a consequence, $\mathbf{M}$ has only six independent elements. The moment tensor is applied to the first six equations of the set of equations \ref{eq:setofequations} as per the direction it is to be applied.
+where $M_{ij}$ is a pair of opposing forces pointing in $i$-direction, separated in the $j$-direction. The condition that angular momentum is conserved requires that $M_{ij} = M_{ji}$. As a consequence, $\mathbf{M}$ has only six independent elements. The moment tensor is applied to the first six equations of the set of equations \ref{eq:setofequations} as per the direction it is to be applied.
 \subsection{Moment tensor with non-diagonal elements zero}
 We begin with a moment tensor which has only diagonal elements not equal to each other. The material parameters and simulation setup are the same as in section \ref{sec:elasticITM}. The moment tensor chosen is
 
@@ -387,7 +387,7 @@ We begin with a moment tensor which has only diagonal elements not equal to each
     \end{split}
 \end{align}
 
-With this setup, the space time plot at the slice chosen looks like in figure \ref{fig:space-timeplot-doublecouplediagnoITM}.
+With this setup, the space time plot at the slice chosen looks as shown in figure \ref{fig:space-timeplot-doublecouplediagnoITM}.
 
 \begin{figure}[!htpb]
     \centering
@@ -421,7 +421,7 @@ To obtain stable results, the isotropic component is constrained to zero as
     \end{split}
 \end{align}
 
-With this setup, the space time plot at the slice chosen looks like in figure \ref{fig:space-timeplot-doublecoupletorinoITM}.
+With this setup, the space time plot at the slice chosen looks as shown in figure \ref{fig:space-timeplot-doublecoupletorinoITM}.
 
 \begin{figure}[!htpb]
     \centering
@@ -439,7 +439,7 @@ We now apply \ac{ITM} at $t=9.0$ and notice that both the waves are reflected as
     \label{fig:space-timeplot-doublecoupletoriITM}
 \end{figure}
 
-As expected, there are two reflections in the wavefield. This confirms that \ac{ITM} could be used to obtain a reversed wave in case of waves generated by a force couple moment tensor even when there are non zero non diagonal elements.
+As expected, there are two reflections in the wavefield. This confirms that \ac{ITM} could be used to obtain a reversed wave in case of waves generated by a force couple moment tensor even when there are non-zero non diagonal elements.
 \section{Convergence Test}\label{sec:convergence}
 We now perform a convergence test to verify that our \ac{ITM} implementation is accurate and converges with our \ac{ADER}-\ac{DG} scheme. 
 We check the error between our numerical implementation and the analytical solution developed in section \ref{section:3DITMAcoustic}. 

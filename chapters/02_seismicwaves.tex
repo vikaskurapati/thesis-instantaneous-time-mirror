@@ -13,8 +13,8 @@ of the \ac{DG-FE} method and a time integration scheme based on the solution of 
 \section{Elastic Wave Equation}\label{section:elasticwaveequation}
 An elastic medium is characterized by an undeformed state, in which stresses and strains are zero, to which it will return to in the absence
 of outer forces. If the stresses and strains the medium experiences are infinitesimal, the theory of linear elasticity applies. We define
-the displacement vector $\mathbf{U}$ describing the shortest distance between the initial and current position of a point. The particle
-velocities $u,v$ and $w$ in $x, y, z$ direction, respectively, can then be defined as the temporal derivative of $\mathbf{U}$
+the displacement vector, $\mathbf{U}$, describing the shortest distance between the initial and current position of a point. The particle
+velocities $u,v$ and $w$ in $x, y$ and $z$ direction, respectively, can then be defined as the temporal derivative of $\mathbf{U}$
 \begin{align}
     \begin{split}
     \frac{\partial U_x}{\partial t} &= \dot{U}_x = u, \\
@@ -29,7 +29,7 @@ where the subscript denotes the coordinate direction and a dot over a variable r
     \end{split}
     \label{equation1}
 \end{align}
-where the velocity vector $\mathbf{V} $ is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously.\\
+where the velocity vector, $\mathbf{V}$, is introduced for convenience. $\mathbf{V} = [V_1, V_2, V_3] = [u, v ,w]$ are used analogously.\\
 
 In the context of linear elasticity, the following extension of Hooke's law  to generalize linear elasticity holds
 \begin{align}
@@ -94,7 +94,7 @@ with the normal vector $n_i$. Applying Gauss' divergence theorem
 \label{eq:gaussdivergence}
 \end{equation}
 
-Replacing $\mathbf{T}$ in equation \refeq{eq:forcebalance} using equations \ref{eq:tractionvector} and \ref{eq:gaussdivergence} and reshuffling gives us
+Replacing $\mathbf{T}$ in equation \refeq{eq:forcebalance} using equations \ref{eq:tractionvector} and \ref{eq:gaussdivergence} and reordering the terms gives us
 
 \begin{equation}
     \int_V \left(\rho \frac{\partial^2 {U}_i}{\partial t^2} - f_i - \partial_j \sigma_{ij}\right)dV = 0.
@@ -115,7 +115,7 @@ Expanding equation \ref{eq:force} in $j$ and using $V_i = \frac{\partial U_i}{\p
 
 The body force $f_i$ will be discussed later in terms of the source terms. \\
 \par Combining equations \ref{eq:stress}, \ref{eq:isotropic} and \ref{eq:finalequation}, we obtain the final 3D 
-wave elastic equation for an isotropic medium in velocity-stress formulation as
+wave elastic equation for an isotropic medium in velocity-stress formulation as follows
 \begin{align}
     \begin{split}
     \frac{\partial \sigma_{xx}}{\partial t} - \left(\lambda  + 2\mu\right)\frac{\partial u}{\partial x} - \lambda \frac{\partial v}{\partial y} - \lambda\frac{\partial w}{\partial z} &= S_1, \\    
@@ -287,7 +287,7 @@ In this section, we outline the fundamental framework of SeisSol. Our aim is pro
 We have earlier formulated the elastic wave equation as a system of linear hyperbolic \ac{PDE}s in equation \ref{eq:setofequations}.~
 \parencite{Toro2001} formulated the idea of arbitrary high order generalized
 Riemann Solvers in a finite volume framework and coined the approach \ac{ADER}. Here, the combination of the generalized Riemann Solvers with \ac{DG}
-methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}. In practice, we use an time-averaged normal Riemann problem where first predict
+methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}. In practice, we use an time-averaged normal Riemann problem where we first predict
 the solution in time and then solve a Riemann problem making it in practice a time-averaged Riemann problem which is equivalent to the generalized Riemann solver.
 \par Higher-order piecewise polynomial approximations are used
 along with the theory of fluxes across element boundaries from the finite volume methods. The \ac{ADER}-\ac{DG} scheme is an explicit one step scheme.
@@ -342,7 +342,7 @@ the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$.
     \label{eq:mapping}
 \end{equation}
 where $\Psi_l\left(x,y,z\right)$ are spatial polynomial basis functions defined on the physical element. As it is more practical to define the polynomial 
-basis functions on the reference element so that we can pre-calculate the integrals, we express \ref{eq:mapping} in 
+basis functions on the reference element so that we can pre-calculate the integrals, we express equation \ref{eq:mapping} in 
 the frame of the reference element using a suitable coordinate transformation M which maps the physical coordinates $\left(x, y, z\right)$ with the reference element $\left(\xi, \eta, \zeta\right)$
 
 \begin{equation}
@@ -476,7 +476,7 @@ At a free-surface boundary, the elastic medium is in contact with the surroundin
 acting on the outside of the elastic medium. To ensure that normal and shear stresses vanish at the free surface, a technique involving
 ghost cells is employed. These ghost cells are used to mirror the stresses, such that their values have the same magnitude as the actual
 stresses but with the opposite sign. This approach effectively satisfies the condition of stress equilibrium at the free surface, allowing
-for accurate treatment of the boundary. We implement this using the flux function ~\parencite{dumbser1}
+for an accurate treatment at the boundary. We implement this using the flux function ~\parencite{dumbser1}
 
 \begin{align}
     \begin{split}
@@ -487,5 +487,5 @@ for accurate treatment of the boundary. We implement this using the flux functio
 where $\Gamma_{rs} = diag\left(-1,1,1,-1,1,-1,1,1,1\right)$ is the matrix which mirrors the normal and shear stresses.
 
 \section{Summary}
-In this chapter we have discussed the governing equations of linear elasticity as a sytem of hyperbolic partial differential equations. We then discussed the 
+In this chapter we have discussed the governing equations of linear elasticity as a sytem of hyperbolic \ac{PDE}s. We then discussed the 
 \ac{ADER}-\ac{DG} method for numerically solving this system of equations. We have also looked at the boundary conditions that we will use in our numerical solver.
