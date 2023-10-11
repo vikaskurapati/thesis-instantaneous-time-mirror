@@ -6,8 +6,6 @@ volume = {3},
 number = {1},
 pages = {426-427},
 doi = {https://doi.org/10.1002/pamm.200310484},
-url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/pamm.200310484},
-eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/pamm.200310484},
 abstract = {Abstract For Computational Aeroacoustics (CAA), good wave propagation properties are a crucial point for numerical schemes which solve the linearized Euler equations (LEE) in the time domain. A recently developed high order scheme with excellent wave propagation properties is the Discontinuous Galerkin (DG) method. The DG schemes are based on the Finite Element Method (FEM), using discontinuous piecewise polynomial basis functions to represent the solution. The efficiency can be highly improved for CAA applications if a quadrature-free formulation of the DG method is used, but nevertheless the DG schemes consume much computer storage due to the Runge-Kutta time integration procedure and the high number of degrees of freedom to be stored for each element. We managed to develop a high order single-step quadrature-free DG method which does not use a Runge-Kutta time integration procedure but which applies the ADER approach of Toro, Schwartzkopff et al. and where the accuracy of the scheme can further be improved using additionally a reconstruction technique working on the degrees of freedom of the element and its neighbors.},
 year = {2003}
 }
@@ -22,7 +20,6 @@ year = {2005},
 note = {Computational AeroAcoustics: from acoustic sources modeling to farfield radiated noise prediction},
 issn = {1631-0721},
 doi = {https://doi.org/10.1016/j.crme.2005.07.008},
-url = {https://www.sciencedirect.com/science/article/pii/S1631072105001191},
 author = {Michael Dumbser and Claus-Dieter Munz},
 keywords = {Acoustics, Discontinuous Galerkin schemes, Very high order methods, ADER approach, Unstructured grids, Acoustique, Schémas Galerkin discontinus, Méthodes d'ordre très élevé, Approche ADER, Maillages non-structurés},
 abstract = {In this paper we apply the ADER approach to the Discontinuous Galerkin (DG) framework for the two-dimensional linearized Euler equations. The result is an efficient high order accurate single-step scheme in time which uses less storage than Runge–Kutta DG schemes, especially for very high order of accuracy. The aim is to obtain an arbitrarily accurate scheme in space and time on unstructured grids for accurate noise propagation in the time domain in very complex geometries. We will present numerical convergence rates for ADER-DG methods up to 10th order of accuracy in space and time on structured and unstructured meshes. To cite this article: M. Dumbser, C.-D. Munz, C. R. Mecanique 333 (2005).
@@ -42,8 +39,6 @@ Nous appliquons l'approche ADER au cadre des éléments finis discontinus pour l
     abstract = "{We present a new numerical method to solve the heterogeneous elastic wave equations formulated as a linear hyperbolic system using first-order derivatives with arbitrary high-order accuracy in space and time on 3-D unstructured tetrahedral meshes. The method combines the Discontinuous Galerkin (DG) Finite Element (FE) method with the ADER approach using Arbitrary high-order DERivatives for flux calculation. In the DG framework, in contrast to classical FE methods, the numerical solution is approximated by piecewise polynomials which allow for discontinuities at element interfaces. Therefore, the well-established theory of numerical fluxes across element interfaces obtained by the solution of Riemann-Problems can be applied as in the finite volume framework. To define a suitable flux over the element surfaces, we solve so-called Generalized Riemann-Problems (GRP) at the element interfaces. The GRP solution provides simultaneously a numerical flux function as well as a time-integration method. The main idea is a Taylor expansion in time in which all time-derivatives are replaced by space derivatives using the so-called Cauchy–Kovalewski or Lax–Wendroff procedure which makes extensive use of the governing PDE. The numerical solution can thus be advanced for one time step without intermediate stages as typical, for example, for classical Runge–Kutta time stepping schemes. Due to the ADER time-integration technique, the same approximation order in space and time is achieved automatically. Furthermore, the projection of the tetrahedral elements in physical space on to a canonical reference tetrahedron allows for an efficient implementation, as many computations of 3-D integrals can be carried out analytically beforehand. Based on a numerical convergence analysis, we demonstrate that the new schemes provide very high order accuracy even on unstructured tetrahedral meshes and computational cost and storage space for a desired accuracy can be reduced by higher-order schemes. Moreover, due to the choice of the basis functions for the piecewise polynomial approximation, the new ADER–DG method shows spectral convergence on tetrahedral meshes. An application of the new method to a well-acknowledged test case and comparisons with analytical and reference solutions, obtained by different well-established methods, confirm the performance of the proposed method. Therefore, the development of the highly accurate ADER–DG approach for tetrahedral meshes provides a numerical technique to approach 3-D wave propagation problems in complex geometry with unforeseen accuracy.}",
     issn = {0956-540X},
     doi = {10.1111/j.1365-246X.2006.03120.x},
-    url = {https://doi.org/10.1111/j.1365-246X.2006.03120.x},
-    eprint = {https://academic.oup.com/gji/article-pdf/167/1/319/6021938/167-1-319.pdf},
 }
 
 @article{martin,
@@ -58,8 +53,6 @@ Nous appliquons l'approche ADER au cadre des éléments finis discontinus pour l
     abstract = "{We present a new numerical approach to solve the elastic wave equation in heterogeneous media in the presence of externally given source terms with arbitrary high-order accuracy in space and time on unstructured triangular meshes. We combine a discontinuous Galerkin (DG) method with the ideas of the ADER time integration approach using Arbitrary high-order DERivatives. The time integration is performed via the so-called Cauchy-Kovalewski procedure using repeatedly the governing partial differential equation itself. In contrast to classical finite element methods we allow for discontinuities of the piecewise polynomial approximation of the solution at element interfaces. This way, we can use the well-established theory of fluxes across element interfaces based on the solution of Riemann problems as developed in the finite volume framework. In particular, we replace time derivatives in the Taylor expansion of the time integration procedure by space derivatives to obtain a numerical scheme of the same high order in space and time using only one single explicit step to evolve the solution from one time level to another. The method is specially suited for linear hyperbolic systems such as the heterogeneous elastic wave equations and allows an efficient implementation. We consider continuous sources in space and time and point sources characterized by a Delta distribution in space and some continuous source time function. Hereby, the method is able to deal with point sources at any position in the computational domain that does not necessarily need to coincide with a mesh point. Interpolation is automatically performed by evaluation of test functions at the source locations. The convergence analysis demonstrates that very high accuracy is retained even on strongly irregular meshes and by increasing the order of the ADER–DG schemes computational time and storage space can be reduced remarkably. Applications of the proposed method to Lamb's Problem, a problem of strong material heterogeneities and to an example of global seismic wave propagation finally confirm its accuracy, robustness and high flexibility.}",
     issn = {0956-540X},
     doi = {10.1111/j.1365-246X.2006.03051.x},
-    url = {https://doi.org/10.1111/j.1365-246X.2006.03051.x},
-    eprint = {https://academic.oup.com/gji/article-pdf/166/2/855/1514333/166-2-855.pdf},
 }
 
 @article{Fink2017,
@@ -74,7 +67,6 @@ Nous appliquons l'approche ADER au cadre des éléments finis discontinus pour l
     abstract = "{Because time and space play a similar role in wave propagation, wave control can be obtained by manipulating spatial boundaries or by manipulating time boundaries. These two dual approaches will be discussed in this paper in the context of the generation of time-reversed waves. The first approach uses the “time-reversal mirror” approach with wave manipulation along a spatial boundary sampled by a finite number of antennas. In the second approach, waves are manipulated from a time boundary and we show that “instantaneous time mirrors”, simultaneously acting in the entire space can also radiate time-reversed waves.}",
     issn = {1951-6401},
     doi = {10.1140/epjst/e2016-60258-8},
-    url = {https://doi.org/10.1140/epjst/e2016-60258-8},
 }
 
 @article{Bacot2016,
@@ -89,7 +81,6 @@ Nous appliquons l'approche ADER au cadre des éléments finis discontinus pour l
     abstract = "{Wave control is usually performed by spatially engineering the properties of a medium. Because time and space play similar roles in wave propagation, manipulating time boundaries provides a complementary approach. Here, we experimentally demonstrate the relevance of this concept by introducing instantaneous time mirrors. We show with water waves that a sudden change of the effective gravity generates time-reversed waves that refocus at the source. We generalize this concept for all kinds of waves, introducing a universal framework which explains the effect of any time disruption on wave propagation. We show that sudden changes of the medium properties generate instant wave sources that emerge instantaneously from the entire space at the time disruption. The time-reversed waves originate from these ‘Cauchy sources’, which are the counterpart of Huygens virtual sources on a time boundary. It allows us to revisit the holographic method and introduce a new approach for wave control.}",
     issn = {1745-2481},
     doi = {10.1038/nphys3810},
-    url = {https://doi.org/10.1038/nphys3810},
 }
 
 @InProceedings{seissol,
@@ -161,7 +152,6 @@ pages="907--940",
 abstract="We present an approach, called ADER, for constructing non-oscillatory advection schemes of very high order of accuracy in space and time; the schemes are explicit, one step and have optimal stability condition for one and multiple space dimensions. The approach relies on essentially non-oscillatory reconstructions of the data and the solution of a generalised Riemann problem via solutions of derivative Riemann problems. The schemes may thus be viewed as Godunov methods of very high order of accuracy. We present the ADER formulation for the linear advection equation with constant coefficients, in one and multiple space dimensions. Some preliminary ideas for extending the approach to non-linear problems are also discussed. Numerical results for one and two-dimensional problems using schemes of upto 10-th order accuracy are presented.",
 isbn="978-1-4615-0663-8",
 doi="10.1007/978-1-4615-0663-8_87",
-url="https://doi.org/10.1007/978-1-4615-0663-8_87"
 }
 
 @article{Toro2002,
@@ -172,7 +162,6 @@ journal={Proc.R.Soc.Land},
 volume={458},
 pages={271-281},
 doi={doi.org/10.1098/rspa.2001.0926},
-url={http://doi.org/10.1098/rspa.2001.0926}
 }
 
 @article{Kopriva2021,
@@ -185,7 +174,6 @@ url={http://doi.org/10.1098/rspa.2001.0926}
   pages = {3},
   abstract = "{ We use the behavior of the $$L_{2}$$norm of the solutions of linear hyperbolic equations with discontinuous coefficient matrices as a surrogate to infer stability of discontinuous Galerkin spectral element methods (DGSEM). Although the $$L_{2}$$norm is not bounded in terms of the initial data for homogeneous and dissipative boundary conditions for such systems, the $$L_{2}$$norm is easier to work with than a norm that discounts growth due to the discontinuities. We show that the DGSEM with an upwind numerical flux that satisfies the Rankine–Hugoniot (or conservation) condition has the same energy bound as the partial differential equation does in the $$L_{2}$$norm, plus an added dissipation that depends on how much the approximate solution fails to satisfy the Rankine–Hugoniot jump.}",
   doi = {10.1007/s10915-021-01516-w},
-  url = {https://doi.org/10.1007/s10915-021-01516-w},
 }
 
  @article{osti_4491151,
@@ -208,7 +196,6 @@ month = {10}
   abstract = "In this article we propose the use of the ADER methodology of solving generalized Riemann problems to obtain a numerical flux, which is high order accurate in time, for being used in the Discontinuous Galerkin framework for hyperbolic conservation laws. This allows direct integration of the semi-discrete scheme in time and can be done for arbitrary order of accuracy in space and time. The resulting fully discrete scheme in time does not need more memory than an explicit first order Euler time-stepping scheme. This becomes possible because of an extensive use of the governing equations inside the numerical scheme itself via the so-called Cauchy–Kovalewski procedure. We give an efficient algorithm for this procedure for the special case of the nonlinear two-dimensional Euler equations. Numerical convergence results for the nonlinear Euler equations results up to 8th order of accuracy in space and time are shown",
   issn = "1573-7691",
   doi = "10.1007/s10915-005-9025-0",
-  url = "https://doi.org/10.1007/s10915-005-9025-0"
 }
 
 @book{cockburn2011discontinuous,
@@ -292,7 +279,6 @@ month = {10}
   pages={260--286},
   month={03},
   doi={10.1007/s10915-007-9169-1},
-  url={https://doi.org/10.1007/s10915-007-9169-1},
   issn={1573-7691}
 }
 
@@ -317,7 +303,6 @@ year = {2009},
 note = {Special Issue: Large scale scientific computations},
 issn = {0377-0427},
 doi = {https://doi.org/10.1016/j.cam.2008.08.009},
-url = {https://www.sciencedirect.com/science/article/pii/S0377042708004147},
 author = {Martin Schlegel and Oswald Knoth and Martin Arnold and Ralf Wolke},
 keywords = {Time integration, Runge–Kutta method, Multirate scheme, Flux splitting},
 abstract = {Explicit time integration methods can be employed to simulate a broad spectrum of physical phenomena. The wide range of scales encountered lead to the problem that the fastest cell of the simulation dictates the global time step. Multirate time integration methods can be employed to alter the time step locally so that slower components take longer and fewer time steps, resulting in a moderate to substantial reduction of the computational cost, depending on the scenario to simulate [S. Osher, R. Sanders, Numerical approximations to nonlinear conservation laws with locally varying time and space grids, Math. Comput. 41 (1983) 321–336; H. Tang, G. Warnecke, A class of high resolution schemes for hyperbolic conservation laws and convection-diffusion equations with varying time and pace grids, SIAM J. Sci. Comput. 26 (4) (2005) 1415–1431; E. Constantinescu, A. Sandu, Multirate timestepping methods for hyperbolic conservation laws, SIAM J. Sci. Comput. 33 (3) (2007) 239–278]. In air pollution modeling the advection part is usually integrated explicitly in time, where the time step is constrained by a locally varying Courant–Friedrichs–Lewy (CFL) number. Multirate schemes are a useful tool to decouple different physical regions so that this constraint becomes a local instead of a global restriction. Therefore it is of major interest to apply multirate schemes to the advection equation. We introduce a generic recursive multirate Runge–Kutta scheme that can be easily adapted to an arbitrary number of refinement levels. It preserves the linear invariants of the system and is of third order accuracy when applied to certain explicit Runge–Kutta methods as base method.}
@@ -345,7 +330,6 @@ abstract = {Explicit time integration methods can be employed to simulate a broa
     abstract = "{The irreversibility of time is a topic generally associated with fundamental physics. Imaging techniques, on the other hand, are usually related to engineering sciences. Remarkably, however, these two domains can be fruitfully connected to yield many applications in medicine, undersea communications, hydrodynamics and material analysis, as well as elegant experiments in pure physics.}",
     issn = {0031-9228},
     doi = {10.1063/1.881692},
-    url = {https://doi.org/10.1063/1.881692},
     eprint = {https://pubs.aip.org/physicstoday/article-pdf/50/3/34/10961392/34\_1\_online.pdf},
 }
 
@@ -407,7 +391,6 @@ pages="127--130",
 abstract="What would happen to a volume of gas, which was left to expand in a sealed container without the interference of a demon? If a perfume bottle was placed in a sealed container and then opened, the molecules would spread throughout the available volume.",
 isbn="978-3-319-31708-3",
 doi="10.1007/978-3-319-31708-3_16",
-url="https://doi.org/10.1007/978-3-319-31708-3_16"
 }
 
 @article{PhysRevLett.100.064301,
@@ -422,7 +405,6 @@ url="https://doi.org/10.1007/978-3-319-31708-3_16"
   month = {02},
   publisher = {American Physical Society},
   doi = {10.1103/PhysRevLett.100.064301},
-  url = {https://link.aps.org/doi/10.1103/PhysRevLett.100.064301}
 }
 
 @article{10.1785/0120060253,
@@ -437,8 +419,6 @@ url="https://doi.org/10.1007/978-3-319-31708-3_16"
     abstract = "{We present a new method for near-source ground-motion calculations  due to earthquake rupture on potentially geometrically complex faults. Following the  recently introduced Discontinuous Galerkin approach with local time stepping on  tetrahedral meshes, we use piecewise polynomial approximations of the unknown  variables inside each element and achieve the same approximation order in time and  space due to the new ader time integration scheme that uses Arbitrary high-order  DERivatives. We show how an external source term and its heterogeneous properties  in space and time, given by a fine discretization of an extended rupture surface, can  be included in much coarser tetrahedral meshes due to the subcell resolution of the  high-order polynomial representation. Hereby, the rupture surface is represented very  generally as a point cloud of the center locations of individual subfaults at which  each polynomial test function is evaluated exactly inside an element and the space– time integration of the source term is accurately computed at each timestep. Besides  the incorporation of complex source kinematics we also present the effects of model  boundaries that can degrade the accuracy of seismograms due to weak artificial reflections.  We propose an extended computational domain of a coarsely meshed buffer  region and show that our scheme using the local timestepping completely avoids  such boundary problems with only slightly increasing the computational cost. We  validate the new approach against different test cases, comparing our results with  analytic, quasianalytic, and a series of reference solutions. Our work shows that  adding the functionality of accurately treating finite source-rupture models into the  general framework of the ader-Discontinuous Galerkin approach is an important  contribution to modeling realistic earthquake scenarios, allowing the efficient inclusion  of heterogeneous source kinematics and complex rupture-surface geometries in  near-source ground-motion simulations.}",
     issn = {0037-1106},
     doi = {10.1785/0120060253},
-    url = {https://doi.org/10.1785/0120060253},
-    eprint = {https://pubs.geoscienceworld.org/ssa/bssa/article-pdf/97/5/1570/3666022/1570\_975\_06253.pdf},
 }
 
 @book{shearer_2019, place={Cambridge}, edition={3}, title={Introduction to Seismology}, DOI={10.1017/9781316877111}, publisher={Cambridge University Press}, author={Shearer, Peter M.}, year={2019}}

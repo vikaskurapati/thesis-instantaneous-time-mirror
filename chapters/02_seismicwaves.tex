@@ -4,9 +4,9 @@
 \chapter{Seismic Waves and ADER-DG formulation}\label{chapter:seismicwaves}
 In this chapter, the necessary theoretical foundations for this thesis are established through the derivation of fundamental equations governing the propagation of elastic waves.
 The equation of motion corresponding to this will be presented later on in the velocity-stress formulation.
-We only consider isotropic media and utilize this assumption in particular symmtery arguments. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}.
+We only consider isotropic media and utilize this assumption in particular symmtery arguments. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}. \\
 
-The section \ref{section:ADER-DG} discusses the fundamental framework of SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
+Section \ref{section:ADER-DG} discusses the fundamental framework of SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
 of the \ac{DG-FE} method and a time integration scheme based on the solution of \ac{ADER}, as described in previous works ~\parencite{dumbser1}, ~\parencite{seissol}. This approach, known as 
 \ac{ADER}-\ac{DG} will be introduced in more detail.
 
@@ -287,7 +287,7 @@ In this section, we outline the fundamental framework of SeisSol. Our aim is pro
 We have earlier formulated the elastic wave equation as a system of linear hyperbolic \ac{PDE}s in equation \ref{eq:setofequations}.~
 \parencite{Toro2001} formulated the idea of arbitrary high order generalized
 Riemann Solvers in a finite volume framework and coined the approach \ac{ADER}. Here, the combination of the generalized Riemann Solvers with \ac{DG}
-methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}. In practice, we use an time-averaged normal Riemann problem where we first predict
+methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser2006}. In practice, we use a time-averaged normal Riemann problem where we first predict
 the solution in time and then solve a Riemann problem making it in practice a time-averaged Riemann problem which is equivalent to the generalized Riemann solver.
 \par Higher-order piecewise polynomial approximations are used
 along with the theory of fluxes across element boundaries from the finite volume methods. The \ac{ADER}-\ac{DG} scheme is an explicit one step scheme.
@@ -334,8 +334,8 @@ from the global Cartesian system to the vector $Q_q^n$ in the normal, face-align
 \end{align}
 where $\mathbf{n} = \left(n_x, n_y, n_z\right)^T$ are the components of the normal vector, and $\mathbf{s} = \left(s_x, s_y, s_z\right)^T$ and
 $\mathbf{t} = \left(t_x, t_y, t_z\right)^T$ are the tangential vectors of the boundary face of the tetrahedron. $\mathbf{n}, \mathbf{s}, \mathbf{t}$
-are orthogonal to each other. To represent the numerical solution $Q_h$ as a linear combination of pure spatial and pure time dependent functions, we introduce
-the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$.
+are orthogonal to each other. To represent the numerical solution $Q_h$ as a linear combination of pure space-dependent but time-independent polynomial basis
+functions with time-dependent coeeficients, we introduce the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$.
 
 \begin{equation}
     Q_p^{\left(m\right)} \left(x,y,z,t\right) = \hat{Q}_{pl}^{\left(m\right)} \left(t\right) \Psi_l \left(x, y, z\right),
@@ -394,9 +394,9 @@ where
 \begin{equation}
 \left|A_{qr}^{\left(m\right)}\right| = R_{qp}^A \left|\Lambda_{ps}\right| \left(R_{sr}\right)^{-1},
 \end{equation}
-and $\Lambda$ is the diagonal matrix with eigenvalues of $A_{pq}$ and $R_{pq}$ with right eigenvectors of $A_{pq}$ stacked in columns.
-The next step would be inserting fluxes from equation \ref{eq:fluxcalculation} and $Q_h$ from equation \ref{eq:solution} into the weak
-formulation in equation \ref{eq:weakformulation}. But as the basis functions $\Phi_l$ are defined in $\left(\xi, \eta, \zeta\right)$, we need
+and $\Lambda$ is a diagonal matrix with eigenvalues of $A_{pq}$ and $R_{pq}$ is a matrix with right eigenvectors of $A_{pq}$ stacked in columns.
+The next step is inserting fluxes from equation \ref{eq:fluxcalculation} and $Q_h$ from equation \ref{eq:solution} into the weak
+formulation in equation \ref{eq:weakformulation}. But as the basis functions $\Phi_l$ are defined on $\left(\xi, \eta, \zeta\right)$, we need
 to transform the resulting equation with the transformation
 \begin{equation}
     \text{d}x\, \text{d}y \, \text{d}z = \left|J\right| \text{d}\xi \,\text{d}\eta \,\text{d}\zeta,
@@ -459,7 +459,7 @@ within a single time step, considering only the current element and its neighbor
 Moreover, studies have demonstrated that the \ac{ADER}-\ac{DG} method outperforms traditional schemes such as \ac{RK-DG} scheme ~\parencite{dumbser2005ader}.
 \subsection{Boundary Conditions}
 Up until now, we have explored the time-discretization and space-discretization aspects of our problem. To complete our numerical
-solver, we must establish suitable boundary conditions for the problem. We mainly have three kinds of boundaries in consideration.
+solver, we must establish suitable boundary conditions for the problem. We mainly have two kinds of boundaries in consideration. 
 \subsubsection{Absorbing Boundaries}
 With the implementation of absorbing boundary conditions, the physical volume is enclosed by such boundaries in the forward direction. This means that no waves enter the computational domain, and any outgoing waves smoothly pass through the boundary without experiencing
 reflection. A careful examination of equation \ref{eq:fluxcalculation} reveals that its first term on the right-hand side corresponds

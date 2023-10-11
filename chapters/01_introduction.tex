@@ -3,13 +3,13 @@
 
 \chapter{Introduction}\label{chapter:introduction}
 
-Studying seismic phenomena provides valuable insights and potential techniques for identifying areas that more susceptible to earthquakes, mitigating economic impacts, 
+Studying seismic phenomena provides valuable insights and potential techniques for identifying areas that are more susceptible to earthquakes, mitigating economic impacts, 
 and reducing casualities. \\
 
 The field of earthquake simulation has seen significant advancements in recent years, thanks to the availability of powerful supercomputers ~\parencite{inproceedings}, ~\parencite{breuer}, ~\parencite{seissol}.
 With these resources, it has become possible to model realistic 3D earthquake events on a large scale, something that was not feasible until a few decades ago. 
 Today's simulation software heavily relies on numerical methods to approximate real-life physics. In this process, the volume of the problem is discretized into smaller elements, and numerical solvers are employed in each element to obstain a solution.
-A few examples out of these wide range of numerical methods used to solve wave equations are finite differences, finite volumes, finite elements. These numerical methods have played a crucial role in advancing the field of earthquake simulation and are continuously being improved to produce more accurate and efficient simulations. \\
+A few examples out of these wide range of numerical methods used to solve wave equations are finite differences, finite volumes and finite elements. These numerical methods have played a crucial role in advancing the field of earthquake simulation and are continuously being improved to produce more accurate and efficient simulations. \\
 
 SeisSol\footnote{\href{https://seissol.org}{https://seissol.org}} is a scientific software that enables the simulation of seismic waves and earthquake phenomena. 
 However, the modelling of complex 3D geometries can be computationally intensive. To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. 
@@ -40,7 +40,7 @@ sufficient to achieve wave reversal using \ac{ITM}s.
 
 It is important to note that the time-reversal presented here, in its simplest form, may not be directly useful in experimental 
 investigations, as we cannot directly modify the material properties. However, it does provide an approach to approximately 
-locate the source of an earthquake when successfully reversed.
+locate the source of an earthquake when successfully reversed.\\
 
 The thesis is organized as follows: Chapter \ref{chapter:seismicwaves} focuses on the fundamental theory of elastic wave propagation and the presentation
 of the numerical \ac{ADER}-\ac{DG} scheme as used in SeisSol. The equations of motion in elastic media is derived, and the wave equation is presented

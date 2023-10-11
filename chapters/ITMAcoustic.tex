@@ -6,7 +6,7 @@ For this, we consider a one-dimensional acoustic equation ~\parencite[Sec. 2.8]{
 \begin{align}
     \begin{split}
         p_t + K_0u_x = 0, \\
-        u_t + \frac{1}{\rho_0}p_x = 0 .\\
+        u_t + \frac{1}{\rho_0}p_x = 0 ,\\
     \end{split}
 \end{align}
 where $p$ is the pressure perturbation, $K_0$ is the bulk modulus of the material and $u$ is the velocity perturbation. 
@@ -75,11 +75,10 @@ This defines our initial conditions as
 \begin{align}
     \begin{split}
         p^0\left(x\right) &= \rho_0c_0 \cos\left(kx\right), \\
-        u^0\left(x\right) &= \cos\left(kx\right)
+        u^0\left(x\right) &= \cos\left(kx\right) ,
     \end{split}
     \label{eq:initialconditions}
 \end{align}
-
 where $k$ is the wave number of the wave. To ensure that our domain is periodic, we defined our domain to be between two wavelengths, i.e., from 
 $\left[-\frac{\pi}{k}, \frac{\pi}{k}\right]$. The energy of the system is defined in this domain as ~\parencite{Kopriva2021}
 
@@ -109,7 +108,7 @@ We now use these initial conditions and equation \ref{eq:solutionacoustic} with 
         p_{2}\left(x, t\right) &= -\frac{1}{2} \left(n-1\right)c_0\rho_0 \cos\left(kx + c_0knt - \left(c_0kn + c_0k\right)t_{ITM}^-\right) \\
         &+ \frac{1}{2} \left(n+1\right)c_0\rho_0\cos\left(kx - c_0knt + \left(c_0kn - c_0k\right)t_{ITM}^-\right), \\
         u_{2}\left(x, t\right) &= \frac{1}{2}\left(n-1\right)\cos\left(kx + c_0knt - \left(c_0kn + c_0k\right)t_{ITM}^-\right)\\
-        &+ \frac{1}{2}\left(n+1\right)\cos\left(kx - c_0knt + \left(c_0kn-c_0k\right)t_{ITM^-}\right)
+        &+ \frac{1}{2}\left(n+1\right)\cos\left(kx - c_0knt + \left(c_0kn-c_0k\right)t_{ITM}^-\right) ,
     \end{split}
 \end{align}
 where n is the velocity scaling factor. We now use these expressions to calculate the energy as we have already done in equation \ref{eq:energy}. This gives us the energy in the second phase, i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be
@@ -211,7 +210,7 @@ We used ~\parencite{sagemath} to perform the simplifications for the arithmetic.
 \begin{align}
     \begin{split}
         p_{2}\left(x, t\right) &= Z_{0} \cos\left(kx -c_{0} k n t + {\left(c_{0} k n - c_{0} k\right)} \mathit{t_{ITM}^-}\right), \\
-        u_{2}\left(x, t\right) &= \cos\left(kx -c_{0} k n t + {\left(c_{0} k n - c_{0} k\right)} \mathit{t_{ITM}^-} \right) .
+        u_{2}\left(x, t\right) &= \cos\left(kx -c_{0} k n t + {\left(c_{0} k n - c_{0} k\right)} \mathit{t_{ITM}^-} \right) ,
     \end{split}
 \end{align}
 where n is the velocity scaling factor. We now use these expressions to calculate the energy using equation \ref{eq:energy}. This gives us the energy in the second phase, i.e., $t_{ITM}^- \leq t \leq t_{ITM}^+ $ to be
@@ -326,7 +325,7 @@ Substituting these back in the equation we get
 Dividing by $\sin\left(\mathbf{k}\cdot\mathbf{x} - \omega t\right)$ and rearranging the terms, we get
 \begin{align}
     \begin{split}
-        \left(\mathbf{A}k_1 + \mathbf{B}k_2 + \mathbf{C}k_3\right)\mathbf{q_0} = \omega \mathbf{q_0}
+        \left(\mathbf{A}k_1 + \mathbf{B}k_2 + \mathbf{C}k_3\right)\mathbf{q_0} = \omega \mathbf{q_0} .
     \end{split}
 \end{align}
 
@@ -338,7 +337,7 @@ This shows that $\omega$ is an eigenvalue of $\mathbf{\hat{A}} = \mathbf{A}k_1 +
 \frac{k_{1}}{\rho_{0}} & 0 & 0 & 0 \\
 \frac{k_{2}}{\rho_{0}} & 0 & 0 & 0 \\
 \frac{k_{3}}{\rho_{0}} & 0 & 0 & 0
-\end{array}\right)
+\end{array}\right) ,
     \end{split}
 \end{align}
 with the set of eigenvalues after replacing $\sqrt{\frac{K_{0}}{\rho_{0}}}$ with $c$
