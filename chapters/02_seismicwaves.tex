@@ -4,7 +4,7 @@
 \chapter{Seismic Waves and ADER-DG formulation}\label{chapter:seismicwaves}
 In this chapter, the necessary theoretical foundations for this thesis are established through the derivation of fundamental equations governing the propagation of elastic waves.
 The equation of motion corresponding to this will be presented later on in the velocity-stress formulation.
-We only consider isotropic media and utilize this assumption in particular symmtery arguments. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}. \\
+We only consider isotropic media and utilize this assumption in particular symmetry arguments. The restriction to isotropic media is a commonly employed simplification, as seen in works such as ~\parencite{dumbser1}. \\
 
 Section \ref{section:ADER-DG} discusses the fundamental framework of SeisSol, the numerical tool employed for simulating seismic wave phenomena. SeisSol is a combination
 of the \ac{DG-FE} method and a time integration scheme based on the solution of \ac{ADER}, as described in previous works ~\parencite{dumbser1}, ~\parencite{seissol}. This approach, known as 
@@ -291,7 +291,7 @@ methods is explained, resulting in \ac{ADER}-\ac{DG} approach~\parencite{Dumbser
 the solution in time and then solve a Riemann problem making it in practice a time-averaged Riemann problem which is equivalent to the generalized Riemann solver.
 \par Higher-order piecewise polynomial approximations are used
 along with the theory of fluxes across element boundaries from the finite volume methods. The \ac{ADER}-\ac{DG} scheme is an explicit one step scheme.
-It advances the solution by a full time step and needs the computation of inter-cell fluxes once per timestep.
+It advances the solution by a full time step and needs the computation of inter-cell fluxes once per time-step.
 % Time Derivatives are replaced with space derivatives
 % using Cauchy-Kowalevski or Lax-Wendroff procedure to achieve arbitrary high-order accuracy in both space and time.
 
@@ -335,7 +335,7 @@ from the global Cartesian system to the vector $Q_q^n$ in the normal, face-align
 where $\mathbf{n} = \left(n_x, n_y, n_z\right)^T$ are the components of the normal vector, and $\mathbf{s} = \left(s_x, s_y, s_z\right)^T$ and
 $\mathbf{t} = \left(t_x, t_y, t_z\right)^T$ are the tangential vectors of the boundary face of the tetrahedron. $\mathbf{n}, \mathbf{s}, \mathbf{t}$
 are orthogonal to each other. To represent the numerical solution $Q_h$ as a linear combination of pure space-dependent but time-independent polynomial basis
-functions with time-dependent coeeficients, we introduce the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$.
+functions with time-dependent coefficients, we introduce the time-dependent degrees of freedom $\hat{Q}_m\left(t\right)$.
 
 \begin{equation}
     Q_p^{\left(m\right)} \left(x,y,z,t\right) = \hat{Q}_{pl}^{\left(m\right)} \left(t\right) \Psi_l \left(x, y, z\right),
@@ -445,7 +445,7 @@ higher than 4 tend to become inefficient as the number of calculation steps requ
 \par By applying the \ac{ADER} scheme to the \ac{DG} formulation described in equation \ref{eq:finalform}, we obtain the \ac{ADER}-\ac{DG} scheme.
 The crucial step in this approach involves using the Cauchy-Kovalewski procedure to replace time-derivatives with pure space derivatives.
 As a consequence, the Cauchy-Kovalewski procedure provides the $k^{th}$ time-derivative as shown in equation \ref{eq:cauchy-kovalewski} in the face-aligned coordinate system, allowing us to
-achieve higher accuracy without the limitations of tradiational Runge-Kutta schemes
+achieve higher accuracy without the limitations of traditional Runge-Kutta schemes
 
 \begin{equation}
     \frac{\partial^k Q_p}{\partial t^k} = \left(-1\right)^k \left(A_{pq}^* \frac{\partial}{\partial \xi} + B_{pq}^* \frac{\partial}{\partial \eta} + C_{pq}^* \frac{\partial}{\partial \zeta}\right)^k Q_q .
@@ -487,5 +487,5 @@ for an accurate treatment at the boundary. We implement this using the flux func
 where $\Gamma_{rs} = diag\left(-1,1,1,-1,1,-1,1,1,1\right)$ is the matrix which mirrors the normal and shear stresses.
 
 \section{Summary}
-In this chapter we have discussed the governing equations of linear elasticity as a sytem of hyperbolic \ac{PDE}s. We then discussed the 
+In this chapter we have discussed the governing equations of linear elasticity as a system of hyperbolic \ac{PDE}s. We then discussed the 
 \ac{ADER}-\ac{DG} method for numerically solving this system of equations. We have also looked at the boundary conditions that we will use in our numerical solver.

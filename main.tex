@@ -3,7 +3,7 @@
 \RequirePackage[l2tabu,orthodox]{nag}
 
 % TODO: decide if one-sided/two-sided
-\documentclass[headsepline,footsepline,footinclude=false,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc,BCOR=12mm,DIV=12]{scrbook} % two-sided
+\documentclass[titlepage=firstiscover,headsepline,footsepline,footinclude=false,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc,BCOR=12mm,DIV=12]{scrbook} % two-sided
 % \documentclass[headsepline,footsepline,footinclude=false,oneside,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc]{scrbook} % one-sided
 
 % TODO: change citation style in settings
@@ -46,10 +46,10 @@
 % (see https://en.wikibooks.org/wiki/LaTeX/Hyperlinks#Problems_with_Links_and_Pages).
 \pagenumbering{alph}
 \input{pages/cover}
-\AtBeginShipoutNext{\AtBeginShipoutDiscard}% Discard next blank page
+% \AtBeginShipoutNext{\AtBeginShipoutDiscard}% Discard next blank page
 \frontmatter{}
 \input{pages/title}
-\cleardoublepage
+% \cleardoublepage
 \input{pages/disclaimer}
 \input{pages/acknowledgments}
 \input{pages/abstract}

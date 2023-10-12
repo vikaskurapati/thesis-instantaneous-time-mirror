@@ -1,6 +1,6 @@
 \section{Implementation}\label{section:Implementation}
 
-This section outlines the extension incorporated into SeisSol required for the implementation of \ac{ITM}. The implemenetation has been designed in a generic way,
+This section outlines the extension incorporated into SeisSol required for the implementation of \ac{ITM}. The implementation has been designed in a generic way,
 ensuring that the current code can be easily reused for future experiments.
 
 In order to create a time-reversed wave, the material properties of the medium must be altered as described in the previous sections. This can be accomplished via
@@ -99,7 +99,7 @@ Similarly, for the S-wave, even though there is no change in the wave speed, the
 
 \subsection{Time Step Size}\label{sec:time_step_size}
 \ac{CFL} condition is generally used to limit the maximum time step of an element for explicit time integration schemes. These are influenced by the order
-of convergence, occuring wave speeds and size of the considered element.
+of convergence, occurring wave speeds and size of the considered element.
 
 SeisSol uses \ac{LTS} schemes for explicit time-stepping. The \ac{LTS} scheme uses different time steps for different elements in our mesh. 
 SeisSol clustures the elements to reduce the heterogeneity of the \ac{LTS} algorithm. The clusters summarize the elements in the computational domain advancing
@@ -140,6 +140,6 @@ stable are also presented. Material modifications are done such that the impedan
 The time step size is modified such that the \ac{CFL} condition is satisfied for every phase of the simulation. 
 
 \section{Summary}
-In this chapter we have discussed the theory of time reversal in the context of seismic waves. We have looked at how an \ac{ITM} affects a travelling acoustic
+In this chapter we have discussed the theory of time reversal in the context of seismic waves. We have looked at how an \ac{ITM} affects a traveling acoustic
 wave in one dimension and three dimensions. We concluded that we need a shift in impedance rather than velocity of the wave to have a time reflection. We then discussed
 the implementation of the \ac{ITM} method in SeisSol.

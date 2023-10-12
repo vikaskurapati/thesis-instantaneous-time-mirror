@@ -4,16 +4,16 @@
 \chapter{Introduction}\label{chapter:introduction}
 
 Studying seismic phenomena provides valuable insights and potential techniques for identifying areas that are more susceptible to earthquakes, mitigating economic impacts, 
-and reducing casualities. \\
+and reducing casualties. \\
 
 The field of earthquake simulation has seen significant advancements in recent years, thanks to the availability of powerful supercomputers ~\parencite{inproceedings}, ~\parencite{breuer}, ~\parencite{seissol}.
 With these resources, it has become possible to model realistic 3D earthquake events on a large scale, something that was not feasible until a few decades ago. 
-Today's simulation software heavily relies on numerical methods to approximate real-life physics. In this process, the volume of the problem is discretized into smaller elements, and numerical solvers are employed in each element to obstain a solution.
+Today's simulation software heavily relies on numerical methods to approximate real-life physics. In this process, the volume of the problem is discretized into smaller elements, and numerical solvers are employed in each element to obtain a solution.
 A few examples out of these wide range of numerical methods used to solve wave equations are finite differences, finite volumes and finite elements. These numerical methods have played a crucial role in advancing the field of earthquake simulation and are continuously being improved to produce more accurate and efficient simulations. \\
 
 SeisSol\footnote{\href{https://seissol.org}{https://seissol.org}} is a scientific software that enables the simulation of seismic waves and earthquake phenomena. 
-However, the modelling of complex 3D geometries can be computationally intensive. To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. 
-The software allows for the study of various scenarios, including adjusting material properties to exhibit elastic, viscoelastic and viscoplastic behaviour.
+However, the modeling of complex 3D geometries can be computationally intensive. To address this challenge, SeisSol implements an efficient way to optimally utilize the computing resources. 
+The software allows for the study of various scenarios, including adjusting material properties to exhibit elastic, viscoelastic and viscoplastic behavior.
 SeisSol utilizes a combination of \acf{DG} method and \acf{ADER} time-integration approach to solve the problems.
 This combination is called \ac{ADER}-\ac{DG} approach ~\parencite{dumbser}. ~\parencite{dumbser1} extended this approach to solve the elastic wave equations in three dimensions. The \ac{ADER}-\ac{DG} approach provides arbitrary high-order accuracy in space and time, with the solution in each element approximated by polynomials.
 The degrees of freedom are expressed through the coefficients of the polynomial, which are advanced in time during simulation, allowing for discontinuities across element boundaries ~\parencite{martin}. \\
@@ -22,8 +22,8 @@ In this thesis, we extend SeisSol with the implementation of Wave Reversal of Se
 Time-reversal techniques have been researched in the field of acoustic media, primarily in order to focus the wave below
 the diffraction limit~\parencite{67072}. This methodology may be applied, for instance, to improve the detection of gallstones within the human body~\parencite{10.1063/1.881692}. 
 In the context of seismic waves, time-reversal methods may be employed to investigate the source and origin of the seismic waves.
-The work by~\parencite{Fink2017} describes two techniques for wave reversal. The first approach is the time-reversal mirror approach, which involves recording the wavefield at some 
-receiver locations and reversing the wavefield. This approach has been used experimentally to reverse wavefields in elastic solids~\parencite{PhysRevLett.100.064301}.~\parencite{Weinert2016} describes a Loschmidt's demon as something which reverses the momentum/velocity of each particle instantaneously such that the state of the system is reversed 
+The work by~\parencite{Fink2017} describes two techniques for wave reversal. The first approach is the time-reversal mirror approach, which involves recording the wave-field at some 
+receiver locations and reversing the wave-field. This approach has been used experimentally to reverse wave-fields in elastic solids~\parencite{PhysRevLett.100.064301}.~\parencite{Weinert2016} describes a Loschmidt's demon as something which reverses the momentum/velocity of each particle instantaneously such that the state of the system is reversed 
 from a fibrillated state to a less fibrillated, smoother state. The second approach for wave-reversal is called the \acf{ITM} approach, which involves
 mimicking Loschmidt's Demons for waves ~\parencite{Fink2017}. 
 While both techniques generate time-reversed waves, we specifically focus on the \ac{ITM} approach. 
@@ -34,8 +34,8 @@ The first approach, which utilizes "time-reversal mirrors" with wave manipulatio
 ~\parencite{Bacot2016} have experimentally demonstrated the instantaneous time mirrors on surface waves on water by manipulating the wave speed for a period of time using a vertical jolt.
 This is shown to refocus the waves at the source position before diverging again.\\
 
-To achieve \ac{ITM}s in a simulation environment, we modify the impedances of seismic waves for a short period of time $t_{ITM}$ to $t_{ITM} + \tau$ by manipulating 
-the material properties $\lambda, \mu, \rho$. As the impedances of seismic waves depend on these three properties, this manipulation is 
+To achieve \ac{ITM}s in a simulation environment, we modify the impedance of seismic waves for a short period of time $t_{ITM}$ to $t_{ITM} + \tau$ by manipulating 
+the material properties $\lambda, \mu, \rho$. As the impedance of seismic waves depend on these three properties, this manipulation is 
 sufficient to achieve wave reversal using \ac{ITM}s.
 
 It is important to note that the time-reversal presented here, in its simplest form, may not be directly useful in experimental 
